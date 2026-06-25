@@ -78,20 +78,22 @@ export default function CalculatorPage() {
     setExpenses(applyHousehold(ALL_DEFAULTS[destination], household, o));
   }
   function updateExpense(key, value) {
-    setExpenses((prev) => ({ ...prev, [key]: Number(value) || 0 }));
+    setExpenses((prev) => ({ ...prev, [key]: value }));
   }
   function updateIncome(key, value) {
-    setIncome((prev) => ({ ...prev, [key]: Number(value) || 0 }));
+    setIncome((prev) => ({ ...prev, [key]: value }));
   }
 
-  const totalIncome = income.ss + income.pension + income.ira + income.other;
-  const totalExpenses = CATEGORY_FIELDS.reduce((sum, f) => sum + (expenses[f.key] || 0), 0);
+  const num = (v) => (v === '' || v === undefined || v === null ? 0 : Number(v) || 0);
+
+  const totalIncome = num(income.ss) + num(income.pension) + num(income.ira) + num(income.other);
+  const totalExpenses = CATEGORY_FIELDS.reduce((sum, f) => sum + num(expenses[f.key]), 0);
   const buffer = Math.round(totalExpenses * (bufferPct / 100));
   const totalOut = totalExpenses + buffer;
   const diff = totalIncome - totalOut;
   const ratio = totalIncome > 0 ? totalOut / totalIncome : 999;
   const rating = ratingFor(ratio);
-  const maxCat = Math.max(...CATEGORY_FIELDS.map((f) => expenses[f.key] || 0), 1);
+  const maxCat = Math.max(...CATEGORY_FIELDS.map((f) => num(expenses[f.key])), 1);
 
   return (
     <main>
@@ -172,7 +174,7 @@ export default function CalculatorPage() {
                 <input
                   className={styles.input}
                   type="number"
-                  value={expenses[f.key] ?? 0}
+                  value={expenses[f.key] ?? ''}
                   onChange={(e) => updateExpense(f.key, e.target.value)}
                 />
               </div>
@@ -227,9 +229,9 @@ export default function CalculatorPage() {
             <div className={styles.breakdownRow} key={f.key}>
               <div className={styles.catName}>{f.label}</div>
               <div className={styles.barTrack}>
-                <div className={styles.barFill} style={{ width: `${((expenses[f.key] || 0) / maxCat) * 100}%` }} />
+                <div className={styles.barFill} style={{ width: `${(num(expenses[f.key]) / maxCat) * 100}%` }} />
               </div>
-              <div className={styles.catValue}>${(expenses[f.key] || 0).toLocaleString()}</div>
+              <div className={styles.catValue}>${num(expenses[f.key]).toLocaleString()}</div>
             </div>
           ))}
 
