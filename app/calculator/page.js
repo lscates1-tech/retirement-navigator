@@ -2,8 +2,10 @@ import { getCountries, getStates } from '@/lib/notion';
 import { COUNTRY_DEFAULTS, STATE_DEFAULTS } from '@/lib/destinationDefaults';
 import CalculatorClient from './CalculatorClient';
 
-// Re-check Notion at most once per hour rather than on every single request.
-export const revalidate = 3600;
+// Fetch fresh on every request for now (easier to debug, and matches the
+// "live updates" goal). Once confirmed working, this can switch to
+// `export const revalidate = 3600;` to cache for an hour instead.
+export const dynamic = 'force-dynamic';
 
 function toDefaultsMap(notionList) {
   const map = {};
