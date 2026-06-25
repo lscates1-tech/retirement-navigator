@@ -3,7 +3,7 @@
 A real, working Next.js site — built from the Retirement Navigator Notion workspace.
 This is a genuine first slice, not a mockup: it builds, runs, and the calculator
 is fully interactive right now using verified 2026 cost data. Photos and live
-Notion sync are wired up with real code but need API keys to switch on (see below).
+Notion sync are wired up with real code but need API keys to switch on (see below). 
 
 ## What's actually working right now
 
