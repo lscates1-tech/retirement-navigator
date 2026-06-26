@@ -5,7 +5,7 @@ This is a genuine first slice, not a mockup: it builds, runs, and the calculator
 is fully interactive right now using verified 2026 cost data. Photos and live
 Notion sync are wired up with real code but need API keys to switch on (see below). 
 
-## What's actually working right now
+## What's actually working right now 
 
 - **Homepage** (`/`) — hero, the "Two Paths" section, calculator teaser, and a
   destination grid, in the approved indigo/brass/linen design.
