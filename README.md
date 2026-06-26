@@ -15,7 +15,7 @@ Notion sync are wired up with real code but need API keys to switch on (see belo
   2026 data in `lib/destinationDefaults.js`.
 - **Placeholder pages** for `/destinations`, `/compare`, `/guides`, and
   `/destinations/[slug]` — these exist so navigation doesn't break, but have no
-  real content yet. See "What's left" below.
+  real content yet. See "What's left" below. 
 
 ## Running it locally
 
