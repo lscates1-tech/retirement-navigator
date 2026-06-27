@@ -8,7 +8,7 @@ const GRID_DESTINATIONS = [
   { name: 'Italy', coord: '41.9°N · ITALY', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", query: 'Tuscany Italy hill town' },
   { name: 'Panama', coord: '8.5°N · PANAMA', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', query: 'Boquete Panama mountains' },
   { name: 'Florida', coord: '27.7°N · FLORIDA', tag: 'No income tax', blurb: 'Best Europe and Latin America flight access of any no-tax state.', query: 'Miami Florida coast' },
-  { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", query: 'Toledo Spain cityscape Tagus River' },
+  { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", query: 'Toledo Spain Mirador del Valle skyline' },
   { name: 'Thailand', coord: '13.7°N · THAILAND', tag: 'World-class care, fraction of cost', blurb: 'JCI-accredited private hospitals and genuine lifestyle range, all in one country.', query: 'Grand Palace Bangkok Thailand' },
   { name: 'Slovenia', coord: '46.0°N · SLOVENIA', tag: 'Real winters, EU access', blurb: 'The one destination here built for retirees who actually miss the cold.', query: 'Lake Bled Slovenia island church' },
 ];
