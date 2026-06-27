@@ -8,11 +8,10 @@ const GRID_DESTINATIONS = [
   { name: 'Italy', coord: '41.9°N · ITALY', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", query: 'Tuscany Italy hill town' },
   { name: 'Panama', coord: '8.5°N · PANAMA', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', query: 'Boquete Panama mountains' },
   { name: 'Florida', coord: '27.7°N · FLORIDA', tag: 'No income tax', blurb: 'Best Europe and Latin America flight access of any no-tax state.', query: 'Miami Florida coast' },
-  { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", query: 'Valencia Spain coastline' },
-  { name: 'Mexico', coord: '19.4°N · MEXICO', tag: 'Closest proximity', blurb: 'Under 2 hours to the U.S. from several major retirement hubs.', query: 'Lake Chapala Mexico' },
-  { name: 'Texas', coord: '31.0°N · TEXAS', tag: 'Latin America gateway', blurb: 'The deepest direct flight network into Latin America of any state.', query: 'Texas Hill Country' },
+  { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", query: 'Valencia Spain City of Arts and Sciences' },
+  { name: 'Thailand', coord: '13.7°N · THAILAND', tag: 'World-class care, fraction of cost', blurb: 'JCI-accredited private hospitals and genuine lifestyle range, all in one country.', query: 'Wat Arun Bangkok Thailand temple' },
+  { name: 'Slovenia', coord: '46.0°N · SLOVENIA', tag: 'Real winters, EU access', blurb: 'The one destination here built for retirees who actually miss the cold.', query: 'Lake Bled Slovenia island church' },
 ];
-
 function PlaceholderScene({ label }) {
   return (
     <div
@@ -34,7 +33,7 @@ function PlaceholderScene({ label }) {
 }
 
 export default async function HomePage() {
-  const heroPhoto = await getDestinationPhoto('Algarve Portugal coastline');
+  const heroPhoto = await getDestinationPhoto('Algarve Portugal Ponta da Piedade cliffs');
   const gridPhotos = await Promise.all(
     GRID_DESTINATIONS.map((d) => getDestinationPhoto(d.query))
   );
@@ -46,7 +45,7 @@ export default async function HomePage() {
       <div className={styles.hero}>
         <div className={styles.heroGrid}>
           <div>
-            <div className={styles.eyebrow}>20 destinations · verified 2026 cost &amp; tax data</div>
+           <div className={styles.eyebrow}>30 destinations · verified 2026 cost &amp; tax data</div>
             <h1 className={styles.h1}>
               Where you retire is a financial decision <em>disguised</em> as a lifestyle one.
             </h1>
@@ -168,7 +167,7 @@ export default async function HomePage() {
 
       <div className={styles.section}>
         <div className={styles.kicker}>Start exploring</div>
-        <h2 className={styles.h2}>Eight countries. Twelve states. One real comparison.</h2>
+      <h2 className={styles.h2}>Sixteen countries. Fourteen states. One real comparison.</h2>
         <div className={styles.grid}>
           {GRID_DESTINATIONS.map((d, i) => {
             const photo = gridPhotos[i];
