@@ -5,7 +5,7 @@ import { getDestinationPhoto } from '@/lib/photos';
 import styles from './page.module.css';
 
 const GRID_DESTINATIONS = [
-  { name: 'Italy', coord: '41.9°N · ITALY', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", query: 'Tuscany Italy hill town' },
+  { name: 'Italy', coord: '41.9°N · ITALY', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", query: 'San Gimignano Italy medieval towers'},
   { name: 'Panama', coord: '8.5°N · PANAMA', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', query: 'Boquete Panama mountains' },
   { name: 'Florida', coord: '27.7°N · FLORIDA', tag: 'No income tax', blurb: 'Best Europe and Latin America flight access of any no-tax state.', query: 'Miami Florida coast' },
   { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", query: 'Toledo Spain Mirador del Valle skyline' },
