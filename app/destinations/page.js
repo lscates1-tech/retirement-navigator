@@ -10,12 +10,17 @@ export default async function DestinationsPage({ searchParams }) {
   const typeFilter = searchParams?.type; // 'country' | 'state' | undefined
   const all = await getAllDestinations();
 
-  const destinations = (all || [])
+  // Only show published profiles. Excludes template rows, blank placeholders,
+  // or anything still marked "Not started" in Notion so they never leak
+  // onto the live site.
+  const published = (all || []).filter((d) => (d.status || '').trim().toLowerCase() === 'done');
+
+  const destinations = published
     .filter((d) => !typeFilter || d.type === typeFilter)
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const countryCount = (all || []).filter((d) => d.type === 'country').length;
-  const stateCount = (all || []).filter((d) => d.type === 'state').length;
+  const countryCount = published.filter((d) => d.type === 'country').length;
+  const stateCount = published.filter((d) => d.type === 'state').length;
 
   return (
     <main>
