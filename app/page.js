@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { getDestinationPhoto , getPhotoById} from '@/lib/photos';
+import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
+import { getFeaturedDestinations } from '@/lib/notion';
 import styles from './page.module.css';
 
-const GRID_DESTINATIONS = [
-  { name: 'Italy', coord: '41.9°N · ITALY', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.",photoId: 'PeLkhi_B3wI' },
-  { name: 'Panama', coord: '8.5°N · PANAMA', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', photoId: 'jVCXlJrnl5w'},
-  { name: 'Florida', coord: '27.7°N · FLORIDA', tag: 'No income tax', blurb: 'Best Europe and Latin America flight access of any no-tax state.', query: 'Miami Florida coast' },
-  { name: 'Spain', coord: '40.4°N · SPAIN', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", photoId: 'uYMyUKL1QSU'},
-  { name: 'Thailand', coord: '13.7°N · THAILAND', tag: 'World-class care, fraction of cost', blurb: 'JCI-accredited private hospitals and genuine lifestyle range, all in one country.', photoId: 'DxPug2BdSao'},
-  { name: 'Slovenia', coord: '46.0°N · SLOVENIA', tag: 'Real winters, EU access', blurb: 'The one destination here built for retirees who actually miss the cold.', query: 'Lake Bled Slovenia island church' },
-  ];
+const FALLBACK_DESTINATIONS = [
+  { name: 'Italy', type: 'country', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", photoId: 'PeLkhi_B3wI' },
+  { name: 'Panama', type: 'country', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', photoId: 'jVCXlJrnl5w' },
+  { name: 'Florida', type: 'state', tag: 'No income tax', blurb: 'Best Europe and Latin America flight access of any no-tax state.', query: 'Miami Florida coast' },
+  { name: 'Spain', type: 'country', tag: 'Top-tier healthcare', blurb: "One of Europe's best public systems — with a real Roth IRA tax surprise.", photoId: 'uYMyUKL1QSU' },
+  { name: 'Thailand', type: 'country', tag: 'World-class care, fraction of cost', blurb: 'JCI-accredited private hospitals and genuine lifestyle range, all in one country.', photoId: 'DxPug2BdSao' },
+  { name: 'Slovenia', type: 'country', tag: 'Real winters, EU access', blurb: 'The one destination here built for retirees who actually miss the cold.', query: 'Lake Bled Slovenia island church' },
+];
 function PlaceholderScene({ label }) {
   return (
     <div
@@ -34,8 +35,26 @@ function PlaceholderScene({ label }) {
 
 export default async function HomePage() {
   const heroPhoto = await getDestinationPhoto('Algarve Portugal Ponta da Piedade cliffs');
+
+  const liveFeatured = await getFeaturedDestinations();
+  const usingLiveData = Boolean(liveFeatured && liveFeatured.length);
+
+  // Normalize both the live Notion rows and the fallback array into one
+  // shape so the render code below doesn't need to know which source it's using.
+  const GRID_DESTINATIONS = usingLiveData
+    ? liveFeatured.map((d) => ({
+        name: d.name,
+        type: d.type,
+        slug: d.slug,
+        tag: d.type === 'country' ? (d.visaName || d.taxSystem || '') : (d.stateIncomeTax || d.ssTaxTreatment || ''),
+        blurb: d.homepageTeaser || '',
+        photoId: d.photoId || undefined,
+        query: d.photoId ? undefined : `${d.name} landscape`,
+      }))
+    : FALLBACK_DESTINATIONS.map((d) => ({ ...d, slug: d.name.toLowerCase().replace(/\s+/g, '-') }));
+
   const gridPhotos = await Promise.all(
-    GRID_DESTINATIONS.map((d) =>d.photoId ? getPhotoById(d.photoId) :  getDestinationPhoto(d.query))
+    GRID_DESTINATIONS.map((d) => (d.photoId ? getPhotoById(d.photoId) : getDestinationPhoto(d.query)))
   );
 
   return (
@@ -45,7 +64,7 @@ export default async function HomePage() {
       <div className={styles.hero}>
         <div className={styles.heroGrid}>
           <div>
-           <div className={styles.eyebrow}>30 destinations · verified 2026 cost &amp; tax data</div>
+           <div className={styles.eyebrow}>40+ destinations · verified 2026 cost &amp; tax data</div>
             <h1 className={styles.h1}>
               Where you retire is a financial decision <em>disguised</em> as a lifestyle one.
             </h1>
@@ -167,21 +186,21 @@ export default async function HomePage() {
 
       <div className={styles.section}>
         <div className={styles.kicker}>Start exploring</div>
-      <h2 className={styles.h2}>Sixteen countries. Fourteen states. One real comparison.</h2>
+        <h2 className={styles.h2}>A mix of countries and U.S. states — one real comparison.</h2>
         <div className={styles.grid}>
           {GRID_DESTINATIONS.map((d, i) => {
             const photo = gridPhotos[i];
             return (
-              <Link href={`/destinations/${d.name.toLowerCase().replace(/\s+/g, '-')}`} key={d.name} className={styles.card}>
+              <Link href={`/destinations/${d.slug}`} key={d.name} className={styles.card}>
                 {photo ? (
                   <img src={photo.url} alt={photo.alt} className={styles.cardScene} />
                 ) : (
                   <PlaceholderScene label={d.name} />
                 )}
                 <div className={styles.cardBody}>
-                  <div className={styles.cardCoord}>{d.coord}</div>
+                  <div className={styles.cardCoord}>{d.type === 'state' ? 'U.S. STATE' : 'COUNTRY'}</div>
                   <h4>{d.name}</h4>
-                  <div className={styles.cardTag}>{d.tag}</div>
+                  {d.tag && <div className={styles.cardTag}>{d.tag}</div>}
                   <p>{d.blurb}</p>
                 </div>
               </Link>
