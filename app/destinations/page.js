@@ -1,19 +1,14 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { getAllDestinations } from '@/lib/notion';
+import { getPublishedDestinations } from '@/lib/notion';
 import styles from './list.module.css';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DestinationsPage({ searchParams }) {
   const typeFilter = searchParams?.type; // 'country' | 'state' | undefined
-  const all = await getAllDestinations();
-
-  // Only show published profiles. Excludes template rows, blank placeholders,
-  // or anything still marked "Not started" in Notion so they never leak
-  // onto the live site.
-  const published = (all || []).filter((d) => (d.status || '').trim().toLowerCase() === 'done');
+  const published = (await getPublishedDestinations()) || [];
 
   const destinations = published
     .filter((d) => !typeFilter || d.type === typeFilter)
@@ -28,7 +23,7 @@ export default async function DestinationsPage({ searchParams }) {
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Destinations</h1>
         <p className={styles.sub}>
-          {all
+          {published.length
             ? `${countryCount} countries and ${stateCount} U.S. states, pulled live from Notion.`
             : 'Live Notion data is not configured for this environment — showing nothing until it is.'}
         </p>
