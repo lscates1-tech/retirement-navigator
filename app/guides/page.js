@@ -98,6 +98,7 @@ export default async function GuidesPage() {
           hub={internationalTaxHub}
           fallbackTitle="International Tax Strategies"
           categorySlug="international-tax-strategies"
+          databaseLink={{ href: '/guides/international-tax-strategies/treatment-by-country', label: 'Browse Retirement Account Tax Treatment by Country' }}
         />
       </div>
       <Footer />

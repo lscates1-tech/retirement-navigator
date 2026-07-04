@@ -1,0 +1,149 @@
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.breadcrumb {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8A8678;
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: #8A8678;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #2B2A52;
+}
+
+.sub {
+  color: #5C5A54;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.sub strong {
+  color: #2B2A52;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: #EFEAE0;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.countryName {
+  font-size: 22px;
+  color: #2B2A52;
+  margin: 0 0 16px;
+}
+
+.row {
+  margin-bottom: 14px;
+}
+
+.rowLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8A8678;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.rowText {
+  font-size: 14px;
+  color: #3A3830;
+  line-height: 1.6;
+}
+
+.confBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.confSettled {
+  background: #DCE9DC;
+  color: #2F5233;
+}
+
+.confContested {
+  background: #F3E7C9;
+  color: #7A5C1E;
+}
+
+.confUnclear {
+  background: #F0DCDA;
+  color: #832A2A;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+}
+
+.metaLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8A8678;
+  margin-bottom: 3px;
+}
+
+.metaValue {
+  font-size: 13px;
+  color: #2B2A52;
+}
+
+.planningNote, .advisorNote {
+  font-size: 13px;
+  color: #5C5A54;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.planningNote strong, .advisorNote strong {
+  color: #2B2A52;
+}
+
+.empty {
+  color: #8A8678;
+  font-style: italic;
+}
+
+.backLink {
+  display: inline-block;
+  color: #5C5A54;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: #2B2A52;
+}
