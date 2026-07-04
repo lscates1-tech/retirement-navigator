@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';
 const TAX_ROTATION_HUB_ID = '388995f1-23d7-81f2-8429-c9103ee847b2';
 
-function GuideSection({ emoji, hub, fallbackTitle, categorySlug }) {
+function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink }) {
   if (!hub) {
     return (
       <div className={styles.section}>
@@ -28,6 +28,12 @@ function GuideSection({ emoji, hub, fallbackTitle, categorySlug }) {
         {hub.title || fallbackTitle}
       </h2>
       <div className={styles.intro} dangerouslySetInnerHTML={{ __html: hub.html }} />
+
+      {databaseLink && (
+        <Link href={databaseLink.href} className={styles.databaseLink}>
+          {databaseLink.label} →
+        </Link>
+      )}
 
       {hub.topics.length > 0 && (
         <>
@@ -60,12 +66,23 @@ export default async function GuidesPage() {
         <h1 className="display" style={{ fontSize: 32 }}>Guides</h1>
         <p className={styles.sub}>
           In-depth guidance for two different kinds of location-independent retirement: testing a place before
-          committing, and deliberately staying mobile long-term. The individual topic pages below are still being
-          built out — this page shows what each guide covers today.
+          committing, and deliberately staying mobile long-term.
         </p>
 
-        <GuideSection emoji="🐣" hub={slowTravelHub} fallbackTitle="Slow Travel" categorySlug="slow-travel" />
-        <GuideSection emoji="🧭" hub={taxRotationHub} fallbackTitle="Tax-Residency Rotation" categorySlug="tax-residency-rotation" />
+        <GuideSection
+          emoji="🐣"
+          hub={slowTravelHub}
+          fallbackTitle="Slow Travel"
+          categorySlug="slow-travel"
+          databaseLink={{ href: '/guides/slow-travel/destinations', label: 'Browse the Slow Travel Destinations comparison table' }}
+        />
+        <GuideSection
+          emoji="🧭"
+          hub={taxRotationHub}
+          fallbackTitle="Tax-Residency Rotation"
+          categorySlug="tax-residency-rotation"
+          databaseLink={{ href: '/guides/tax-residency-rotation/thresholds', label: 'Browse Country Tax-Residency Thresholds' }}
+        />
       </div>
       <Footer />
     </main>

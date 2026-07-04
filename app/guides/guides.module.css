@@ -48,6 +48,22 @@
   color: #2B2A52;
 }
 
+.databaseLink {
+  display: inline-block;
+  background: #2B2A52;
+  color: #EFEAE0;
+  padding: 11px 18px;
+  border-radius: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 28px;
+}
+
+.databaseLink:hover {
+  background: #1F1E3D;
+}
+
 .topicsLabel {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;

@@ -1,0 +1,129 @@
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.breadcrumb {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8A8678;
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: #8A8678;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #2B2A52;
+}
+
+.sub {
+  color: #5C5A54;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8A8678;
+  padding: 10px 14px;
+  border-bottom: 2px solid #D9D6E8;
+}
+
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #D9D6E8;
+  color: #3A3830;
+}
+
+.countryCell {
+  font-weight: 600;
+  color: #2B2A52;
+}
+
+.riskBadge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.riskHigh {
+  background: #F0DCDA;
+  color: #832A2A;
+}
+
+.riskMedium {
+  background: #F3E7C9;
+  color: #7A5C1E;
+}
+
+.riskLow {
+  background: #DCE9DC;
+  color: #2F5233;
+}
+
+.detailList {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.detailCard {
+  background: #EFEAE0;
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+
+.detailCountry {
+  font-size: 16px;
+  color: #2B2A52;
+  margin: 0 0 8px;
+}
+
+.detailText {
+  font-size: 13.5px;
+  color: #5C5A54;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.detailText strong {
+  color: #2B2A52;
+}
+
+.empty {
+  color: #8A8678;
+  font-style: italic;
+}
+
+.backLink {
+  display: inline-block;
+  color: #5C5A54;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: #2B2A52;
+}
