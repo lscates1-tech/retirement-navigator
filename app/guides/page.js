@@ -10,6 +10,7 @@ export const dynamic = 'force-dynamic';
 // the workspace and won't change even as the pages' content is edited.
 const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';
 const TAX_ROTATION_HUB_ID = '388995f1-23d7-81f2-8429-c9103ee847b2';
+const NATIONAL_TAX_HUB_ID = '393995f1-23d7-81ec-828a-f6abdf4ab78b';
 
 function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink }) {
   if (!hub) {
@@ -54,9 +55,10 @@ function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink })
 }
 
 export default async function GuidesPage() {
-  const [slowTravelHub, taxRotationHub] = await Promise.all([
+  const [slowTravelHub, taxRotationHub, nationalTaxHub] = await Promise.all([
     getGuideHub(SLOW_TRAVEL_HUB_ID),
     getGuideHub(TAX_ROTATION_HUB_ID),
+    getGuideHub(NATIONAL_TAX_HUB_ID),
   ]);
 
   return (
@@ -82,6 +84,12 @@ export default async function GuidesPage() {
           fallbackTitle="Tax-Residency Rotation"
           categorySlug="tax-residency-rotation"
           databaseLink={{ href: '/guides/tax-residency-rotation/thresholds', label: 'Browse Country Tax-Residency Thresholds' }}
+        />
+        <GuideSection
+          emoji="🧾"
+          hub={nationalTaxHub}
+          fallbackTitle="National Tax Strategies"
+          categorySlug="national-tax-strategies"
         />
       </div>
       <Footer />
