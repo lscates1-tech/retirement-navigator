@@ -11,6 +11,7 @@ const CATEGORIES = {
   'slow-travel': { hubId: '388995f1-23d7-8100-a8b0-fea7aaf788a0', label: 'Slow Travel' },
   'tax-residency-rotation': { hubId: '388995f1-23d7-81f2-8429-c9103ee847b2', label: 'Tax-Residency Rotation' },
   'national-tax-strategies': { hubId: '393995f1-23d7-81ec-828a-f6abdf4ab78b', label: 'National Tax Strategies' },
+  'international-tax-strategies': { hubId: '393995f1-23d7-81e3-a7dc-e500ce25ce11', label: 'International Tax Strategies' },
 };
 
 export default async function GuideSubPage({ params }) {

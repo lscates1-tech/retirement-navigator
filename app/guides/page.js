@@ -11,6 +11,7 @@ export const dynamic = 'force-dynamic';
 const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';
 const TAX_ROTATION_HUB_ID = '388995f1-23d7-81f2-8429-c9103ee847b2';
 const NATIONAL_TAX_HUB_ID = '393995f1-23d7-81ec-828a-f6abdf4ab78b';
+const INTERNATIONAL_TAX_HUB_ID = '393995f1-23d7-81e3-a7dc-e500ce25ce11';
 
 function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink }) {
   if (!hub) {
@@ -55,10 +56,11 @@ function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink })
 }
 
 export default async function GuidesPage() {
-  const [slowTravelHub, taxRotationHub, nationalTaxHub] = await Promise.all([
+  const [slowTravelHub, taxRotationHub, nationalTaxHub, internationalTaxHub] = await Promise.all([
     getGuideHub(SLOW_TRAVEL_HUB_ID),
     getGuideHub(TAX_ROTATION_HUB_ID),
     getGuideHub(NATIONAL_TAX_HUB_ID),
+    getGuideHub(INTERNATIONAL_TAX_HUB_ID),
   ]);
 
   return (
@@ -90,6 +92,12 @@ export default async function GuidesPage() {
           hub={nationalTaxHub}
           fallbackTitle="National Tax Strategies"
           categorySlug="national-tax-strategies"
+        />
+        <GuideSection
+          emoji="🌍"
+          hub={internationalTaxHub}
+          fallbackTitle="International Tax Strategies"
+          categorySlug="international-tax-strategies"
         />
       </div>
       <Footer />
