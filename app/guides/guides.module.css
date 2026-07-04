@@ -66,27 +66,25 @@
 }
 
 .topicItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: #EFEAE0;
   border-radius: 4px;
+  transition: transform 0.15s ease;
+}
+
+.topicItem:hover {
+  transform: translateX(2px);
+}
+
+.topicLink {
+  display: block;
   padding: 12px 16px;
   font-size: 14px;
-}
-
-.topicText {
   color: #2B2A52;
+  text-decoration: none;
 }
 
-.comingSoon {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.topicLink:hover {
   color: #B08D57;
-  white-space: nowrap;
-  margin-left: 16px;
 }
 
 .empty {

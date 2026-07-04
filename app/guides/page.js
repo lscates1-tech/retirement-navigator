@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { getGuideHub } from '@/lib/notion';
@@ -10,7 +11,7 @@ export const dynamic = 'force-dynamic';
 const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';
 const TAX_ROTATION_HUB_ID = '388995f1-23d7-81f2-8429-c9103ee847b2';
 
-function GuideSection({ emoji, hub, fallbackTitle }) {
+function GuideSection({ emoji, hub, fallbackTitle, categorySlug }) {
   if (!hub) {
     return (
       <div className={styles.section}>
@@ -32,10 +33,11 @@ function GuideSection({ emoji, hub, fallbackTitle }) {
         <>
           <div className={styles.topicsLabel}>Topics in this guide</div>
           <ul className={styles.topicsList}>
-            {hub.topics.map((topic, i) => (
-              <li key={i} className={styles.topicItem}>
-                <span className={styles.topicText}>{topic.title}</span>
-                <span className={styles.comingSoon}>Coming soon</span>
+            {hub.topics.map((topic) => (
+              <li key={topic.id} className={styles.topicItem}>
+                <Link href={`/guides/${categorySlug}/${topic.slug}`} className={styles.topicLink}>
+                  {topic.title}
+                </Link>
               </li>
             ))}
           </ul>
@@ -62,8 +64,8 @@ export default async function GuidesPage() {
           built out — this page shows what each guide covers today.
         </p>
 
-        <GuideSection emoji="🐣" hub={slowTravelHub} fallbackTitle="Slow Travel" />
-        <GuideSection emoji="🧭" hub={taxRotationHub} fallbackTitle="Tax-Residency Rotation" />
+        <GuideSection emoji="🐣" hub={slowTravelHub} fallbackTitle="Slow Travel" categorySlug="slow-travel" />
+        <GuideSection emoji="🧭" hub={taxRotationHub} fallbackTitle="Tax-Residency Rotation" categorySlug="tax-residency-rotation" />
       </div>
       <Footer />
     </main>
