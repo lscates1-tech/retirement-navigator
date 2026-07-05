@@ -8,6 +8,7 @@ export default function Nav() {
         Retirement <span className={styles.brass}>Navigator</span>
       </Link>
       <div className={styles.links}>
+        <Link href="/match">Find Your Fit</Link>
         <Link href="/destinations">Destinations</Link>
         <Link href="/compare">Compare</Link>
         <Link href="/calculator">Calculator</Link>
