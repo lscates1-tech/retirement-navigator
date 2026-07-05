@@ -9,12 +9,12 @@
   font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #8A8678;
+  color: var(--muted-label);
   margin-bottom: 16px;
 }
 
 .breadcrumb a {
-  color: #8A8678;
+  color: var(--muted-label);
   text-decoration: none;
 }
 
@@ -45,7 +45,7 @@
   font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #8A8678;
+  color: var(--muted-label);
   padding: 10px 14px;
   border-bottom: 2px solid #D9D6E8;
 }
@@ -113,7 +113,7 @@
 }
 
 .empty {
-  color: #8A8678;
+  color: var(--muted-label);
   font-style: italic;
 }
 

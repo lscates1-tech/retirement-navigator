@@ -18,7 +18,7 @@ export default async function DestinationsPage({ searchParams }) {
   const stateCount = published.filter((d) => d.type === 'state').length;
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Destinations</h1>

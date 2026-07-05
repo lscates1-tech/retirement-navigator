@@ -3,7 +3,7 @@ import styles from './Nav.module.css';
 
 export default function Nav() {
   return (
-    <div className={styles.nav}>
+    <nav className={styles.nav} aria-label="Main navigation">
       <Link href="/" className={`display ${styles.logo}`}>
         Retirement <span className={styles.brass}>Navigator</span>
       </Link>
@@ -14,6 +14,6 @@ export default function Nav() {
         <Link href="/calculator">Calculator</Link>
         <Link href="/guides">Guides</Link>
       </div>
-    </div>
+    </nav>
   );
 }

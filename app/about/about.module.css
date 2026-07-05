@@ -62,7 +62,7 @@
 .nameLine {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
-  color: #B08D57;
+  color: var(--brass-on-light);
   letter-spacing: 0.01em;
 }
 
@@ -130,6 +130,6 @@
 }
 
 .ctaSecondary:hover {
-  border-color: #B08D57;
-  color: #B08D57;
+  border-color: var(--brass);
+  color: var(--brass-on-light);
 }

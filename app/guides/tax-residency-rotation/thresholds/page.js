@@ -23,7 +23,7 @@ export default async function TaxResidencyThresholdsPage() {
   });
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <div className={styles.breadcrumb}>

@@ -64,7 +64,7 @@ export default async function GuidesPage() {
   ]);
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Guides</h1>

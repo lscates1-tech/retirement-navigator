@@ -23,7 +23,7 @@ export default async function SlowTravelDestinationsPage() {
   const sorted = [...destinations].sort((a, b) => a.destination.localeCompare(b.destination));
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <div className={styles.breadcrumb}>

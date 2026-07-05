@@ -47,7 +47,7 @@ export default async function ComparePage({ searchParams }) {
   const buildSwapUrl = (newA, newB) => `/compare?a=${encodeURIComponent(newA)}&b=${encodeURIComponent(newB)}`;
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Compare Destinations</h1>

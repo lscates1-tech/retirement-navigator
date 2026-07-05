@@ -4,6 +4,9 @@
   --ink: #2B2A52;
   --linen: #EFEAE0;
   --brass: #B68A35;
+  --brass-on-light: #7E6025; /* WCAG AA text color for brass on light/cream backgrounds (4.88:1) */
+  --brass-on-dark: #CBA04D;  /* WCAG AA text color for brass on dark/navy backgrounds (5.59:1) */
+  --muted-label: #5D5A51;    /* WCAG AA text color for small mono labels on light backgrounds (5.74:1) */
   --stamp: #A23E2E;
   --charcoal: #2A2A28;
   --pale-alt: #E1DEEC;
@@ -38,6 +41,28 @@ a {
 
 button {
   font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* Skip-to-content link: invisible until a keyboard/screen-reader user
+   tabs to it, at which point it becomes visible so they can bypass the
+   nav and jump straight to the page's main content. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  background: var(--ink);
+  color: var(--linen);
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 1000;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
 }
 
 /* Visible keyboard focus, per accessibility floor */

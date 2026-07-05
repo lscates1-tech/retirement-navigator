@@ -69,7 +69,7 @@
   font-size: 13.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #8A8678;
+  color: var(--muted-label);
   margin-bottom: 12px;
 }
 
@@ -100,10 +100,10 @@
 }
 
 .topicLink:hover {
-  color: #B08D57;
+  color: var(--brass-on-light);
 }
 
 .empty {
-  color: #8A8678;
+  color: var(--muted-label);
   font-style: italic;
 }

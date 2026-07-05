@@ -164,7 +164,7 @@
 .pathTag {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13.5px;
-  color: var(--brass);
+  color: var(--brass-on-light);
   margin-bottom: 10px;
 }
 .path h3 {
@@ -286,7 +286,7 @@
 .cardCoord {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12.5px;
-  color: #8a8678;
+  color: var(--muted-label);
   margin-bottom: 6px;
 }
 .cardBody h4 {

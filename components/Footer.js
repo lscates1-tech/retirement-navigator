@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <div
+    <footer
       style={{
         padding: '24px 36px',
         backgroundColor: 'var(--ink)',
@@ -20,6 +20,6 @@ export default function Footer() {
         <Link href="/about" style={{ color: '#A8A5C2', textDecoration: 'none' }}>About</Link>
         <span className="mono">Data verified 2026</span>
       </div>
-    </div>
+    </footer>
   );
 }

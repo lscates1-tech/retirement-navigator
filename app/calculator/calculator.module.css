@@ -11,7 +11,7 @@
 }
 .subtitle {
   font-size: 16px;
-  color: #8a8678;
+  color: var(--muted-label);
   margin: 0 0 28px;
 }
 .row2 {
@@ -53,7 +53,7 @@
 }
 .checkboxLabel {
   font-size: 15px;
-  color: #8a8678;
+  color: var(--muted-label);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -65,7 +65,7 @@
 }
 .bufferLabel {
   font-size: 15px;
-  color: #8a8678;
+  color: var(--muted-label);
   display: block;
   margin-bottom: 4px;
 }
@@ -84,7 +84,7 @@
 }
 .resultLabel {
   font-size: 15px;
-  color: #8a8678;
+  color: var(--muted-label);
 }
 .resultValue {
   font-size: 26.5px;
@@ -110,7 +110,7 @@
 }
 .breakdownLabel {
   font-size: 15px;
-  color: #8a8678;
+  color: var(--muted-label);
   margin-bottom: 8px;
 }
 .breakdownRow {
@@ -146,7 +146,7 @@
 }
 .disclaimer {
   font-size: 13.5px;
-  color: #8a8678;
+  color: var(--muted-label);
   margin-top: 18px;
   line-height: 1.5;
 }

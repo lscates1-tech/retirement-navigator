@@ -58,7 +58,7 @@ export default async function HomePage() {
   );
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
 
       <div className={styles.hero}>

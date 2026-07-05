@@ -20,7 +20,7 @@ export default async function GuideSubPage({ params }) {
 
   if (!categoryInfo) {
     return (
-      <main>
+      <main id="main-content">
         <Nav />
         <div className={styles.wrap}>
           <h1 className="display" style={{ fontSize: 28 }}>Guide not found</h1>
@@ -36,7 +36,7 @@ export default async function GuideSubPage({ params }) {
 
   if (!subPage) {
     return (
-      <main>
+      <main id="main-content">
         <Nav />
         <div className={styles.wrap}>
           <h1 className="display" style={{ fontSize: 28 }}>Page not found</h1>
@@ -52,7 +52,7 @@ export default async function GuideSubPage({ params }) {
   }
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <div className={styles.breadcrumb}>

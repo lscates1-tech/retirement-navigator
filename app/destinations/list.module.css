@@ -33,7 +33,7 @@
 }
 
 .filter:hover {
-  border-color: #B08D57;
+  border-color: var(--brass);
 }
 
 .filterActive {
@@ -74,7 +74,7 @@
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #B08D57;
+  color: var(--brass-on-light);
   margin-bottom: 6px;
 }
 
@@ -92,6 +92,6 @@
 }
 
 .empty {
-  color: #8A8678;
+  color: var(--muted-label);
   font-style: italic;
 }

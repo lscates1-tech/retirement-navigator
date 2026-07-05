@@ -35,7 +35,7 @@
   font-size: 13.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #8A8678;
+  color: var(--muted-label);
 }
 
 .picker {
@@ -50,7 +50,7 @@
 .vs {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 16px;
-  color: #8A8678;
+  color: var(--muted-label);
   padding-bottom: 10px;
 }
 
@@ -86,7 +86,7 @@
   font-size: 13.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #B08D57;
+  color: var(--brass-on-light);
   margin-bottom: 4px;
 }
 
@@ -107,7 +107,7 @@
 .headerVs {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 16px;
-  color: #8A8678;
+  color: var(--muted-label);
 }
 
 .table {
@@ -140,7 +140,7 @@
   font-size: 13.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #B08D57;
+  color: var(--brass-on-light);
   background: #EFEAE0;
   border-bottom: none;
   padding-top: 16px;
@@ -180,6 +180,6 @@
 }
 
 .empty {
-  color: #8A8678;
+  color: var(--muted-label);
   font-style: italic;
 }

@@ -96,7 +96,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   const maxCat = Math.max(...CATEGORY_FIELDS.map((f) => num(expenses[f.key])), 1);
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className={styles.title}>Retirement Monthly Budget Calculator</h1>

@@ -23,7 +23,7 @@ export default async function TreatmentByCountryPage() {
   const sorted = [...rows].sort((a, b) => a.country.localeCompare(b.country));
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <div className={styles.breadcrumb}>

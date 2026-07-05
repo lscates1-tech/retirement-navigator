@@ -79,7 +79,7 @@
 .rank {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 20px;
-  color: #B08D57;
+  color: var(--brass-on-light);
   font-weight: 600;
   flex-shrink: 0;
   width: 40px;
@@ -95,7 +95,7 @@
   font-size: 11px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #8A8678;
+  color: var(--muted-label);
 }
 
 .resultName {
@@ -159,7 +159,7 @@
   font-size: 12px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #B08D57;
+  color: var(--brass-on-dark);
   margin-bottom: 14px;
 }
 
@@ -179,7 +179,7 @@
 }
 
 .taxLink:hover {
-  color: #B08D57;
+  color: var(--brass-on-dark);
 }
 
 .actionsRow {
@@ -215,6 +215,6 @@
 }
 
 .empty {
-  color: #8A8678;
+  color: var(--muted-label);
   font-style: italic;
 }

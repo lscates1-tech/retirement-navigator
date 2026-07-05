@@ -91,7 +91,7 @@ export default async function MatchPage({ searchParams }) {
 
   if (!hasAnswers) {
     return (
-      <main>
+      <main id="main-content">
         <Nav />
         <div className={styles.wrap}>
           <h1 className="display" style={{ fontSize: 32 }}>Find Your Fit</h1>
@@ -134,7 +134,7 @@ export default async function MatchPage({ searchParams }) {
   const taxPointers = getTaxPointers(answers, matches);
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Your Top Matches</h1>

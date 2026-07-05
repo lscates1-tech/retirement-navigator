@@ -26,7 +26,7 @@ export default async function DestinationDetailPage({ params }) {
 
   if (!d) {
     return (
-      <main>
+      <main id="main-content">
         <Nav />
         <div className={styles.wrap}>
           <h1 className="display" style={{ fontSize: 28 }}>Destination not found</h1>
@@ -48,7 +48,7 @@ export default async function DestinationDetailPage({ params }) {
   const isCountry = d.type === 'country';
 
   return (
-    <main>
+    <main id="main-content">
       <Nav />
 
       <div className={styles.hero}>
