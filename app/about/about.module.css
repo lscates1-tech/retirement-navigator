@@ -1,0 +1,135 @@
+.hero {
+  background: var(--ink);
+  padding: 60px 24px 56px;
+}
+
+.heroInner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: var(--linen);
+  margin: 0 0 20px;
+}
+
+.heroLede {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #D4D2E2;
+  margin: 0;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.article {
+  color: #3A3830;
+  line-height: 1.75;
+  font-size: 17px;
+}
+
+.article h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 27px;
+  font-weight: 500;
+  color: #2B2A52;
+  margin-top: 48px;
+  margin-bottom: 18px;
+}
+
+.article h2:first-of-type {
+  margin-top: 40px;
+}
+
+.article p {
+  margin: 0 0 18px;
+}
+
+.questionLine {
+  font-style: italic;
+  color: #5C5A54;
+  margin: 0 0 8px !important;
+  padding-left: 4px;
+}
+
+.nameLine {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  color: #B08D57;
+  letter-spacing: 0.01em;
+}
+
+.pullQuote {
+  background: #EFEAE0;
+  border-left: 4px solid #B08D57;
+  border-radius: 4px;
+  padding: 26px 28px;
+  margin: 32px 0;
+}
+
+.pullQuote p:first-child {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #2B2A52;
+  margin: 0 0 10px;
+}
+
+.pullQuoteSub {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #5C5A54;
+  margin: 0 !important;
+}
+
+.closing {
+  font-style: italic;
+  color: #2B2A52;
+  margin-top: 28px !important;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid #D9D6E8;
+}
+
+.ctaPrimary {
+  background: #2B2A52;
+  color: #EFEAE0;
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaPrimary:hover {
+  background: #1F1E3D;
+}
+
+.ctaSecondary {
+  background: transparent;
+  color: #2B2A52;
+  padding: 14px 24px;
+  border-radius: 4px;
+  border: 1px solid #D9D6E8;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaSecondary:hover {
+  border-color: #B08D57;
+  color: #B08D57;
+}

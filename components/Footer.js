@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <div
@@ -5,7 +7,7 @@ export default function Footer() {
         padding: '24px 36px',
         backgroundColor: 'var(--ink)',
         color: '#A8A5C2',
-        fontSize: 11.5,
+        fontSize: 13,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -14,7 +16,10 @@ export default function Footer() {
       }}
     >
       <span>&copy; {new Date().getFullYear()} Retirement Navigator — not a licensed tax or financial advisor</span>
-      <span className="mono">Data verified 2026</span>
+      <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+        <Link href="/about" style={{ color: '#A8A5C2', textDecoration: 'none' }}>About</Link>
+        <span className="mono">Data verified 2026</span>
+      </div>
     </div>
   );
 }
