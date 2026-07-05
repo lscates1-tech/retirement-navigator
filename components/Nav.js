@@ -1,20 +1,13 @@
 import Link from 'next/link';
+import styles from './Nav.module.css';
 
 export default function Nav() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '20px 36px',
-        backgroundColor: 'var(--ink)',
-      }}
-    >
-      <Link href="/" className="display" style={{ color: 'var(--linen)', fontSize: 19, fontWeight: 600 }}>
-        Retirement <span style={{ color: 'var(--brass)' }}>Navigator</span>
+    <div className={styles.nav}>
+      <Link href="/" className={`display ${styles.logo}`}>
+        Retirement <span className={styles.brass}>Navigator</span>
       </Link>
-      <div style={{ display: 'flex', gap: 28, fontSize: 13, color: '#D4D2E2' }}>
+      <div className={styles.links}>
         <Link href="/destinations">Destinations</Link>
         <Link href="/compare">Compare</Link>
         <Link href="/calculator">Calculator</Link>
