@@ -6,7 +6,7 @@
 
 .breadcrumb {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #8A8678;
@@ -46,7 +46,7 @@
 }
 
 .countryName {
-  font-size: 22px;
+  font-size: 26.5px;
   color: #2B2A52;
   margin: 0 0 16px;
 }
@@ -57,7 +57,7 @@
 
 .rowLabel {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #8A8678;
@@ -68,14 +68,14 @@
 }
 
 .rowText {
-  font-size: 14px;
+  font-size: 17px;
   color: #3A3830;
   line-height: 1.6;
 }
 
 .confBadge {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9.5px;
+  font-size: 12px;
   padding: 2px 8px;
   border-radius: 999px;
   text-transform: none;
@@ -109,7 +109,7 @@
 
 .metaLabel {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #8A8678;
@@ -117,12 +117,12 @@
 }
 
 .metaValue {
-  font-size: 13px;
+  font-size: 16px;
   color: #2B2A52;
 }
 
 .planningNote, .advisorNote {
-  font-size: 13px;
+  font-size: 16px;
   color: #5C5A54;
   line-height: 1.6;
   margin-top: 10px;
@@ -140,7 +140,7 @@
 .backLink {
   display: inline-block;
   color: #5C5A54;
-  font-size: 14px;
+  font-size: 17px;
   text-decoration: none;
 }
 

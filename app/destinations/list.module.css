@@ -18,7 +18,7 @@
 
 .filter, .filterActive {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 8px 16px;
@@ -71,7 +71,7 @@
 
 .cardType {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10.5px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #B08D57;
@@ -79,13 +79,13 @@
 }
 
 .cardName {
-  font-size: 19px;
+  font-size: 23px;
   color: #2B2A52;
   margin: 0 0 8px;
 }
 
 .cardTeaser {
-  font-size: 13.5px;
+  font-size: 16.5px;
   color: #5C5A54;
   line-height: 1.5;
   margin: 0;

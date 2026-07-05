@@ -15,7 +15,7 @@
 }
 .eyebrow {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--stamp);
@@ -23,7 +23,7 @@
 }
 .h1 {
   font-family: 'Fraunces', serif;
-  font-size: 42px;
+  font-size: 49.5px;
   font-weight: 500;
   line-height: 1.1;
   margin: 0 0 16px;
@@ -35,7 +35,7 @@
   color: var(--ink);
 }
 .sub {
-  font-size: 15.5px;
+  font-size: 19px;
   line-height: 1.6;
   max-width: 460px;
   color: #4a4843;
@@ -51,7 +51,7 @@
   color: var(--linen);
   padding: 13px 22px;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   border: none;
   cursor: pointer;
@@ -62,7 +62,7 @@
   color: var(--ink);
   padding: 13px 22px;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   border: 1.5px solid var(--ink);
   cursor: pointer;
@@ -76,7 +76,7 @@
 }
 .plateCap {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9.5px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--ink);
   opacity: 0.6;
@@ -100,21 +100,21 @@
 }
 .stampCoord {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   color: var(--stamp);
   letter-spacing: 0.06em;
   margin-bottom: 8px;
 }
 .stampName {
   font-family: 'Fraunces', serif;
-  font-size: 18px;
+  font-size: 21.5px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 .stampRow {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 15px;
   color: #5c5a54;
   margin-bottom: 4px;
 }
@@ -131,7 +131,7 @@
 }
 .kicker {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink);
@@ -140,7 +140,7 @@
 }
 .h2 {
   font-family: 'Fraunces', serif;
-  font-size: 28px;
+  font-size: 33px;
   font-weight: 500;
   margin: 0 0 26px;
   max-width: 560px;
@@ -163,23 +163,23 @@
 }
 .pathTag {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   color: var(--brass);
   margin-bottom: 10px;
 }
 .path h3 {
   font-family: 'Fraunces', serif;
-  font-size: 21px;
+  font-size: 25px;
   margin: 0 0 10px;
 }
 .path p {
-  font-size: 13.5px;
+  font-size: 16.5px;
   line-height: 1.6;
   color: #4a4843;
   margin: 0 0 14px;
 }
 .pathLink {
-  font-size: 13px;
+  font-size: 16px;
   color: var(--ink);
   font-weight: 500;
   border-bottom: 1px solid var(--brass);
@@ -205,12 +205,12 @@
 }
 .calcLeft h3 {
   font-family: 'Fraunces', serif;
-  font-size: 23px;
+  font-size: 27.5px;
   margin: 8px 0 12px;
   color: var(--linen);
 }
 .calcLeft p {
-  font-size: 13.5px;
+  font-size: 16.5px;
   line-height: 1.6;
   color: #d4d2e2;
   max-width: 380px;
@@ -226,7 +226,7 @@
 .calcRow {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 8px;
   color: #5c5a54;
 }
@@ -238,14 +238,14 @@
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid var(--border-soft);
-  font-size: 12px;
+  font-size: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .pill {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   background-color: var(--pale-alt);
   color: var(--ink);
   padding: 3px 9px;
@@ -285,17 +285,17 @@
 }
 .cardCoord {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   color: #8a8678;
   margin-bottom: 6px;
 }
 .cardBody h4 {
   font-family: 'Fraunces', serif;
-  font-size: 16px;
+  font-size: 19.5px;
   margin: 0 0 7px;
 }
 .cardTag {
-  font-size: 10.5px;
+  font-size: 13px;
   background-color: var(--pale-alt);
   color: var(--ink);
   display: inline-block;
@@ -304,7 +304,7 @@
   margin-bottom: 9px;
 }
 .cardBody p {
-  font-size: 12px;
+  font-size: 15px;
   color: #5c5a54;
   line-height: 1.5;
   margin: 0;

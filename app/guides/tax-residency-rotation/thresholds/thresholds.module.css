@@ -6,7 +6,7 @@
 
 .breadcrumb {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #8A8678;
@@ -36,13 +36,13 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .table th {
   text-align: left;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #8A8678;
@@ -62,7 +62,7 @@
 }
 
 .riskBadge {
-  font-size: 11px;
+  font-size: 13.5px;
   padding: 4px 10px;
   border-radius: 999px;
   font-family: 'IBM Plex Mono', monospace;
@@ -96,13 +96,13 @@
 }
 
 .detailCountry {
-  font-size: 16px;
+  font-size: 19.5px;
   color: #2B2A52;
   margin: 0 0 8px;
 }
 
 .detailText {
-  font-size: 13.5px;
+  font-size: 16.5px;
   color: #5C5A54;
   line-height: 1.6;
   margin: 0 0 6px;
@@ -120,7 +120,7 @@
 .backLink {
   display: inline-block;
   color: #5C5A54;
-  font-size: 14px;
+  font-size: 17px;
   text-decoration: none;
 }
 

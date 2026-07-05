@@ -6,7 +6,7 @@
 
 .breadcrumb {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #8A8678;
@@ -55,14 +55,14 @@
 }
 
 .cardTitle {
-  font-size: 18px;
+  font-size: 21.5px;
   color: #2B2A52;
   margin: 0;
 }
 
 .firstTimerTag {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fff;
@@ -73,7 +73,7 @@
 }
 
 .bestFor {
-  font-size: 13.5px;
+  font-size: 16.5px;
   color: #5C5A54;
   line-height: 1.5;
   margin: 0 0 14px;
@@ -87,7 +87,7 @@
 }
 
 .badge {
-  font-size: 11px;
+  font-size: 13.5px;
   padding: 4px 9px;
   border-radius: 999px;
   font-family: 'IBM Plex Mono', monospace;
@@ -117,20 +117,20 @@
 
 .detailLabel {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12.5px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #8A8678;
 }
 
 .detailValue {
-  font-size: 13.5px;
+  font-size: 16.5px;
   color: #2B2A52;
   margin-top: 2px;
 }
 
 .cautions {
-  font-size: 12.5px;
+  font-size: 15.5px;
   color: #5C5A54;
   line-height: 1.5;
   border-top: 1px solid #D9D6E8;
@@ -146,7 +146,7 @@
 .backLink {
   display: inline-block;
   color: #5C5A54;
-  font-size: 14px;
+  font-size: 17px;
   text-decoration: none;
 }
 
