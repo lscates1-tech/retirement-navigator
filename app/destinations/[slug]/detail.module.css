@@ -170,7 +170,21 @@
   gap: 16px;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
-  padding-right: 4px;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #B08D57 transparent; /* Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #B08D57;
+  border-radius: 999px;
 }
 
 .statCard {
