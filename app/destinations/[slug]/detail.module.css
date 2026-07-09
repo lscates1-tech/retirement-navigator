@@ -165,26 +165,30 @@
 .sidebar {
   position: sticky;
   top: 24px;
+  width: 100%;
+  max-height: calc(100vh - 48px);
+}
+
+.sidebarScroll {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  box-sizing: border-box;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #B08D57 transparent; /* Firefox */
 }
 
-.sidebar::-webkit-scrollbar {
+.sidebarScroll::-webkit-scrollbar {
   width: 6px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.sidebarScroll::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.sidebarScroll::-webkit-scrollbar-thumb {
   background-color: #B08D57;
   border-radius: 999px;
 }

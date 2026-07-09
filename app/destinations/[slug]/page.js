@@ -74,6 +74,7 @@ export default async function DestinationDetailPage({ params }) {
           />
 
           <aside className={styles.sidebar}>
+            <div className={styles.sidebarScroll}>
             <div className={styles.statCard}>
               <div className={styles.statCardTitle}>At a glance</div>
 
@@ -120,6 +121,7 @@ export default async function DestinationDetailPage({ params }) {
             <Link href="/calculator" className={styles.calcCta}>
               Run the budget calculator for {d.name} →
             </Link>
+            </div>
           </aside>
         </div>
 
