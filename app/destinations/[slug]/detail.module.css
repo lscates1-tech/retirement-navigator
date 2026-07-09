@@ -163,37 +163,14 @@
 }
 
 .sidebar {
-  position: sticky;
-  top: 24px;
   width: 100%;
-  max-height: calc(100vh - 48px);
 }
 
 .sidebarScroll {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 320px;
-  max-width: 100%;
-  max-height: calc(100vh - 48px);
-  overflow-y: auto;
-  overflow-y: overlay;
-  scrollbar-gutter: auto;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #B08D57 transparent; /* Firefox */
-}
-
-.sidebarScroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebarScroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebarScroll::-webkit-scrollbar-thumb {
-  background-color: #B08D57;
-  border-radius: 999px;
+  width: 100%;
 }
 
 .statCard {
