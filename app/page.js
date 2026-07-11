@@ -66,7 +66,7 @@ export default async function HomePage() {
           <div>
            <div className={styles.eyebrow}>40+ destinations · verified 2026 cost &amp; tax data</div>
             <h1 className={styles.h1}>
-              Where you retire is a financial decision <em>disguised</em> as a lifestyle one.
+              Where you live next is a financial decision <em>disguised</em> as a lifestyle one.
             </h1>
             <p className={styles.sub}>
               Compare real tax thresholds, visa rules, healthcare costs, and monthly budgets
