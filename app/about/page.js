@@ -129,12 +129,12 @@ export default function AboutPage() {
 
           <h2>My Mission</h2>
 
-          <p>Retirement is more than a financial milestone.</p>
+          <p>Choosing where — and how — you live is one of the most powerful decisions you&apos;ll ever make.</p>
 
           <p>
-            It&apos;s an opportunity to create the life you&apos;ve imagined — whether that means retiring
-            abroad, relocating within the United States, embracing slow travel, or simply finding a place that
-            feels like home.
+            It&apos;s the freedom to retire abroad, work from anywhere, slow travel the world, rotate between
+            countries on your own terms, or simply choose the U.S. home base that fits your life best —
+            whenever, and however, you&apos;re ready to make that choice.
           </p>
 
           <p>
