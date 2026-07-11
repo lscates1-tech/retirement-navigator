@@ -20,6 +20,51 @@ function StatRow({ label, value }) {
   );
 }
 
+// Field-driven "At a Glance" configuration. Adding a new destination type
+// (e.g. 'city') later means adding one new entry here — no new branching
+// logic anywhere else. Fields that have no data for a given destination
+// simply don't render (StatRow already handles that), so this list can be
+// generous without risk of showing empty rows.
+const STAT_FIELDS_BY_TYPE = {
+  country: [
+    { label: 'Visa', field: 'visaName' },
+    { label: 'Income threshold', field: 'visaIncomeThreshold' },
+    { label: 'Visa duration', field: 'visaDuration' },
+    { label: 'Visa difficulty', field: 'visaDifficulty' },
+    { label: 'Tax system', field: 'taxSystem' },
+    { label: 'Currency', field: 'currency' },
+    { label: 'Schengen member', field: 'schengenMember', format: 'boolean' },
+  ],
+  state: [
+    { label: 'Region', field: 'region' },
+    { label: 'Cost level', field: 'costLevel' },
+    { label: 'State income tax', field: 'stateIncomeTax' },
+    { label: 'Social Security', field: 'ssTaxTreatment' },
+    { label: 'Property tax level', field: 'propertyTaxLevel' },
+    { label: 'Medicare Advantage market', field: 'medicareAdvantageMarket' },
+    { label: 'Major airports', field: 'majorGatewayAirports' },
+  ],
+  // city: [ ... ] — ready to add later (walkability, neighborhood
+  // character, nearest major airport) with zero changes to the render
+  // logic below.
+};
+
+// Shown for every destination type, after the type-specific fields above.
+const SHARED_STAT_FIELDS = [{ label: 'Cost of living vs. US', field: 'costOfLivingVsUS' }];
+
+// Hero badge label per type — same "add one entry" pattern as the stat
+// fields above.
+const TYPE_LABELS = { country: 'Country', state: 'U.S. State' };
+
+function formatStatValue(rawValue, format) {
+  if (format === 'boolean') {
+    if (rawValue === true) return 'Yes';
+    if (rawValue === false) return 'No';
+    return '';
+  }
+  return rawValue;
+}
+
 export default async function DestinationDetailPage({ params }) {
   const { slug } = params;
   const d = await getDestinationDetailBySlug(slug);
@@ -45,7 +90,8 @@ export default async function DestinationDetailPage({ params }) {
     ? await getPhotoById(d.photoId)
     : await getDestinationPhoto(`${d.name} landscape`);
 
-  const isCountry = d.type === 'country';
+  const typeLabel = TYPE_LABELS[d.type] || d.type;
+  const statFields = [...(STAT_FIELDS_BY_TYPE[d.type] || []), ...SHARED_STAT_FIELDS];
 
   return (
     <main id="main-content">
@@ -58,7 +104,7 @@ export default async function DestinationDetailPage({ params }) {
           <div className={styles.heroPlaceholder}>[ photo: {d.name} ]</div>
         )}
         <div className={styles.heroOverlay}>
-          <div className={styles.heroType}>{isCountry ? 'Country' : 'U.S. State'}</div>
+          <div className={styles.heroType}>{typeLabel}</div>
           <h1 className={styles.heroTitle}>{d.name}</h1>
           {d.homepageTeaser && <p className={styles.heroTeaser}>{d.homepageTeaser}</p>}
         </div>
@@ -78,29 +124,13 @@ export default async function DestinationDetailPage({ params }) {
             <div className={styles.statCard}>
               <div className={styles.statCardTitle}>At a glance</div>
 
-              {isCountry ? (
-                <>
-                  <StatRow label="Visa" value={d.visaName} />
-                  <StatRow label="Income threshold" value={d.visaIncomeThreshold} />
-                  <StatRow label="Visa duration" value={d.visaDuration} />
-                  <StatRow label="Visa difficulty" value={d.visaDifficulty} />
-                  <StatRow label="Tax system" value={d.taxSystem} />
-                  <StatRow label="Currency" value={d.currency} />
-                  <StatRow label="Schengen member" value={d.schengenMember === true ? 'Yes' : d.schengenMember === false ? 'No' : ''} />
-                </>
-              ) : (
-                <>
-                  <StatRow label="Region" value={d.region} />
-                  <StatRow label="Cost level" value={d.costLevel} />
-                  <StatRow label="State income tax" value={d.stateIncomeTax} />
-                  <StatRow label="Social Security" value={d.ssTaxTreatment} />
-                  <StatRow label="Property tax level" value={d.propertyTaxLevel} />
-                  <StatRow label="Medicare Advantage market" value={d.medicareAdvantageMarket} />
-                  <StatRow label="Major airports" value={d.majorGatewayAirports} />
-                </>
-              )}
-
-              <StatRow label="Cost of living vs. US" value={d.costOfLivingVsUS} />
+              {statFields.map((f) => (
+                <StatRow
+                  key={f.field}
+                  label={f.label}
+                  value={formatStatValue(d[f.field], f.format)}
+                />
+              ))}
             </div>
 
             {d.budgetDefaults?.rent ? (
