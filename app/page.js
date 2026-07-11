@@ -73,11 +73,11 @@ export default async function HomePage() {
               across countries and U.S. states — before you commit to anything.
             </p>
             <div className={styles.ctaRow}>
-              <Link href="/calculator" className={styles.cta}>
-                Run the budget calculator
+              <Link href="/match" className={styles.cta}>
+                Find Your Fit →
               </Link>
-              <Link href="/compare" className={styles.ctaGhost}>
-                Compare two destinations
+              <Link href="/destinations" className={styles.ctaGhost}>
+                Browse all destinations
               </Link>
             </div>
           </div>
@@ -135,6 +135,12 @@ export default async function HomePage() {
       <div className={styles.section}>
         <div className={styles.kicker}>The first fork in the road</div>
         <h2 className={styles.h2}>Most people skip this question and regret it later.</h2>
+        <p className={styles.sub} style={{ marginBottom: 32 }}>
+          Not sure which of these fits you?{' '}
+          <Link href="/match" style={{ color: 'var(--brass-on-light)', fontWeight: 600 }}>
+            Take the 2-minute quiz →
+          </Link>
+        </p>
         <div className={styles.paths}>
           <div className={styles.path}>
             <div className={styles.pathTag}>PATH A</div>
@@ -150,7 +156,42 @@ export default async function HomePage() {
           </div>
           <div className={styles.path}>
             <div className={styles.pathTag}>PATH B</div>
-            <h3>Stay in the U.S., relocate smart</h3>
+            <h3>Work remotely, from anywhere</h3>
+            <p>
+              Keep your income, change your zip code — or your country. The tax and visa rules
+              that apply to a paycheck are different from the ones that apply to a pension, so
+              the research looks a little different too.
+            </p>
+            <Link href="/destinations" className={styles.pathLink}>
+              See remote-work-friendly destinations →
+            </Link>
+          </div>
+          <div className={styles.path}>
+            <div className={styles.pathTag}>PATH C</div>
+            <h3>Slow travel first</h3>
+            <p>
+              Test a place for a season before you commit to it for a decade. Real logistics on
+              visa-free stay limits, healthcare access, and monthly budgets — not a highlight reel.
+            </p>
+            <Link href="/guides/slow-travel" className={styles.pathLink}>
+              Start the Slow Travel guide →
+            </Link>
+          </div>
+          <div className={styles.path}>
+            <div className={styles.pathTag}>PATH D</div>
+            <h3>Rotate to stay tax-free</h3>
+            <p>
+              Never spend enough time in one country to trigger tax residency anywhere.
+              Day-count rules, risk levels, and the legal line between minimization and evasion —
+              mapped out country by country.
+            </p>
+            <Link href="/guides/tax-residency-rotation" className={styles.pathLink}>
+              Start the Tax-Residency Rotation guide →
+            </Link>
+          </div>
+          <div className={styles.path}>
+            <div className={styles.pathTag}>PATH E</div>
+            <h3>Build a smarter U.S. home base</h3>
             <p>
               Keep Medicare, the dollar, and zero foreign tax filings. Pick a no-income-tax state
               with the flight geography that matches how you actually want to travel.
