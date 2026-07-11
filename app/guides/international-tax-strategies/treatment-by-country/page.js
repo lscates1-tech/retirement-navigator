@@ -6,6 +6,11 @@ import styles from './treatment.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Retirement Account Tax Treatment by Country | Next Horizon',
+  description: 'How 16 countries treat Roth IRA, Traditional IRA/401(k), and Social Security income for US retirees — every claim labeled Settled, Contested, or Unclear.',
+};
+
 function confidenceClass(level) {
   if (level === 'Settled') return styles.confSettled;
   if (level === 'Contested') return styles.confContested;

@@ -6,6 +6,11 @@ import styles from './guides.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Guides — Slow Travel, Tax-Residency Rotation & Tax Strategy | Next Horizon',
+  description: 'In-depth, sourced guides on slow travel, tax-residency rotation, national and international tax strategy — for anyone planning where and how to live next.',
+};
+
 // Page IDs for the two guide hub pages in Notion. These are stable IDs from
 // the workspace and won't change even as the pages' content is edited.
 const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';

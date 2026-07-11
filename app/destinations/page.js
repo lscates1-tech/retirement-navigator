@@ -6,6 +6,11 @@ import styles from './list.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'All Destinations — Countries & U.S. States | Next Horizon',
+  description: 'Browse every country and U.S. state on Next Horizon, with verified 2026 cost, tax, visa, and healthcare data for retiring abroad, working remotely, or finding a home base.',
+};
+
 export default async function DestinationsPage({ searchParams }) {
   const typeFilter = searchParams?.type; // 'country' | 'state' | undefined
   const published = (await getPublishedDestinations()) || [];

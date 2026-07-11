@@ -7,6 +7,11 @@ import CalculatorClient from './CalculatorClient';
 // `export const revalidate = 3600;` to cache for an hour instead.
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Budget Comparison Calculator | Next Horizon',
+  description: 'Compare your actual current living costs against any destination on Next Horizon — real 2026 cost-of-living defaults you can edit to match your exact situation.',
+};
+
 function toDefaultsMap(notionList) {
   const map = {};
   for (const d of notionList) {

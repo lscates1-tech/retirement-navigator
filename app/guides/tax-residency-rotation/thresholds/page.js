@@ -6,6 +6,11 @@ import styles from './thresholds.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Country Tax-Residency Thresholds | Next Horizon',
+  description: 'Day-count rules and risk levels for tax-residency rotation, sorted by risk — for anyone planning to avoid triggering tax residency in any single country.',
+};
+
 const RISK_ORDER = { High: 0, Medium: 1, Low: 2 };
 
 function riskClass(level) {

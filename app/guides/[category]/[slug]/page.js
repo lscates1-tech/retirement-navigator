@@ -14,6 +14,27 @@ const CATEGORIES = {
   'international-tax-strategies': { hubId: '393995f1-23d7-81e3-a7dc-e500ce25ce11', label: 'International Tax Strategies' },
 };
 
+function plainTextSnippet(html, maxLength = 155) {
+  if (!html) return '';
+  const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1).trim()}…` : text;
+}
+
+export async function generateMetadata({ params }) {
+  const { category, slug } = params;
+  const categoryInfo = CATEGORIES[category];
+  if (!categoryInfo) return { title: 'Guides — Next Horizon' };
+
+  const subPage = await getGuideSubPageBySlug(categoryInfo.hubId, slug);
+  if (!subPage) return { title: `${categoryInfo.label} — Next Horizon` };
+
+  const description = plainTextSnippet(subPage.html) || `${categoryInfo.label} guide from Next Horizon.`;
+  return {
+    title: `${subPage.title} — ${categoryInfo.label} | Next Horizon`,
+    description,
+  };
+}
+
 export default async function GuideSubPage({ params }) {
   const { category, slug } = params;
   const categoryInfo = CATEGORIES[category];

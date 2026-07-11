@@ -5,6 +5,7 @@ import styles from './about.module.css';
 
 export const metadata = {
   title: 'About — Next Horizon',
+  description: 'Why a registered nurse built a decision platform for retiring abroad, working remotely, slow travel, tax-residency rotation, and finding a U.S. home base.',
 };
 
 export default function AboutPage() {

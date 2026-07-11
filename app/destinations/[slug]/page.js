@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { getDestinationDetailBySlug } from '@/lib/notion';
+import { getDestinationDetailBySlug, getDestinationBySlug } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import styles from './detail.module.css';
 
@@ -9,6 +9,22 @@ import styles from './detail.module.css';
 // and makes it easy to confirm Notion edits show up immediately. Switch to
 // `export const revalidate = 3600;` once this is confirmed working well.
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }) {
+  const d = await getDestinationBySlug(params.slug);
+  if (!d) {
+    return { title: 'Destination — Next Horizon' };
+  }
+  const typeLabel = d.type === 'country' ? 'Country' : 'U.S. State';
+  const description =
+    d.homepageTeaser ||
+    `Real cost of living, tax treatment, ${d.type === 'country' ? 'visa rules' : 'domicile considerations'}, and healthcare data for ${d.name} — for retiring abroad, working remotely, or building a home base.`;
+  return {
+    title: `${d.name} — Cost, Tax & Healthcare Guide | Next Horizon`,
+    description,
+    openGraph: { title: `${d.name} (${typeLabel}) — Next Horizon`, description },
+  };
+}
 
 function StatRow({ label, value }) {
   if (!value) return null;

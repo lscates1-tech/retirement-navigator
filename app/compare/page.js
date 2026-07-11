@@ -6,6 +6,11 @@ import styles from './compare.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Compare Destinations Side-by-Side | Next Horizon',
+  description: 'Put any two countries or U.S. states side by side — real tax, visa, healthcare, and budget data, for retiring abroad, working remotely, or building a home base.',
+};
+
 function money(n) {
   const num = Number(n);
   return num ? `$${num.toLocaleString()}` : '—';

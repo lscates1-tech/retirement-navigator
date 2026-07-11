@@ -7,6 +7,11 @@ import styles from './match.module.css';
 
 export const dynamic = 'force-dynamic';
 
+export const metadata = {
+  title: 'Find Your Fit — Which Path Fits You? | Next Horizon',
+  description: 'Answer a few questions and find out which of five paths — retiring abroad, remote work, slow travel, tax-residency rotation, or a U.S. home base — actually fits your situation.',
+};
+
 const QUESTIONS = [
   {
     name: 'lifeStage',
