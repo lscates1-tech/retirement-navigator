@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import styles from './about.module.css';
 
 export const metadata = {
-  title: 'About — Retirement Navigator AI',
+  title: 'About — Next Horizon',
 };
 
 export default function AboutPage() {
@@ -14,9 +14,9 @@ export default function AboutPage() {
 
       <div className={styles.hero}>
         <div className={styles.heroInner}>
-          <h1 className={styles.heroTitle}>About Retirement Navigator AI</h1>
+          <h1 className={styles.heroTitle}>About Next Horizon</h1>
           <p className={styles.heroLede}>
-            Retirement Navigator AI is guided by a simple philosophy: people make better life decisions when
+            Next Horizon is guided by a simple philosophy: people make better life decisions when
             they have clear, trustworthy information.
           </p>
         </div>
@@ -27,14 +27,14 @@ export default function AboutPage() {
           <p>
             As a registered nurse, I learned that the best outcomes often come not from making decisions for
             people, but from giving them the knowledge, support, and environment they need to make informed
-            choices. That philosophy guided my nursing career, and it became the foundation for Retirement
-            Navigator AI.
+            choices. That philosophy guided my nursing career, and it became the foundation for Next
+            Horizon.
           </p>
 
           <p>
             Rather than telling you where you should retire, my goal is to help you understand your options.
             By bringing together reliable research on cost of living, healthcare, taxes, residency options,
-            housing, climate, safety, transportation, and quality of life, Retirement Navigator AI is designed
+            housing, climate, safety, transportation, and quality of life, Next Horizon is designed
             to put you in the best position to make one of the most important decisions of your life.
           </p>
 
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
           <p>
             What started as my own research gradually grew into a structured knowledge base, and eventually
-            became Retirement Navigator AI.
+            became Next Horizon.
           </p>
 
           <h2>My Approach</h2>
@@ -138,7 +138,7 @@ export default function AboutPage() {
           </p>
 
           <p>
-            My hope is that Retirement Navigator AI saves you time, reduces uncertainty, and gives you the
+            My hope is that Next Horizon saves you time, reduces uncertainty, and gives you the
             confidence to explore your options with clarity.
           </p>
 
@@ -148,7 +148,7 @@ export default function AboutPage() {
           </p>
 
           <p className={styles.closing}>
-            Welcome to Retirement Navigator AI, and thank you for allowing me to be part of your journey.
+            Welcome to Next Horizon, and thank you for allowing me to be part of your journey.
           </p>
         </article>
 

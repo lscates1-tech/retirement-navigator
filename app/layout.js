@@ -1,9 +1,9 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Retirement Navigator — Compare countries and states for retirement',
+  title: 'Next Horizon — Decide where, and how, to live',
   description:
-    'Compare real tax thresholds, visa rules, healthcare costs, and monthly budgets across countries and U.S. states before you decide where to retire.',
+    'Real tax, visa, healthcare, and cost data for retiring abroad, working remotely, slow travel, tax-residency rotation, or a strategic U.S. home base — for thoughtful adults planning their next chapter.',
 };
 
 export default function RootLayout({ children }) {

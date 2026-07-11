@@ -5,7 +5,7 @@ export default function Nav() {
   return (
     <nav className={styles.nav} aria-label="Main navigation">
       <Link href="/" className={`display ${styles.logo}`}>
-        Retirement <span className={styles.brass}>Navigator</span>
+        Next <span className={styles.brass}>Horizon</span>
       </Link>
       <div className={styles.links}>
         <Link href="/match">Find Your Fit</Link>
