@@ -104,7 +104,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   // Panel A -- "Where you live now." Not one of the site's tracked
   // destinations, so this is always a free-text label with manually
   // entered expenses -- no Notion defaults to load.
-  const [currentLabel, setCurrentLabel] = useState('Houston, TX');
+  const [currentLabel, setCurrentLabel] = useState('');
   const [currentExpenses, setCurrentExpenses] = useState({ ...BLANK_EXPENSES });
 
   // Panel B -- "Where you're considering." Existing destination-based
