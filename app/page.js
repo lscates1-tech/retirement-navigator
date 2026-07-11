@@ -173,7 +173,7 @@ export default async function HomePage() {
               Test a place for a season before you commit to it for a decade. Real logistics on
               visa-free stay limits, healthcare access, and monthly budgets — not a highlight reel.
             </p>
-            <Link href="/guides/slow-travel" className={styles.pathLink}>
+            <Link href="/guides/slow-travel/what-is-slow-travel" className={styles.pathLink}>
               Start the Slow Travel guide →
             </Link>
           </div>
@@ -185,7 +185,7 @@ export default async function HomePage() {
               Day-count rules, risk levels, and the legal line between minimization and evasion —
               mapped out country by country.
             </p>
-            <Link href="/guides/tax-residency-rotation" className={styles.pathLink}>
+            <Link href="/guides/tax-residency-rotation/what-this-strategy-actually-is-and-isn-t" className={styles.pathLink}>
               Start the Tax-Residency Rotation guide →
             </Link>
           </div>
