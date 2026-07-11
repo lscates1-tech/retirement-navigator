@@ -218,3 +218,38 @@
   color: var(--muted-label);
   font-style: italic;
 }
+
+.pathwayCard {
+  background: var(--ink);
+  border-radius: 8px;
+  padding: 28px 30px;
+  margin-bottom: 32px;
+}
+.pathwayLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-dark);
+  margin-bottom: 10px;
+}
+.pathwayName {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #EFEAE0;
+  margin: 0 0 12px;
+}
+.pathwayDescription {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #D4D2E2;
+  margin: 0;
+  max-width: 640px;
+}
+.resultsHeading {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 6px;
+}
