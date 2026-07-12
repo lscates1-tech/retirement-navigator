@@ -19,19 +19,16 @@ export default async function DestinationsPage({ searchParams }) {
     .filter((d) => !typeFilter || d.type === typeFilter)
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const countryCount = published.filter((d) => d.type === 'country').length;
-  const stateCount = published.filter((d) => d.type === 'state').length;
-
   return (
     <main id="main-content">
       <Nav />
       <div className={styles.wrap}>
         <h1 className="display" style={{ fontSize: 32 }}>Destinations</h1>
-        <p className={styles.sub}>
-          {published.length
-            ? `${countryCount} countries and ${stateCount} U.S. states, pulled live from Notion.`
-            : 'Live Notion data is not configured for this environment — showing nothing until it is.'}
-        </p>
+        {!published.length && (
+          <p className={styles.sub}>
+            Live Notion data is not configured for this environment — showing nothing until it is.
+          </p>
+        )}
 
         <div className={styles.filterRow}>
           <Link href="/destinations" className={!typeFilter ? styles.filterActive : styles.filter}>
