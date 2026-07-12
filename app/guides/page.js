@@ -112,6 +112,7 @@ export default async function GuidesPage() {
           hub={workFromAnywhereHub}
           fallbackTitle="Work From Anywhere"
           categorySlug="work-from-anywhere"
+          databaseLink={{ href: '/guides/work-from-anywhere/visa-comparison', label: 'Browse the Digital Nomad Visa Comparison' }}
         />
       </div>
       <Footer />

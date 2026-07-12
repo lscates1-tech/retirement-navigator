@@ -1,0 +1,152 @@
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.breadcrumb {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-label);
+  margin-bottom: 16px;
+}
+
+.breadcrumb a {
+  color: var(--muted-label);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #2B2A52;
+}
+
+.sub {
+  color: #5C5A54;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 700px;
+}
+
+.sectionLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin-bottom: 16px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 720px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: #EFEAE0;
+  border-radius: 6px;
+  padding: 22px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.countryName {
+  font-size: 20px;
+  color: #2B2A52;
+  margin: 0;
+}
+
+.diffBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.diffEasy {
+  background: #DCE9DC;
+  color: #2F5233;
+}
+
+.diffModerate {
+  background: #F3E7C9;
+  color: #7A5C1E;
+}
+
+.diffComplex {
+  background: #F0DCDA;
+  color: #832A2A;
+}
+
+.visaName {
+  font-size: 14px;
+  color: #5C5A54;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 16px;
+  margin-bottom: 14px;
+}
+
+.detailLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-label);
+}
+
+.detailValue {
+  font-size: 13.5px;
+  color: #2B2A52;
+  margin-top: 2px;
+}
+
+.taxNote {
+  font-size: 13px;
+  color: #5C5A54;
+  line-height: 1.6;
+  border-top: 1px solid #D9D6E8;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.taxNote strong {
+  color: #2B2A52;
+}
+
+.empty {
+  color: var(--muted-label);
+  font-style: italic;
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: 40px;
+  color: #5C5A54;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: #2B2A52;
+}
