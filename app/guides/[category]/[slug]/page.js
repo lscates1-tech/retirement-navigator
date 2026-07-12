@@ -12,6 +12,7 @@ const CATEGORIES = {
   'tax-residency-rotation': { hubId: '388995f1-23d7-81f2-8429-c9103ee847b2', label: 'Tax-Residency Rotation' },
   'national-tax-strategies': { hubId: '393995f1-23d7-81ec-828a-f6abdf4ab78b', label: 'National Tax Strategies' },
   'international-tax-strategies': { hubId: '393995f1-23d7-81e3-a7dc-e500ce25ce11', label: 'International Tax Strategies' },
+  'work-from-anywhere': { hubId: '39b995f1-23d7-81c2-9a62-c9b1d75e1c88', label: 'Work From Anywhere' },
 };
 
 function plainTextSnippet(html, maxLength = 155) {

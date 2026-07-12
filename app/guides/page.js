@@ -17,6 +17,7 @@ const SLOW_TRAVEL_HUB_ID = '388995f1-23d7-8100-a8b0-fea7aaf788a0';
 const TAX_ROTATION_HUB_ID = '388995f1-23d7-81f2-8429-c9103ee847b2';
 const NATIONAL_TAX_HUB_ID = '393995f1-23d7-81ec-828a-f6abdf4ab78b';
 const INTERNATIONAL_TAX_HUB_ID = '393995f1-23d7-81e3-a7dc-e500ce25ce11';
+const WORK_FROM_ANYWHERE_HUB_ID = '39b995f1-23d7-81c2-9a62-c9b1d75e1c88';
 
 function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink }) {
   if (!hub) {
@@ -61,11 +62,12 @@ function GuideSection({ emoji, hub, fallbackTitle, categorySlug, databaseLink })
 }
 
 export default async function GuidesPage() {
-  const [slowTravelHub, taxRotationHub, nationalTaxHub, internationalTaxHub] = await Promise.all([
+  const [slowTravelHub, taxRotationHub, nationalTaxHub, internationalTaxHub, workFromAnywhereHub] = await Promise.all([
     getGuideHub(SLOW_TRAVEL_HUB_ID),
     getGuideHub(TAX_ROTATION_HUB_ID),
     getGuideHub(NATIONAL_TAX_HUB_ID),
     getGuideHub(INTERNATIONAL_TAX_HUB_ID),
+    getGuideHub(WORK_FROM_ANYWHERE_HUB_ID),
   ]);
 
   return (
@@ -104,6 +106,12 @@ export default async function GuidesPage() {
           fallbackTitle="International Tax Strategies"
           categorySlug="international-tax-strategies"
           databaseLink={{ href: '/guides/international-tax-strategies/treatment-by-country', label: 'Browse Retirement Account Tax Treatment by Country' }}
+        />
+        <GuideSection
+          emoji="💻"
+          hub={workFromAnywhereHub}
+          fallbackTitle="Work From Anywhere"
+          categorySlug="work-from-anywhere"
         />
       </div>
       <Footer />
