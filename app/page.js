@@ -64,7 +64,7 @@ export default async function HomePage() {
       <div className={styles.hero}>
         <div className={styles.heroGrid}>
           <div>
-           <div className={styles.eyebrow}>40+ destinations · verified 2026 cost &amp; tax data</div>
+           <div className={styles.eyebrow}>55+ destinations · verified 2026 cost &amp; tax data</div>
             <h1 className={styles.h1}>
               Where you live next is a financial decision <em>disguised</em> as a lifestyle one.
             </h1>
