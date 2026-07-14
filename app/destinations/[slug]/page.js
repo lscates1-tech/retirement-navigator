@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { getDestinationDetailBySlug, getDestinationBySlug } from '@/lib/notion';
+import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import styles from './detail.module.css';
+import cityStyles from './cities.module.css';
 
 // Fetch fresh on every request for now — matches the calculator's approach
 // and makes it easy to confirm Notion edits show up immediately. Switch to
@@ -102,9 +103,10 @@ export default async function DestinationDetailPage({ params }) {
     );
   }
 
-  const photo = d.photoId
-    ? await getPhotoById(d.photoId)
-    : await getDestinationPhoto(`${d.name} landscape`);
+  const [photo, cities] = await Promise.all([
+    d.photoId ? getPhotoById(d.photoId) : getDestinationPhoto(`${d.name} landscape`),
+    getCitiesForDestination(d.slug),
+  ]);
 
   const typeLabel = TYPE_LABELS[d.type] || d.type;
   const statFields = [...(STAT_FIELDS_BY_TYPE[d.type] || []), ...SHARED_STAT_FIELDS];
@@ -170,6 +172,35 @@ export default async function DestinationDetailPage({ params }) {
             </div>
           </aside>
         </div>
+
+        {cities && cities.length > 0 && (
+          <section className={cityStyles.section}>
+            <h2 className={cityStyles.sectionTitle}>Cities &amp; Regions in {d.name}</h2>
+            <p className={cityStyles.sectionSub}>
+              A closer look at specific places to land within {d.name} — cost, neighborhoods, and
+              safety at the city level. Visa, tax, and residency details stay in the guide above.
+            </p>
+            <div className={cityStyles.grid}>
+              {cities.map((c) => (
+                <Link
+                  href={`/destinations/${d.slug}/${c.slug}`}
+                  key={c.id}
+                  className={cityStyles.card}
+                >
+                  <div className={cityStyles.cardType}>{c.cityType || 'City'}</div>
+                  <h3 className={cityStyles.cardName}>{c.name}</h3>
+                  {c.homepageTeaser ? (
+                    <p className={cityStyles.cardTeaser}>{c.homepageTeaser}</p>
+                  ) : (
+                    <p className={cityStyles.cardTeaser}>
+                      {[c.region, c.costLevel].filter(Boolean).join(' · ')}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <Link href="/destinations" className={styles.backLink}>← Back to all destinations</Link>
       </div>

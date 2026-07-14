@@ -1,0 +1,63 @@
+.section {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid #D9D6E8;
+}
+
+.sectionTitle {
+  font-size: 28.5px;
+  color: #2B2A52;
+  margin: 0 0 8px;
+}
+
+.sectionSub {
+  color: #5C5A54;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 640px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  display: block;
+  background: #EFEAE0;
+  border-radius: 4px;
+  padding: 20px;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.cardType {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin-bottom: 6px;
+}
+
+.cardName {
+  font-size: 23px;
+  color: #2B2A52;
+  margin: 0 0 8px;
+}
+
+.cardTeaser {
+  font-size: 16.5px;
+  color: #5C5A54;
+  line-height: 1.5;
+  margin: 0;
+}
