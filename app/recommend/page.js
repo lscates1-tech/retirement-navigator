@@ -10,6 +10,7 @@ import { generateRecommendation } from '@/lib/claudeClient';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { getClientIp, hashIp } from '@/lib/hashIp';
 import { logRecommendationEvent } from '@/lib/logger';
+import { submitLead } from './actions';
 import styles from './recommend.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -249,6 +250,43 @@ export default async function RecommendPage({ searchParams }) {
 
         {shortlist.length > 0 && (
           <p className={styles.sub}>Weighed against: {shortlist.map((d) => d.name).join(', ')}</p>
+        )}
+
+        {!generationError && (
+          <>
+            {searchParams.leadSaved ? (
+              <p className={styles.leadThanks}>Saved — thank you! We'll keep you posted as we add more destinations.</p>
+            ) : (
+              <form action={submitLead} className={styles.leadForm}>
+                <input type="hidden" name="climate" value={answers.climate} />
+                <input type="hidden" name="budget" value={answers.budget} />
+                <input type="hidden" name="visaPriority" value={answers.visaPriority} />
+                <input type="hidden" name="notes" value={answers.notes} />
+                <input type="hidden" name="recommendation" value={recommendationText || ''} />
+                <input type="hidden" name="destinations" value={shortlist.map((d) => d.name).join(', ')} />
+                <label className={styles.label} htmlFor="email">
+                  Want this saved, plus more matches as we add destinations?
+                </label>
+                <div className={styles.leadRow}>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    className={styles.emailInput}
+                  />
+                  <button type="submit" className={styles.leadSubmit}>Save My Match</button>
+                </div>
+                {searchParams.leadError === 'invalid_email' && (
+                  <p className={styles.leadErrorText}>That doesn&apos;t look like a valid email — mind trying again?</p>
+                )}
+                {searchParams.leadError === 'save_failed' && (
+                  <p className={styles.leadErrorText}>Something went wrong saving that — mind trying again?</p>
+                )}
+              </form>
+            )}
+          </>
         )}
 
         <div className={styles.actionsRow}>
