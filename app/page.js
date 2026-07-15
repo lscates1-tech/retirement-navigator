@@ -34,7 +34,7 @@ function PlaceholderScene({ label }) {
 }
 
 export default async function HomePage() {
-  const heroPhoto = await getPhotoById('oNPANO5dJM4'); // Bruges, Belgium — quaint European town
+  const heroPhoto = await getPhotoById('rZ_wAELz1HY'); // Alberobello, Puglia — southern Italy village
 
   const liveFeatured = await getFeaturedDestinations();
   const usingLiveData = Boolean(liveFeatured && liveFeatured.length);
@@ -90,7 +90,7 @@ export default async function HomePage() {
                 style={{ width: '100%', height: 190, objectFit: 'cover', borderRadius: 3, display: 'block' }}
               />
             ) : (
-              <PlaceholderScene label="Bruges, Belgium" />
+              <PlaceholderScene label="Alberobello, Italy" />
             )}
             <div className={styles.plateCap}>
               {heroPhoto ? (
@@ -101,7 +101,7 @@ export default async function HomePage() {
                   </a>
                 </>
               ) : (
-                'BRUGES, BELGIUM'
+                'ALBEROBELLO, ITALY'
               )}
             </div>
           </div>
