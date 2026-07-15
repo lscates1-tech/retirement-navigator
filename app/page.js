@@ -34,7 +34,7 @@ function PlaceholderScene({ label }) {
 }
 
 export default async function HomePage() {
-  const heroPhoto = await getDestinationPhoto('Algarve Portugal Ponta da Piedade cliffs');
+  const heroPhoto = await getPhotoById('oNPANO5dJM4'); // Bruges, Belgium — quaint European town
 
   const liveFeatured = await getFeaturedDestinations();
   const usingLiveData = Boolean(liveFeatured && liveFeatured.length);
@@ -90,7 +90,7 @@ export default async function HomePage() {
                 style={{ width: '100%', height: 190, objectFit: 'cover', borderRadius: 3, display: 'block' }}
               />
             ) : (
-              <PlaceholderScene label="Algarve, Portugal" />
+              <PlaceholderScene label="Bruges, Belgium" />
             )}
             <div className={styles.plateCap}>
               {heroPhoto ? (
@@ -101,7 +101,7 @@ export default async function HomePage() {
                   </a>
                 </>
               ) : (
-                'COASTLINE, WESTERN EUROPE'
+                'BRUGES, BELGIUM'
               )}
             </div>
           </div>
