@@ -9,6 +9,7 @@ export default function Nav() {
       </Link>
       <div className={styles.links}>
         <Link href="/match">Find Your Fit</Link>
+        <Link href="/recommend">Get a Recommendation</Link>
         <Link href="/destinations">Destinations</Link>
         <Link href="/compare">Compare</Link>
         <Link href="/calculator">Calculator</Link>
