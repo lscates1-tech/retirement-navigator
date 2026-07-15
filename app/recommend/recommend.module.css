@@ -1,0 +1,154 @@
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin: 0 0 10px;
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.sub {
+  color: var(--muted-label);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--linen);
+  border-radius: 6px;
+  padding: 28px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.select,
+.textarea {
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid #D9D6E8;
+  background: #fff;
+  font-size: 15px;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.charCount {
+  text-align: right;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--muted-label);
+}
+
+.submitBtn {
+  background: var(--ink);
+  color: var(--linen);
+  border: none;
+  padding: 15px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.submitBtn:hover {
+  background: #1F1E3D;
+}
+
+.resultCard {
+  background: var(--linen);
+  border-radius: 6px;
+  padding: 26px 28px;
+  margin-bottom: 24px;
+}
+
+.resultLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin-bottom: 14px;
+}
+
+.resultText {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.errorBox {
+  background: #F6E6E1;
+  border: 1px solid var(--stamp);
+  color: var(--stamp);
+  border-radius: 6px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.retakeLink {
+  color: var(--muted-label);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.retakeLink:hover {
+  color: var(--ink);
+}
+
+.calcCta {
+  background: var(--ink);
+  color: var(--linen);
+  padding: 13px 22px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.calcCta:hover {
+  background: #1F1E3D;
+}
