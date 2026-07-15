@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { saveLead } from '@/lib/leads';
+import { sendRecommendationEmail } from '@/lib/email';
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -36,6 +37,18 @@ export async function submitLead(formData) {
   } catch (err) {
     console.error('[recommend] lead save failed', err);
     saveFailed = true;
+  }
+
+  // Email is best-effort and deliberately doesn't affect the redirect
+  // outcome — the Notion save above is the source of truth for "did we
+  // capture this lead", so a Resend hiccup (e.g. not configured yet)
+  // shouldn't turn a successful save into an error message.
+  if (!saveFailed) {
+    try {
+      await sendRecommendationEmail({ to: email, recommendation, destinations });
+    } catch (err) {
+      console.error('[recommend] email send failed', err);
+    }
   }
 
   params.set(saveFailed ? 'leadError' : 'leadSaved', saveFailed ? 'save_failed' : '1');
