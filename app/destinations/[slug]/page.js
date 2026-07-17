@@ -49,6 +49,8 @@ const STAT_FIELDS_BY_TYPE = {
     { label: 'Visa duration', field: 'visaDuration' },
     { label: 'Visa difficulty', field: 'visaDifficulty' },
     { label: 'Tax system', field: 'taxSystem' },
+    { label: 'US tax treaty', field: 'usTaxTreaty' },
+    { label: 'Double taxation notes', field: 'doubleTaxationNotes' },
     { label: 'Currency', field: 'currency' },
     { label: 'Schengen member', field: 'schengenMember', format: 'boolean' },
   ],
