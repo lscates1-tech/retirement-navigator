@@ -17,7 +17,6 @@ export default function Footer() {
     >
       <span>&copy; {new Date().getFullYear()} Next Horizon — not a licensed tax or financial advisor</span>
       <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
-        <Link href="/how-to-use" style={{ color: '#A8A5C2', textDecoration: 'none' }}>How to Use This Site</Link>
         <Link href="/glossary" style={{ color: '#A8A5C2', textDecoration: 'none' }}>Glossary</Link>
         <Link href="/about" style={{ color: '#A8A5C2', textDecoration: 'none' }}>About</Link>
         <span className="mono">Data verified 2026</span>
