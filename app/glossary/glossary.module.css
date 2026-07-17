@@ -1,0 +1,84 @@
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin: 0 0 10px;
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.sub {
+  color: var(--muted-label);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.empty {
+  color: var(--muted-label);
+}
+
+.categorySection {
+  margin-bottom: 40px;
+}
+
+.categoryTitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+
+.termList {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.termCard {
+  scroll-margin-top: 90px;
+}
+
+.termName {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.termText {
+  color: #4A4740;
+  line-height: 1.65;
+  margin: 0;
+  font-size: 15px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
