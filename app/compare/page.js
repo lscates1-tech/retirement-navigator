@@ -147,6 +147,11 @@ export default async function ComparePage({ searchParams }) {
                     </tr>
 
                     <tr className={styles.sectionRow}><td colSpan={3}>Tax & Residency</td></tr>
+                    <tr>
+                      <td>Retirement income treatment</td>
+                      <td>{a.type === 'state' ? val(a.retirementIncomeTaxTreatment) : val(a.visaTaxTreatment)}</td>
+                      <td>{b.type === 'state' ? val(b.retirementIncomeTaxTreatment) : val(b.visaTaxTreatment)}</td>
+                    </tr>
                     {a.type === 'country' || b.type === 'country' ? (
                       <>
                         <tr>
@@ -197,11 +202,6 @@ export default async function ComparePage({ searchParams }) {
                           <td>Social Security taxed?</td>
                           <td>{a.type === 'state' ? val(a.ssTaxTreatment) : '—'}</td>
                           <td>{b.type === 'state' ? val(b.ssTaxTreatment) : '—'}</td>
-                        </tr>
-                        <tr>
-                          <td>Retirement income treatment</td>
-                          <td>{a.type === 'state' ? val(a.retirementIncomeTaxTreatment) : '—'}</td>
-                          <td>{b.type === 'state' ? val(b.retirementIncomeTaxTreatment) : '—'}</td>
                         </tr>
                         <tr>
                           <td>Property tax level</td>
