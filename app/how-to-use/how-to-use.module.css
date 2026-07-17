@@ -1,0 +1,78 @@
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin: 0 0 10px;
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.sub {
+  color: var(--muted-label);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  background: var(--linen);
+  border-radius: 6px;
+  padding: 24px 26px;
+}
+
+.question {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.answer {
+  color: #4A4740;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  font-size: 15px;
+}
+
+.cta {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--linen);
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cta:hover {
+  background: #1F1E3D;
+}
+
+.footnote {
+  margin-top: 32px;
+  color: var(--muted-label);
+  font-size: 14px;
+  line-height: 1.6;
+  font-style: italic;
+}
