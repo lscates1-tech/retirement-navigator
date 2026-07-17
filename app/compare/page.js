@@ -160,6 +160,16 @@ export default async function ComparePage({ searchParams }) {
                           <td>{b.type === 'country' ? val(b.taxSystem) : '—'}</td>
                         </tr>
                         <tr>
+                          <td>US tax treaty (avoids double taxation)</td>
+                          <td>{a.type === 'country' ? val(a.usTaxTreaty) : '—'}</td>
+                          <td>{b.type === 'country' ? val(b.usTaxTreaty) : '—'}</td>
+                        </tr>
+                        <tr>
+                          <td>Double taxation notes</td>
+                          <td>{a.type === 'country' ? val(a.doubleTaxationNotes) : '—'}</td>
+                          <td>{b.type === 'country' ? val(b.doubleTaxationNotes) : '—'}</td>
+                        </tr>
+                        <tr>
                           <td>Visa / residency path</td>
                           <td>{a.type === 'country' ? val(a.visaName) : '—'}</td>
                           <td>{b.type === 'country' ? val(b.visaName) : '—'}</td>
