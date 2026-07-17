@@ -8,6 +8,7 @@ export default function Nav() {
         Next <span className={styles.brass}>Horizon</span>
       </Link>
       <div className={styles.links}>
+        <Link href="/how-to-use">How to Use This Site</Link>
         <Link href="/match">Find Your Fit</Link>
         <Link href="/recommend">Get a Recommendation</Link>
         <Link href="/destinations">Destinations</Link>
