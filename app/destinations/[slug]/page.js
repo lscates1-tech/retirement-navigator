@@ -3,7 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
-import { addHeadingAnchors } from '@/lib/toc';
+import { buildSectionedArticle } from '@/lib/toc';
 import styles from './detail.module.css';
 import cityStyles from './cities.module.css';
 
@@ -113,8 +113,9 @@ export default async function DestinationDetailPage({ params }) {
 
   const typeLabel = TYPE_LABELS[d.type] || d.type;
   const statFields = [...(STAT_FIELDS_BY_TYPE[d.type] || []), ...SHARED_STAT_FIELDS];
-  const { html: articleHtml, toc } = addHeadingAnchors(
-    d.contentHtml || '<p>Full profile content is being finalized for this destination.</p>'
+  const { html: articleHtml, toc } = buildSectionedArticle(
+    d.contentHtml || '<h2>Profile in progress</h2><p>Full profile content is being finalized for this destination.</p>',
+    { openFirstN: 2 }
   );
 
   return (
