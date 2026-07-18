@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import AudioOverview from '@/components/AudioOverview';
 import styles from './how-to-use.module.css';
 
 export const metadata = {
@@ -72,6 +73,8 @@ export default function HowToUsePage() {
           There&apos;s more than one tool here because there&apos;s more than one way to approach
           this decision. Find the one below that matches where you actually are right now.
         </p>
+
+        <AudioOverview variant="card" label="Prefer to listen? A 90-second overview of this site" />
 
         <div className={styles.cards}>
           {SCENARIOS.map((s) => (
