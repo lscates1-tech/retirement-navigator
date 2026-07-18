@@ -18,6 +18,16 @@
   box-sizing: border-box;
 }
 
+/* Safety net: no single element (a wide table, a long unbroken string, etc.)
+   should ever be able to force the whole page wider than the screen and
+   trigger mobile browsers' forced-zoom-out behavior. Individual elements
+   that need horizontal scrolling (like tables) should still scroll
+   internally via their own overflow-x rule. */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--linen);
