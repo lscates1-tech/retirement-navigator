@@ -3,6 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
+import { addHeadingAnchors } from '@/lib/toc';
 import styles from './detail.module.css';
 import cityStyles from './cities.module.css';
 
@@ -112,6 +113,9 @@ export default async function DestinationDetailPage({ params }) {
 
   const typeLabel = TYPE_LABELS[d.type] || d.type;
   const statFields = [...(STAT_FIELDS_BY_TYPE[d.type] || []), ...SHARED_STAT_FIELDS];
+  const { html: articleHtml, toc } = addHeadingAnchors(
+    d.contentHtml || '<p>Full profile content is being finalized for this destination.</p>'
+  );
 
   return (
     <main id="main-content">
@@ -134,13 +138,24 @@ export default async function DestinationDetailPage({ params }) {
         <div className={styles.layout}>
           <article
             className={styles.article}
-            dangerouslySetInnerHTML={{
-              __html: d.contentHtml || '<p>Full profile content is being finalized for this destination.</p>',
-            }}
+            dangerouslySetInnerHTML={{ __html: articleHtml }}
           />
 
           <aside className={styles.sidebar}>
             <div className={styles.sidebarScroll}>
+            {toc.length > 2 && (
+              <nav className={styles.statCard} aria-label="Jump to section">
+                <div className={styles.statCardTitle}>Jump to section</div>
+                <ul className={styles.tocList}>
+                  {toc.map((t) => (
+                    <li key={t.id}>
+                      <a href={`#${t.id}`} className={styles.tocLink}>{t.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+
             <div className={styles.statCard}>
               <div className={styles.statCardTitle}>At a glance</div>
 
