@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import AudioOverview from '@/components/AudioOverview';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { getFeaturedDestinations } from '@/lib/notion';
 import styles from './page.module.css';
@@ -80,6 +81,8 @@ export default async function HomePage() {
                 Browse all destinations
               </Link>
             </div>
+
+            <AudioOverview variant="compact" label="Listen: What is Next Horizon? (1:32)" />
           </div>
 
           <div className={styles.plate}>
