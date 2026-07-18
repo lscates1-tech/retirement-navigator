@@ -1,0 +1,92 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border-soft, #C9C2AF);
+  border-radius: 999px;
+}
+
+.compact {
+  padding: 8px 16px 8px 8px;
+  max-width: 380px;
+  margin: 18px 0 6px;
+}
+
+.card {
+  padding: 14px 22px 14px 12px;
+  max-width: 480px;
+  border-radius: 12px;
+}
+
+.playBtn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--ink, #2B2A52);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-left: 2px; /* optical centering for the play triangle */
+}
+
+.card .playBtn {
+  width: 38px;
+  height: 38px;
+}
+
+.playBtn:hover {
+  background: var(--brass-on-light, #7E6025);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink, #2B2A52);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card .label {
+  font-size: 14.5px;
+}
+
+.time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-label, #5D5A51);
+  flex-shrink: 0;
+}
+
+.track {
+  height: 4px;
+  background: #EFEAE0;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.trackFill {
+  height: 100%;
+  background: var(--brass, #B68A35);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
