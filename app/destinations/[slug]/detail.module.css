@@ -69,6 +69,7 @@
   grid-template-columns: 1fr 320px;
   gap: 48px;
   align-items: start;
+  min-width: 0;
 }
 
 @media (max-width: 800px) {
@@ -81,6 +82,7 @@
   color: #3A3830;
   line-height: 1.7;
   font-size: 19px;
+  min-width: 0;
 }
 
 .article h2 {
