@@ -85,63 +85,16 @@
   min-width: 0;
 }
 
-.article details {
-  margin-top: 40px;
-  border-bottom: 1px solid #E4E1D6;
-  padding-bottom: 24px;
-}
-
-.article details:first-of-type {
-  margin-top: 0;
-}
-
-.article summary {
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.article summary::-webkit-details-marker {
-  display: none;
-}
-
-.article summary h2 {
-  margin-top: 0;
-  margin-bottom: 0;
-  flex: 1;
-}
-
-.article summary::after {
-  content: '+';
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 24px;
-  line-height: 1;
-  color: var(--brass-on-light, #7E6025);
-  flex-shrink: 0;
-}
-
-.article details[open] summary::after {
-  content: '\2212';
-}
-
-.article summary:hover::after {
-  opacity: 0.7;
-}
-
-.article .section-body {
-  padding-top: 4px;
-  scroll-margin-top: 24px;
-}
-
 .article h2 {
   font-size: 28.5px;
-  margin-top: 0;
+  margin-top: 40px;
   margin-bottom: 12px;
   color: #2B2A52;
   scroll-margin-top: 24px;
+}
+
+.article h2:first-child {
+  margin-top: 0;
 }
 
 .article h3 {
