@@ -16,6 +16,7 @@ export default function Nav() {
           <Link href="/compare">Compare</Link>
           <Link href="/calculator">Calculator</Link>
           <Link href="/guides">Guides</Link>
+          <Link href="/insights">Insights</Link>
         </div>
         <form action="/search" method="GET" className={styles.searchForm} role="search">
           <input
