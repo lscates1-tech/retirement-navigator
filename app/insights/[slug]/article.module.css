@@ -1,0 +1,268 @@
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.metaRow {
+  margin-bottom: 24px;
+}
+
+.backLink {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--muted-label);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--brass-on-light);
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin: 0 0 10px;
+}
+
+.category {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 16px;
+  max-width: 820px;
+}
+
+.subtitle {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: #4A4740;
+  line-height: 1.5;
+  margin: 0 0 20px;
+  max-width: 760px;
+}
+
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--muted-label);
+  margin-bottom: 28px;
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.heroImg {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  display: block;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 48px;
+  align-items: start;
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article {
+  color: #3A3830;
+  line-height: 1.75;
+  font-size: 19px;
+  min-width: 0;
+}
+
+.article h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 27px;
+  font-weight: 500;
+  margin-top: 44px;
+  margin-bottom: 14px;
+  color: #2B2A52;
+  scroll-margin-top: 24px;
+}
+
+.article h2:first-child {
+  margin-top: 0;
+}
+
+.article h3 {
+  font-size: 21px;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  color: #2B2A52;
+}
+
+.article p {
+  margin: 0 0 20px;
+}
+
+.article ul, .article ol {
+  margin: 0 0 20px;
+  padding-left: 24px;
+}
+
+.article li {
+  margin-bottom: 10px;
+}
+
+.article strong {
+  color: #2B2A52;
+}
+
+.article table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 17px;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+@media (min-width: 801px) {
+  .sidebar {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.tocCard, .shareCard {
+  background: var(--linen);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.tocTitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin-bottom: 12px;
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tocLink {
+  display: block;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #5C5A54;
+  text-decoration: none;
+  border-bottom: 1px solid #E4E1D6;
+}
+
+.tocLink:hover {
+  color: #2B2A52;
+}
+
+.tocList li:last-child .tocLink {
+  border-bottom: none;
+}
+
+.shareRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shareLink {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.shareLink:hover {
+  color: var(--brass-on-light);
+}
+
+.relatedSection {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.relatedTitle {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 24px;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 750px) {
+  .relatedGrid { grid-template-columns: 1fr; }
+}
+
+.relatedCard {
+  text-decoration: none;
+  display: block;
+  background: var(--linen);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.relatedCard h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.relatedCard p {
+  font-size: 14px;
+  color: #4A4740;
+  margin: 0;
+  line-height: 1.5;
+}
