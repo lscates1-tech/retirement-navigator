@@ -15,6 +15,7 @@ const SECTIONS = [
   { key: 'destinations', label: 'Destinations' },
   { key: 'cities', label: 'Cities & Regions' },
   { key: 'guides', label: 'Guides' },
+  { key: 'insights', label: 'Insights' },
   { key: 'glossary', label: 'Glossary' },
 ];
 
