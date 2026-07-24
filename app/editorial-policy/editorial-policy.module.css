@@ -1,0 +1,154 @@
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 100px;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brass-on-light);
+  margin: 0 0 12px;
+}
+
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 32px;
+  line-height: 1.1;
+}
+
+.lead {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.body {
+  font-size: 17px;
+  color: #3A3830;
+  line-height: 1.75;
+  margin: 0 0 24px;
+}
+
+.block {
+  margin: 44px 0;
+  background: var(--linen);
+  border-radius: 10px;
+  padding: 32px 36px;
+}
+
+.h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+
+.checkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkList li {
+  padding-left: 28px;
+  position: relative;
+  font-size: 16px;
+  color: #3A3830;
+  line-height: 1.5;
+}
+
+.checkList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--brass-on-light);
+  font-weight: 700;
+}
+
+.splitRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 44px 0;
+}
+
+@media (max-width: 620px) {
+  .splitRow {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.splitCol {
+  border-left: 3px solid var(--brass);
+  padding-left: 20px;
+}
+
+.plainList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plainList li {
+  font-size: 16px;
+  color: #3A3830;
+}
+
+.valuesSection {
+  margin: 52px 0;
+}
+
+.valuesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.valueBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--brass);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.closing {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 48px 0 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.backLink {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: var(--brass-on-light);
+}
