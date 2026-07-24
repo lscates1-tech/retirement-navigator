@@ -1,4 +1,5 @@
 import { getPublishedDestinations, getCitiesRegions, getGuideHub } from '@/lib/notion';
+import { getInsightsArticles } from '@/lib/insights';
 
 const BASE_URL = 'https://nexthorizon.life';
 
@@ -20,6 +21,7 @@ export default async function sitemap() {
     { url: `${BASE_URL}/compare`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/calculator`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guides`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/insights`, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE_URL}/about`, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${BASE_URL}/guides/slow-travel/destinations`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/guides/tax-residency-rotation/thresholds`, changeFrequency: 'monthly', priority: 0.6 },
@@ -75,5 +77,20 @@ export default async function sitemap() {
     console.error('[sitemap] failed to fetch guide topics', err);
   }
 
-  return [...staticRoutes, ...destinationRoutes, ...cityRoutes, ...guideTopicRoutes];
+  // Insights articles, pulled live.
+  let insightsRoutes = [];
+  try {
+    const articles = await getInsightsArticles();
+    if (articles) {
+      insightsRoutes = articles.map((a) => ({
+        url: `${BASE_URL}/insights/${a.slug}`,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      }));
+    }
+  } catch (err) {
+    console.error('[sitemap] failed to fetch insights articles', err);
+  }
+
+  return [...staticRoutes, ...destinationRoutes, ...cityRoutes, ...guideTopicRoutes, ...insightsRoutes];
 }
