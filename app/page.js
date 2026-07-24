@@ -203,6 +203,18 @@ export default async function HomePage() {
               See U.S. state picks →
             </Link>
           </div>
+          <div className={styles.path}>
+            <div className={styles.pathTag}>INSIGHTS</div>
+            <h3>Next Horizon Insights</h3>
+            <p>
+              Explore thoughtful and evidence-based articles on relocation, retirement, slow
+              travel, healthcare, finances, culture, community, and designing your next chapter
+              of life.
+            </p>
+            <Link href="/insights" className={styles.pathLink}>
+              Explore Articles →
+            </Link>
+          </div>
         </div>
       </div>
 
