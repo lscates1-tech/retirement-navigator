@@ -70,9 +70,15 @@ export default async function InsightArticlePage({ params }) {
         <h1 className={styles.title}>{article.title}</h1>
         {article.subtitle && <p className={styles.subtitle}>{article.subtitle}</p>}
 
+        <div className={styles.attribution}>
+          <span className={styles.attributionLabel}>Next Horizon Insights</span>
+          <span className={styles.attributionText}>
+            Research-driven editorial content curated by Laura Scates and developed using modern
+            AI-assisted research and writing tools.
+          </span>
+        </div>
+
         <div className={styles.byline}>
-          <span>By {article.author}</span>
-          <span className={styles.dot}>·</span>
           <span>{formatDate(article.publishDate)}</span>
           <span className={styles.dot}>·</span>
           <span>{readingTime} min read</span>
@@ -133,6 +139,17 @@ export default async function InsightArticlePage({ params }) {
             </div>
           </section>
         )}
+        <div className={styles.editorialFooter}>
+          <h2 className={styles.editorialFooterTitle}>About Next Horizon Insights</h2>
+          <p className={styles.editorialFooterText}>
+            Next Horizon Insights combines human judgment, thoughtful research, and responsible
+            AI-assisted writing tools to help readers make informed decisions about retirement,
+            relocation, slow travel, and designing their next chapter of life.
+          </p>
+          <Link href="/editorial-policy" className={styles.editorialFooterLink}>
+            Read our Editorial Philosophy →
+          </Link>
+        </div>
       </div>
       <Footer />
     </main>
