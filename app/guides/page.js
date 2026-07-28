@@ -4,7 +4,10 @@ import Footer from '@/components/Footer';
 import { getGuideHub } from '@/lib/notion';
 import styles from './guides.module.css';
 
-export const dynamic = 'force-dynamic';
+// Cache and revalidate at most once per hour — decouples visitor traffic
+// from Notion's ~3 req/sec rate limit. Edits in Notion show up within an
+// hour.
+export const revalidate = 3600;
 
 export const metadata = {
   title: 'Guides — Slow Travel, Tax-Residency Rotation & Tax Strategy | Next Horizon',
