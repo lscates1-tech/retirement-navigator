@@ -7,10 +7,12 @@ import { buildSectionedArticle } from '@/lib/toc';
 import styles from './detail.module.css';
 import cityStyles from './cities.module.css';
 
-// Fetch fresh on every request for now — matches the calculator's approach
-// and makes it easy to confirm Notion edits show up immediately. Switch to
-// `export const revalidate = 3600;` once this is confirmed working well.
-export const dynamic = 'force-dynamic';
+// Cache each destination page and revalidate at most once per hour. This
+// decouples visitor traffic from Notion API calls (Notion's rate limit is
+// only ~3 req/sec per integration) — a traffic spike now hits the Vercel
+// cache instead of Notion directly. Edits in Notion show up within an hour;
+// use Vercel's on-demand revalidation if you need changes to appear sooner.
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }) {
   const d = await getDestinationBySlug(params.slug);
