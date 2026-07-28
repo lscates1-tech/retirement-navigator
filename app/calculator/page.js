@@ -2,10 +2,10 @@ import { getCountries, getStates } from '@/lib/notion';
 import { COUNTRY_DEFAULTS, STATE_DEFAULTS } from '@/lib/destinationDefaults';
 import CalculatorClient from './CalculatorClient';
 
-// Fetch fresh on every request for now (easier to debug, and matches the
-// "live updates" goal). Once confirmed working, this can switch to
-// `export const revalidate = 3600;` to cache for an hour instead.
-export const dynamic = 'force-dynamic';
+// Cache and revalidate at most once per hour, same reasoning as the
+// destination pages — decouples visitor traffic from Notion's ~3 req/sec
+// rate limit. Edits in Notion show up within an hour.
+export const revalidate = 3600;
 
 export const metadata = {
   title: 'Budget Comparison Calculator | Next Horizon',
