@@ -1,4 +1,5 @@
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   title: 'Next Horizon — Decide where, and how, to live',
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         {children}
+        <Analytics />
       </body>
     </html>
   );
