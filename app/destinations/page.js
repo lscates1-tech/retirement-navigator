@@ -4,7 +4,10 @@ import Footer from '@/components/Footer';
 import { getPublishedDestinations } from '@/lib/notion';
 import styles from './list.module.css';
 
-export const dynamic = 'force-dynamic';
+// Cache and revalidate at most once per hour — decouples visitor traffic
+// from Notion's ~3 req/sec rate limit. Edits in Notion show up within an
+// hour.
+export const revalidate = 3600;
 
 export const metadata = {
   title: 'All Destinations — Countries & U.S. States | Next Horizon',
