@@ -435,36 +435,38 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
             </p>
 
             {taxResult && (
-              <div className={styles.taxResultCard}>
-                <div className={styles.taxResultRow}>
-                  <span>{taxCountry === 'Spain' ? 'National (ISGF + IRPF est.)' : 'Federal (est.)'}</span>
-                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.nationalTax.toLocaleString()}</strong>
-                </div>
-                <div className={styles.taxResultRow}>
-                  <span>{taxCountry === 'Spain' ? 'Regional wealth tax' : 'State income tax'}</span>
-                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.regionalTax.toLocaleString()}</strong>
+              <>
+                <div className={styles.taxResultCard}>
+                  <div className={styles.taxResultRow}>
+                    <span>{taxCountry === 'Spain' ? 'National (ISGF + IRPF est.)' : 'Federal (est.)'}</span>
+                    <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.nationalTax.toLocaleString()}</strong>
+                  </div>
+                  <div className={styles.taxResultRow}>
+                    <span>{taxCountry === 'Spain' ? 'Regional wealth tax' : 'State income tax'}</span>
+                    <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.regionalTax.toLocaleString()}</strong>
+                  </div>
+                  <div className={styles.taxResultRow} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 10, marginTop: 4 }}>
+                    <span>Total tax drag</span>
+                    <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.totalTaxDrag.toLocaleString()}</strong>
+                  </div>
+                  {taxResult.breakdownDetail.totalSavingsComparedToHighestZone > 0 && (
+                    <div className={styles.taxSavingsNote}>
+                      Saving {taxResult.currency === 'EUR' ? '\u20AC' : '$'}
+                      {taxResult.breakdownDetail.totalSavingsComparedToHighestZone.toLocaleString()} vs. the highest-tax zone
+                      at these same income/wealth figures.
+                    </div>
+                  )}
+                  {taxResult.notes.map((n, i) => (
+                    <p key={i} className={styles.disclaimer} style={{ marginTop: i === 0 ? 14 : 4 }}>{n}</p>
+                  ))}
                 </div>
                 {taxCountry === 'Spain' && (
-                  <div className={styles.taxMicroDisclaimer}>
-                    Estimates assume liquid investment assets. Spanish tax residents can additionally deduct up to
-                    €300,000 (€600,000 for couples) for a primary residence.
-                  </div>
+                  <p className={styles.taxMicroDisclaimer}>
+                    *Tax estimates assume liquid investment assets and standard filing status. Spanish tax residents
+                    can additionally deduct up to €300,000 for a primary residence.
+                  </p>
                 )}
-                <div className={styles.taxResultRow} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 10, marginTop: 4 }}>
-                  <span>Total tax drag</span>
-                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.totalTaxDrag.toLocaleString()}</strong>
-                </div>
-                {taxResult.breakdownDetail.totalSavingsComparedToHighestZone > 0 && (
-                  <div className={styles.taxSavingsNote}>
-                    Saving {taxResult.currency === 'EUR' ? '\u20AC' : '$'}
-                    {taxResult.breakdownDetail.totalSavingsComparedToHighestZone.toLocaleString()} vs. the highest-tax zone
-                    at these same income/wealth figures.
-                  </div>
-                )}
-                {taxResult.notes.map((n, i) => (
-                  <p key={i} className={styles.disclaimer} style={{ marginTop: i === 0 ? 14 : 4 }}>{n}</p>
-                ))}
-              </div>
+              </>
             )}
           </div>
         )}
