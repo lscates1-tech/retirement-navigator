@@ -265,6 +265,13 @@
   font-size: 16px;
   white-space: nowrap;
 }
+.taxMicroDisclaimer {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--muted-label);
+  line-height: 1.45;
+  padding: 2px 0 6px;
+}
 .taxSavingsNote {
   font-size: 14px;
   color: #1B7A43;
