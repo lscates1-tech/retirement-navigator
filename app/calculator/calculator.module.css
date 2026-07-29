@@ -228,3 +228,47 @@
   color: var(--muted-label);
   margin-left: 4px;
 }
+
+.taxFieldsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 480px) {
+  .taxFieldsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+.taxZoneHint {
+  font-size: 14px;
+  color: var(--muted-label);
+  line-height: 1.5;
+  margin: 0 0 4px;
+}
+.taxResultCard {
+  background: var(--pale-alt);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.taxResultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 15px;
+  padding: 4px 0;
+  gap: 12px;
+}
+.taxResultRow strong {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.taxSavingsNote {
+  font-size: 14px;
+  color: #1B7A43;
+  font-weight: 500;
+  margin-top: 10px;
+  line-height: 1.5;
+}
