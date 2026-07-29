@@ -4,7 +4,36 @@ import { useState, useMemo } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { COUPLE_MULTIPLIER } from '@/lib/destinationDefaults';
+import { calculateRegionalTax, SPAIN_TAX_REGIONS, US_TAX_REGIONS } from '@/lib/regionalTaxCalculator';
 import styles from './calculator.module.css';
+
+// Destination -> tax engine wiring. Only Spain and US states are supported by the
+// regional tax engine today; everything else simply hides the Tax Impact section.
+// For the six states we have real per-state figures for, map name -> engine key so
+// the zone dropdown can auto-select a sensible default and use the precise state
+// rate instead of the zone's generic representative state.
+const US_STATE_TO_ZONE = {
+  Texas: 'no_state_tax',
+  Florida: 'no_state_tax',
+  'North Carolina': 'moderate_tax',
+  Colorado: 'moderate_tax',
+  California: 'high_tax',
+  'New York': 'high_tax',
+};
+const US_STATE_TO_KEY = {
+  Texas: 'TX',
+  Florida: 'FL',
+  'North Carolina': 'NC',
+  Colorado: 'CO',
+  California: 'CA',
+  'New York': 'NY',
+};
+
+function taxCountryFor(destination, stateNames) {
+  if (destination === 'Spain') return 'Spain';
+  if (stateNames.includes(destination)) return 'United States';
+  return null;
+}
 
 const CATEGORY_FIELDS = [
   { key: 'housing', label: 'Housing (rent/mortgage)' },
@@ -128,9 +157,25 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
     setHousehold(h);
     setTargetExpenses((prev) => ({ ...applyHousehold(ALL_DEFAULTS[destination], h, own), ...pickManual(prev) }));
   }
+  // Tax Impact -- income, net worth, and regional tax zone for the destination
+  // being considered. Only wired up for Spain and US states; other destinations
+  // simply hide this section (see taxCountryFor).
+  const [annualIncome, setAnnualIncome] = useState('');
+  const [netWorth, setNetWorth] = useState('');
+  function defaultZoneFor(name) {
+    if (name === 'Spain') return 'standard';
+    return US_STATE_TO_ZONE[name] || 'moderate_tax';
+  }
+
+  const [taxRegion, setTaxRegion] = useState(defaultZoneFor(COUNTRY_NAMES[0] || STATE_NAMES[0]));
+  const [spainSubRegion, setSpainSubRegion] = useState('catalonia'); // Catalonia vs Valencia, only shown for Spain's High-Tax Zone
+
+  const taxCountry = useMemo(() => taxCountryFor(destination, STATE_NAMES), [destination, STATE_NAMES]);
+
   function handleDestinationChange(name) {
     setDestination(name);
     setTargetExpenses((prev) => ({ ...applyHousehold(ALL_DEFAULTS[name], household, own), ...pickManual(prev) }));
+    setTaxRegion(defaultZoneFor(name));
   }
   function handleOwnChange(o) {
     setOwn(o);
@@ -169,6 +214,37 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   );
 
   const monthlyDiff = currentTotalOut - targetTotalOut;
+
+  const taxResult = useMemo(() => {
+    if (!taxCountry) return null;
+    const income = num(annualIncome);
+    const wealth = num(netWorth);
+    if (income <= 0 && wealth <= 0) return null;
+
+    if (taxCountry === 'Spain') {
+      return calculateRegionalTax({
+        country: 'Spain',
+        taxRegion,
+        regionOverride: spainSubRegion,
+        netWealth: wealth,
+        // No dedicated "primary residence value" field yet -- Total Net Worth / Assets
+        // is treated as the full wealth figure, so the EUR 300k residence allowance
+        // isn't applied separately. This slightly overstates Spain wealth tax for
+        // homeowners; add a residence-value field here if that precision matters.
+        primaryResidenceValue: 0,
+        annualIncome: income,
+        filers: household,
+      });
+    }
+
+    return calculateRegionalTax({
+      country: 'United States',
+      taxRegion,
+      taxableIncome: income,
+      stateOverride: US_STATE_TO_KEY[destination],
+      filingStatus: household === 2 ? 'mfj' : 'single',
+    });
+  }, [taxCountry, taxRegion, spainSubRegion, annualIncome, netWorth, household, own, destination]);
 
   return (
     <main id="main-content">
@@ -307,6 +383,83 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
             style={{ width: '100%' }}
           />
         </div>
+
+        {taxCountry && (
+          <div className={styles.block}>
+            <div className={styles.blockTitle} style={{ marginBottom: 12 }}>
+              Tax Impact for {destination}
+            </div>
+            <div className={styles.taxFieldsGrid}>
+              <div>
+                <label className={styles.label}>Annual income ({taxCountry === 'Spain' ? 'EUR' : 'USD'})</label>
+                <input
+                  className={styles.input}
+                  type="number"
+                  value={annualIncome}
+                  onChange={(e) => setAnnualIncome(e.target.value)}
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label className={styles.label}>Total net worth / assets ({taxCountry === 'Spain' ? 'EUR' : 'USD'})</label>
+                <input
+                  className={styles.input}
+                  type="number"
+                  value={netWorth}
+                  onChange={(e) => setNetWorth(e.target.value)}
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label className={styles.label}>Tax zone</label>
+                <select className={styles.select} value={taxRegion} onChange={(e) => setTaxRegion(e.target.value)}>
+                  {Object.entries(taxCountry === 'Spain' ? SPAIN_TAX_REGIONS : US_TAX_REGIONS).map(([key, r]) => (
+                    <option key={key} value={key}>{r.label}</option>
+                  ))}
+                </select>
+              </div>
+              {taxCountry === 'Spain' && taxRegion === 'high_tax' && (
+                <div>
+                  <label className={styles.label}>Region</label>
+                  <select className={styles.select} value={spainSubRegion} onChange={(e) => setSpainSubRegion(e.target.value)}>
+                    <option value="catalonia">Catalonia (EUR 500,000 allowance)</option>
+                    <option value="valencia">Valencia (EUR 1,000,000 allowance)</option>
+                  </select>
+                </div>
+              )}
+            </div>
+            <p className={styles.taxZoneHint}>
+              {taxCountry === 'Spain' ? SPAIN_TAX_REGIONS[taxRegion]?.description : US_TAX_REGIONS[taxRegion]?.description}
+            </p>
+
+            {taxResult && (
+              <div className={styles.taxResultCard}>
+                <div className={styles.taxResultRow}>
+                  <span>{taxCountry === 'Spain' ? 'National (ISGF + IRPF est.)' : 'Federal (est.)'}</span>
+                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.nationalTax.toLocaleString()}</strong>
+                </div>
+                <div className={styles.taxResultRow}>
+                  <span>{taxCountry === 'Spain' ? 'Regional wealth tax' : 'State income tax'}</span>
+                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.regionalTax.toLocaleString()}</strong>
+                </div>
+                <div className={styles.taxResultRow} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 10, marginTop: 4 }}>
+                  <span>Total tax drag</span>
+                  <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.totalTaxDrag.toLocaleString()}</strong>
+                </div>
+                {taxResult.breakdownDetail.totalSavingsComparedToHighestZone > 0 && (
+                  <div className={styles.taxSavingsNote}>
+                    Saving {taxResult.currency === 'EUR' ? '\u20AC' : '$'}
+                    {taxResult.breakdownDetail.totalSavingsComparedToHighestZone.toLocaleString()} vs. the highest-tax zone
+                    at these same income/wealth figures.
+                  </div>
+                )}
+                {taxResult.notes.map((n, i) => (
+                  <p key={i} className={styles.disclaimer} style={{ marginTop: i === 0 ? 14 : 4 }}>{n}</p>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className={styles.results}>
           <div className={styles.compareHeadline}>
