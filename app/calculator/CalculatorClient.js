@@ -227,10 +227,12 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
         taxRegion,
         regionOverride: spainSubRegion,
         netWealth: wealth,
-        // No dedicated "primary residence value" field yet -- Total Net Worth / Assets
-        // is treated as the full wealth figure, so the EUR 300k residence allowance
-        // isn't applied separately. This slightly overstates Spain wealth tax for
-        // homeowners; add a residence-value field here if that precision matters.
+        // Deliberate product decision (not a gap): no dedicated "primary residence
+        // value" field, to keep the calculator light and fast. Total Net Worth /
+        // Assets is treated as liquid/investable assets only -- what most retirees
+        // actually care about when running these projections -- so the EUR 300k/600k
+        // residence allowance is intentionally not modeled here. Surfaced to the user
+        // via the micro-disclaimer under the Wealth Tax output below.
         primaryResidenceValue: 0,
         annualIncome: income,
         filers: household,
@@ -442,6 +444,12 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                   <span>{taxCountry === 'Spain' ? 'Regional wealth tax' : 'State income tax'}</span>
                   <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.regionalTax.toLocaleString()}</strong>
                 </div>
+                {taxCountry === 'Spain' && (
+                  <div className={styles.taxMicroDisclaimer}>
+                    Estimates assume liquid investment assets. Spanish tax residents can additionally deduct up to
+                    €300,000 (€600,000 for couples) for a primary residence.
+                  </div>
+                )}
                 <div className={styles.taxResultRow} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 10, marginTop: 4 }}>
                   <span>Total tax drag</span>
                   <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.totalTaxDrag.toLocaleString()}</strong>
