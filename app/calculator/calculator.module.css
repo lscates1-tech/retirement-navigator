@@ -270,7 +270,7 @@
   font-style: italic;
   color: var(--muted-label);
   line-height: 1.45;
-  padding: 2px 0 6px;
+  margin: 8px 0 0;
 }
 .taxSavingsNote {
   font-size: 14px;
