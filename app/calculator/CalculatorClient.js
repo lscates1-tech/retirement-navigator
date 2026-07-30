@@ -4,14 +4,21 @@ import { useState, useMemo } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { COUPLE_MULTIPLIER } from '@/lib/destinationDefaults';
-import { calculateRegionalTax, SPAIN_TAX_REGIONS, US_TAX_REGIONS } from '@/lib/regionalTaxCalculator';
+import {
+  calculateRegionalTax,
+  SPAIN_TAX_REGIONS,
+  US_TAX_REGIONS,
+  ITALY_TAX_REGIONS,
+  GREECE_TAX_REGIONS,
+} from '@/lib/regionalTaxCalculator';
 import styles from './calculator.module.css';
 
-// Destination -> tax engine wiring. Only Spain and US states are supported by the
-// regional tax engine today; everything else simply hides the Tax Impact section.
-// For the six states we have real per-state figures for, map name -> engine key so
-// the zone dropdown can auto-select a sensible default and use the precise state
-// rate instead of the zone's generic representative state.
+// Destination -> tax engine wiring. Spain, the US, Italy, and Greece are
+// supported by the regional tax engine today; everything else simply hides
+// the Tax Impact section. For the six US states we have real per-state
+// figures for, map name -> engine key so the zone dropdown can auto-select a
+// sensible default and use the precise state rate instead of the zone's
+// generic representative state.
 const US_STATE_TO_ZONE = {
   Texas: 'no_state_tax',
   Florida: 'no_state_tax',
@@ -29,8 +36,40 @@ const US_STATE_TO_KEY = {
   'New York': 'NY',
 };
 
+// Per-country metadata driving the generic Tax Impact UI below: which region
+// options to list, what to call the picker, what currency to show, and the
+// row labels for the results card. Adding a new country to the engine means
+// adding one entry here (plus a branch in taxCountryFor and the taxResult
+// useMemo) rather than threading new ternaries through the JSX.
+const TAX_COUNTRY_META = {
+  Spain: {
+    regions: SPAIN_TAX_REGIONS,
+    zoneLabel: 'Tax zone',
+    currency: 'EUR',
+    rowLabels: { national: 'National (ISGF + IRPF est.)', regional: 'Regional wealth tax' },
+  },
+  'United States': {
+    regions: US_TAX_REGIONS,
+    zoneLabel: 'Tax zone',
+    currency: 'USD',
+    rowLabels: { national: 'Federal (est.)', regional: 'State income tax' },
+  },
+  Italy: {
+    regions: ITALY_TAX_REGIONS,
+    zoneLabel: 'Tax Zone / Strategy',
+    currency: 'EUR',
+    rowLabels: { national: 'National (IRPEF / Flat Tax)', regional: 'Regional & municipal surtax' },
+  },
+  Greece: {
+    regions: GREECE_TAX_REGIONS,
+    zoneLabel: 'Tax Regime',
+    currency: 'EUR',
+    rowLabels: { national: 'National (Income Tax / Flat Tax)', regional: 'Regional tax' },
+  },
+};
+
 function taxCountryFor(destination, stateNames) {
-  if (destination === 'Spain') return 'Spain';
+  if (TAX_COUNTRY_META[destination]) return destination;
   if (stateNames.includes(destination)) return 'United States';
   return null;
 }
@@ -172,6 +211,8 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   const [netWorth, setNetWorth] = useState('');
   function defaultZoneFor(name) {
     if (name === 'Spain') return 'standard';
+    if (name === 'Italy') return 'standard';
+    if (name === 'Greece') return 'standard';
     return US_STATE_TO_ZONE[name] || 'moderate_tax';
   }
 
@@ -249,6 +290,14 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
         primaryResidenceValue: 0,
         annualIncome: income,
         filers: household,
+      });
+    }
+
+    if (taxCountry === 'Italy' || taxCountry === 'Greece') {
+      return calculateRegionalTax({
+        country: taxCountry,
+        taxRegion,
+        taxableIncome: income,
       });
     }
 
@@ -403,7 +452,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
             </div>
             <div className={styles.taxFieldsGrid}>
               <div>
-                <label className={styles.label}>Annual income ({taxCountry === 'Spain' ? 'EUR' : 'USD'})</label>
+                <label className={styles.label}>Annual income ({TAX_COUNTRY_META[taxCountry].currency})</label>
                 <input
                   className={styles.input}
                   type="number"
@@ -413,7 +462,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                 />
               </div>
               <div>
-                <label className={styles.label}>Total net worth / assets ({taxCountry === 'Spain' ? 'EUR' : 'USD'})</label>
+                <label className={styles.label}>Total net worth / assets ({TAX_COUNTRY_META[taxCountry].currency})</label>
                 <input
                   className={styles.input}
                   type="number"
@@ -423,9 +472,9 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                 />
               </div>
               <div>
-                <label className={styles.label}>Tax zone</label>
+                <label className={styles.label}>{TAX_COUNTRY_META[taxCountry].zoneLabel}</label>
                 <select className={styles.select} value={taxRegion} onChange={(e) => setTaxRegion(e.target.value)}>
-                  {Object.entries(taxCountry === 'Spain' ? SPAIN_TAX_REGIONS : US_TAX_REGIONS).map(([key, r]) => (
+                  {Object.entries(TAX_COUNTRY_META[taxCountry].regions).map(([key, r]) => (
                     <option key={key} value={key}>{r.label}</option>
                   ))}
                 </select>
@@ -441,18 +490,18 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
               )}
             </div>
             <p className={styles.taxZoneHint}>
-              {taxCountry === 'Spain' ? SPAIN_TAX_REGIONS[taxRegion]?.description : US_TAX_REGIONS[taxRegion]?.description}
+              {TAX_COUNTRY_META[taxCountry].regions[taxRegion]?.description}
             </p>
 
             {taxResult && (
               <>
                 <div className={styles.taxResultCard}>
                   <div className={styles.taxResultRow}>
-                    <span>{taxCountry === 'Spain' ? 'National (ISGF + IRPF est.)' : 'Federal (est.)'}</span>
+                    <span>{TAX_COUNTRY_META[taxCountry].rowLabels.national}</span>
                     <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.nationalTax.toLocaleString()}</strong>
                   </div>
                   <div className={styles.taxResultRow}>
-                    <span>{taxCountry === 'Spain' ? 'Regional wealth tax' : 'State income tax'}</span>
+                    <span>{TAX_COUNTRY_META[taxCountry].rowLabels.regional}</span>
                     <strong>{taxResult.currency === 'EUR' ? '\u20AC' : '$'}{taxResult.breakdownDetail.regionalTax.toLocaleString()}</strong>
                   </div>
                   <div className={styles.taxResultRow} style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 10, marginTop: 4 }}>
@@ -462,8 +511,8 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                   {taxResult.breakdownDetail.totalSavingsComparedToHighestZone > 0 && (
                     <div className={styles.taxSavingsNote}>
                       Saving {taxResult.currency === 'EUR' ? '\u20AC' : '$'}
-                      {taxResult.breakdownDetail.totalSavingsComparedToHighestZone.toLocaleString()} vs. the highest-tax zone
-                      at these same income/wealth figures.
+                      {taxResult.breakdownDetail.totalSavingsComparedToHighestZone.toLocaleString()}/year vs. the
+                      standard zone at these same income/wealth figures.
                     </div>
                   )}
                   {taxResult.notes.map((n, i) => (
