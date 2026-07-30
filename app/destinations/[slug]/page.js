@@ -182,9 +182,11 @@ export default async function DestinationDetailPage({ params }) {
                 <StatRow label="Transportation" value={d.budgetDefaults.transportation ? `$${d.budgetDefaults.transportation}` : ''} />
                 <StatRow label="Dining/entertainment" value={d.budgetDefaults.dining ? `$${d.budgetDefaults.dining}` : ''} />
                 <StatRow label="Utilities" value={d.budgetDefaults.utilities ? `$${d.budgetDefaults.utilities}` : ''} />
-                {d.budgetDefaults.confidence && (
-                  <div className={styles.confidenceNote}>Data last verified: {d.budgetDefaults.confidence}</div>
-                )}
+                {d.budgetDefaults.lastVerified ? (
+                  <div className={styles.confidenceNote}>Data last verified: {d.budgetDefaults.lastVerified}</div>
+                ) : d.budgetDefaults.confidence ? (
+                  <div className={styles.confidenceNote}>Data confidence: {d.budgetDefaults.confidence}</div>
+                ) : null}
               </div>
             ) : null}
 
