@@ -127,15 +127,14 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   const STATE_NAMES = useMemo(() => Object.keys(stateDefaults), [stateDefaults]);
 
   // A destination passed in via ?destination= (e.g. from a TaxStrategyCard CTA)
-  // wins over the default first-country pick, but only if it's a real,
-  // known destination -- an unrecognized or missing value just falls through
-  // to the existing default silently.
-  const fallbackDestination = COUNTRY_NAMES[0] || STATE_NAMES[0];
+  // pre-selects that destination. Otherwise the panel starts with no
+  // destination chosen at all -- an empty dropdown and blank expenses --
+  // rather than silently defaulting to the first country alphabetically.
   const startingDestination =
-    initialDestination && ALL_DEFAULTS[initialDestination] ? initialDestination : fallbackDestination;
+    initialDestination && ALL_DEFAULTS[initialDestination] ? initialDestination : '';
 
   const [household, setHousehold] = useState(1);
-  const [income, setIncome] = useState({ ss: 2200, pension: 0, ira: 500, other: 0 });
+  const [income, setIncome] = useState({ ss: 0, pension: 0, ira: 0, other: 0 });
   const [bufferPct, setBufferPct] = useState(15);
 
   // Panel A -- "Where you live now." Not one of the site's tracked
@@ -150,7 +149,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   const [destination, setDestination] = useState(startingDestination);
   const [own, setOwn] = useState(false);
   const [targetExpenses, setTargetExpenses] = useState(() =>
-    applyHousehold(ALL_DEFAULTS[startingDestination], 1, false)
+    startingDestination ? applyHousehold(ALL_DEFAULTS[startingDestination], 1, false) : { ...BLANK_EXPENSES }
   );
 
   function pickManual(prev) {
@@ -163,6 +162,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   }
   function handleHouseholdChange(h) {
     setHousehold(h);
+    if (!destination) return;
     setTargetExpenses((prev) => ({ ...applyHousehold(ALL_DEFAULTS[destination], h, own), ...pickManual(prev) }));
   }
   // Tax Impact -- income, net worth, and regional tax zone for the destination
@@ -182,11 +182,16 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
 
   function handleDestinationChange(name) {
     setDestination(name);
+    if (!name) {
+      setTargetExpenses({ ...BLANK_EXPENSES });
+      return;
+    }
     setTargetExpenses((prev) => ({ ...applyHousehold(ALL_DEFAULTS[name], household, own), ...pickManual(prev) }));
     setTaxRegion(defaultZoneFor(name));
   }
   function handleOwnChange(o) {
     setOwn(o);
+    if (!destination) return;
     setTargetExpenses((prev) => ({ ...applyHousehold(ALL_DEFAULTS[destination], household, o), ...pickManual(prev) }));
   }
   function updateCurrentExpense(key, value) {
@@ -340,6 +345,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                   value={destination}
                   onChange={(e) => handleDestinationChange(e.target.value)}
                 >
+                  <option value="">Select a destination</option>
                   <optgroup label="Countries">
                     {COUNTRY_NAMES.map((n) => (
                       <option key={n} value={n}>{n}</option>
@@ -477,7 +483,8 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
 
         <div className={styles.results}>
           <div className={styles.compareHeadline}>
-            Moving from <strong>{currentLabel || 'your current home'}</strong> to <strong>{destination}</strong> would{' '}
+            Moving from <strong>{currentLabel || 'your current home'}</strong> to{' '}
+            <strong>{destination || 'a destination you choose'}</strong> would{' '}
             {monthlyDiff >= 0 ? (
               <span style={{ color: '#1B7A43' }}>free up <strong>${monthlyDiff.toLocaleString()}/month</strong></span>
             ) : (
@@ -493,14 +500,14 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
               <div style={{ fontSize: 15, fontWeight: 600, color: currentRating.color }}>{currentRating.label}</div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div className={styles.resultLabel}>{destination}</div>
+              <div className={styles.resultLabel}>{destination || 'Select a destination'}</div>
               <div className={styles.resultValue}>${targetTotalOut.toLocaleString()}<span className={styles.resultSuffix}>/mo total</span></div>
               <div style={{ fontSize: 15, fontWeight: 600, color: targetRating.color }}>{targetRating.label}</div>
             </div>
           </div>
 
           <p className={styles.explainer}>
-            <strong>{destination}:</strong> {targetRating.explain}
+            <strong>{destination || 'Your destination'}:</strong> {targetRating.explain}
           </p>
           <p className={styles.explainer}>
             <strong>{currentLabel || 'Current home'}:</strong> {currentRating.explain}
