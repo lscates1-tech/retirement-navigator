@@ -264,10 +264,6 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
         <p className={styles.subtitle}>
           Enter your actual costs where you live now, compare against a destination&apos;s 2026-verified
           defaults, and see the real monthly difference.
-          {' '}
-          <span style={{ color: dataSource === 'notion' ? '#1B7A43' : '#A6760C' }}>
-            ({dataSource === 'notion' ? 'live data from Notion' : 'static fallback data'})
-          </span>
         </p>
 
         <div className={styles.block}>
