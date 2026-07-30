@@ -32,6 +32,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function formatMonthYear(isoString) {
+  if (!isoString) return null;
+  const date = new Date(isoString);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
 function StatRow({ label, value }) {
   if (!value) return null;
   return (
@@ -136,6 +143,9 @@ export default async function DestinationDetailPage({ params }) {
           <div className={styles.heroType}>{typeLabel}</div>
           <h1 className={styles.heroTitle}>{d.name}</h1>
           {d.homepageTeaser && <p className={styles.heroTeaser}>{d.homepageTeaser}</p>}
+          {formatMonthYear(d.lastEditedTime) && (
+            <p className={styles.lastUpdated}>Last Updated: {formatMonthYear(d.lastEditedTime)}</p>
+          )}
         </div>
       </div>
 
