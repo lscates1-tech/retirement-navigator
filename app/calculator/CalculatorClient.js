@@ -121,10 +121,18 @@ function ExpensePanel({ title, subtitle, children, expenses, num, maxAcrossBoth,
   );
 }
 
-export default function CalculatorClient({ countryDefaults, stateDefaults, dataSource }) {
+export default function CalculatorClient({ countryDefaults, stateDefaults, dataSource, initialDestination }) {
   const ALL_DEFAULTS = useMemo(() => ({ ...countryDefaults, ...stateDefaults }), [countryDefaults, stateDefaults]);
   const COUNTRY_NAMES = useMemo(() => Object.keys(countryDefaults), [countryDefaults]);
   const STATE_NAMES = useMemo(() => Object.keys(stateDefaults), [stateDefaults]);
+
+  // A destination passed in via ?destination= (e.g. from a TaxStrategyCard CTA)
+  // wins over the default first-country pick, but only if it's a real,
+  // known destination -- an unrecognized or missing value just falls through
+  // to the existing default silently.
+  const fallbackDestination = COUNTRY_NAMES[0] || STATE_NAMES[0];
+  const startingDestination =
+    initialDestination && ALL_DEFAULTS[initialDestination] ? initialDestination : fallbackDestination;
 
   const [household, setHousehold] = useState(1);
   const [income, setIncome] = useState({ ss: 2200, pension: 0, ira: 500, other: 0 });
@@ -139,10 +147,10 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
   // Panel B -- "Where you're considering." Existing destination-based
   // behavior: pick a country or state, load its 2026-verified defaults,
   // then edit anything to match your actual situation.
-  const [destination, setDestination] = useState(COUNTRY_NAMES[0] || STATE_NAMES[0]);
+  const [destination, setDestination] = useState(startingDestination);
   const [own, setOwn] = useState(false);
   const [targetExpenses, setTargetExpenses] = useState(() =>
-    applyHousehold(ALL_DEFAULTS[COUNTRY_NAMES[0] || STATE_NAMES[0]], 1, false)
+    applyHousehold(ALL_DEFAULTS[startingDestination], 1, false)
   );
 
   function pickManual(prev) {
@@ -167,7 +175,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
     return US_STATE_TO_ZONE[name] || 'moderate_tax';
   }
 
-  const [taxRegion, setTaxRegion] = useState(defaultZoneFor(COUNTRY_NAMES[0] || STATE_NAMES[0]));
+  const [taxRegion, setTaxRegion] = useState(defaultZoneFor(startingDestination));
   const [spainSubRegion, setSpainSubRegion] = useState('catalonia'); // Catalonia vs Valencia, only shown for Spain's High-Tax Zone
 
   const taxCountry = useMemo(() => taxCountryFor(destination, STATE_NAMES), [destination, STATE_NAMES]);
