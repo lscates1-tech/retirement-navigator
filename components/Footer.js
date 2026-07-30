@@ -20,6 +20,7 @@ export default function Footer() {
         <Link href="/glossary" style={{ color: '#A8A5C2', textDecoration: 'none' }}>Glossary</Link>
         <Link href="/editorial-policy" style={{ color: '#A8A5C2', textDecoration: 'none' }}>Editorial Policy</Link>
         <Link href="/about" style={{ color: '#A8A5C2', textDecoration: 'none' }}>About</Link>
+        <Link href="/contact" style={{ color: '#A8A5C2', textDecoration: 'none' }}>Contact</Link>
         <span className="mono">Data verified 2026</span>
       </div>
     </footer>
