@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import TaxStrategyCard from '@/components/TaxStrategyCard';
 import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { buildSectionedArticle } from '@/lib/toc';
+import { TAX_STRATEGIES } from '@/lib/taxStrategies';
 import styles from './detail.module.css';
 import cityStyles from './cities.module.css';
 
@@ -192,6 +194,8 @@ export default async function DestinationDetailPage({ params }) {
             </div>
           </aside>
         </div>
+
+        <TaxStrategyCard destination={d.name} type={d.type} strategy={TAX_STRATEGIES[d.name]} />
 
         {cities && cities.length > 0 && (
           <section className={cityStyles.section}>
