@@ -32,7 +32,7 @@ function toDefaultsMap(notionList) {
   return map;
 }
 
-export default async function CalculatorPage() {
+export default async function CalculatorPage({ searchParams }) {
   const [notionCountries, notionStates] = await Promise.all([getCountries(), getStates()]);
 
   const liveCountries = notionCountries && notionCountries.length ? toDefaultsMap(notionCountries) : null;
@@ -47,6 +47,7 @@ export default async function CalculatorPage() {
       countryDefaults={countryDefaults}
       stateDefaults={stateDefaults}
       dataSource={dataSource}
+      initialDestination={searchParams?.destination || null}
     />
   );
 }
