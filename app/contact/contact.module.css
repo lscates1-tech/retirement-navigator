@@ -1,0 +1,110 @@
+.hero {
+  background: var(--ink);
+  padding: 60px 24px 56px;
+}
+
+.heroInner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: var(--linen);
+  margin: 0 0 20px;
+}
+
+.heroLede {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #D4D2E2;
+  margin: 0;
+}
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--linen);
+  border-radius: 6px;
+  padding: 28px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.input,
+.textarea {
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid #D9D6E8;
+  background: #fff;
+  font-size: 15px;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.submit {
+  align-self: flex-start;
+  background: var(--ink);
+  color: var(--linen);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: #1F1E3D;
+}
+
+.errorText {
+  color: var(--stamp);
+  font-size: 14px;
+  margin: -8px 0 0;
+}
+
+.thanksBox {
+  background: var(--linen);
+  border-left: 4px solid #B08D57;
+  border-radius: 4px;
+  padding: 26px 28px;
+}
+
+.thanksTitle {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #2B2A52;
+  margin: 0 0 8px;
+}
+
+.thanksSub {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5C5A54;
+  margin: 0;
+}
