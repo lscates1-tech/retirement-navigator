@@ -58,6 +58,13 @@
   margin: 0;
 }
 
+.lastUpdated {
+  font-size: 13px;
+  opacity: 0.75;
+  margin: 10px 0 0;
+  letter-spacing: 0.02em;
+}
+
 .wrap {
   max-width: 1040px;
   margin: 0 auto;
