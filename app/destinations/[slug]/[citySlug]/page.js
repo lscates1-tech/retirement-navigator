@@ -3,6 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { getCityDetailBySlug, getDestinationBySlug } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
+import InsuranceAffiliateCard from '@/components/InsuranceAffiliateCard';
 // Reuses the parent destination page's stylesheet — same hero, article,
 // and stat-card visual language, so a city page never looks like a
 // second, disconnected template.
@@ -117,6 +118,8 @@ export default async function CityDetailPage({ params }) {
             </div>
           </aside>
         </div>
+
+        <InsuranceAffiliateCard destinationName={city.parentName} excluded={city.insuranceAffiliateExcluded} />
 
         <Link href={`/destinations/${slug}`} className={styles.backLink}>
           ← Back to {city.parentName}
