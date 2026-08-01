@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import TaxStrategyCard from '@/components/TaxStrategyCard';
+import InsuranceAffiliateCard from '@/components/InsuranceAffiliateCard';
 import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { buildSectionedArticle } from '@/lib/toc';
@@ -208,6 +209,7 @@ export default async function DestinationDetailPage({ params }) {
         </div>
 
         <TaxStrategyCard destination={d.name} type={d.type} strategy={TAX_STRATEGIES[d.name]} />
+        <InsuranceAffiliateCard destinationName={d.name} excluded={d.insuranceAffiliateExcluded} />
 
         {cities && cities.length > 0 && (
           <section className={cityStyles.section}>
