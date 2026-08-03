@@ -1,11 +1,9 @@
-import React from 'react';
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import TaxStrategyCard from '@/components/TaxStrategyCard';
 import InsuranceAffiliateCard from '@/components/InsuranceAffiliateCard';
-import AffiliateCallout from '@/components/AffiliateCallout';
-import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination, getCtaLink } from '@/lib/notion';
+import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { buildSectionedArticle } from '@/lib/toc';
 import { TAX_STRATEGIES } from '@/lib/taxStrategies';
@@ -99,54 +97,6 @@ function formatStatValue(rawValue, format) {
   return rawValue;
 }
 
-// Mid-article affiliate cards for specific destinations, rendered as real
-// React components (see components/AffiliateCallout.js) with their text
-// authored directly here in code — deliberately NOT sourced from Notion
-// markdown/rich-text for this content, since Notion's bracket syntax
-// ([[ ]] reads as a page-mention/link attempt) and rich-text run
-// splitting make it an unreliable place to store text that needs to
-// render as a structured, styled component rather than plain prose.
-//
-// The split point anchors on a section heading that's already a stable,
-// guaranteed part of every country page's content (e.g. "Climate"),
-// rather than on any invented marker text — so there's nothing fragile
-// left in the Notion→HTML path for this to depend on.
-const DESTINATION_AFFILIATE_CALLOUTS = {
-  spain: {
-    // buildSectionedArticle (lib/toc.js) puts the section id on the
-    // wrapping <div class="section-body">, NOT on the <h2> itself — the
-    // heading tag stays plain (<h2>Climate</h2>). So the reliable anchor
-    // is the <summary><h2>...</h2></summary> pairing, and we walk
-    // backwards from there to find the start of that section's <details>
-    // tag, since that's where the affiliate card should be inserted
-    // (immediately before the next section begins).
-    anchorHeadingText: 'Climate',
-    icon: '\ud83d\udcf6',
-    title: 'Get Set Up Before You Land',
-    linkLabel: 'Airalo Spain eSIM',
-    linkKey: 'airalo-esim',
-    body: 'An eSIM activated before departure sidesteps airport lines and SIM swaps. {LINK} covers high-speed data plans for Spain and the wider Schengen area.',
-  },
-};
-
-function splitArticleForDestinationCallout(html, slug) {
-  const config = DESTINATION_AFFILIATE_CALLOUTS[slug];
-  if (!config) return { before: html, after: '', callout: null };
-
-  const summaryMarker = `<summary><h2>${config.anchorHeadingText}</h2></summary>`;
-  const summaryIndex = html.indexOf(summaryMarker);
-  if (summaryIndex === -1) return { before: html, after: '', callout: null };
-
-  const detailsStart = html.lastIndexOf('<details', summaryIndex);
-  if (detailsStart === -1) return { before: html, after: '', callout: null };
-
-  return {
-    before: html.slice(0, detailsStart),
-    after: html.slice(detailsStart),
-    callout: config,
-  };
-}
-
 export default async function DestinationDetailPage({ params }) {
   const { slug } = params;
   const d = await getDestinationDetailBySlug(slug);
@@ -179,7 +129,6 @@ export default async function DestinationDetailPage({ params }) {
     d.contentHtml || '<h2>Profile in progress</h2><p>Full profile content is being finalized for this destination.</p>',
     { openFirstN: 2 }
   );
-  const articleSplit = splitArticleForDestinationCallout(articleHtml, d.slug);
 
   return (
     <main id="main-content">
@@ -203,28 +152,10 @@ export default async function DestinationDetailPage({ params }) {
 
       <div className={styles.wrap}>
         <div className={styles.layout}>
-          <article className={styles.article}>
-            <div dangerouslySetInnerHTML={{ __html: articleSplit.before }} />
-            {articleSplit.callout && (
-              <AffiliateCallout icon={articleSplit.callout.icon} title={articleSplit.callout.title}>
-                {articleSplit.callout.body.split('{LINK}').map((part, i, arr) => (
-                  <React.Fragment key={i}>
-                    {part}
-                    {i < arr.length - 1 && (
-                      <a
-                        href={getCtaLink(articleSplit.callout.linkKey)}
-                        target="_blank"
-                        rel="noopener sponsored"
-                      >
-                        {articleSplit.callout.linkLabel}
-                      </a>
-                    )}
-                  </React.Fragment>
-                ))}
-              </AffiliateCallout>
-            )}
-            {articleSplit.after && <div dangerouslySetInnerHTML={{ __html: articleSplit.after }} />}
-          </article>
+          <article
+            className={styles.article}
+            dangerouslySetInnerHTML={{ __html: articleHtml }}
+          />
 
           <aside className={styles.sidebar}>
             <div className={styles.sidebarScroll}>
