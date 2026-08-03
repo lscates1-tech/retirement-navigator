@@ -113,7 +113,14 @@ function formatStatValue(rawValue, format) {
 // left in the Notion→HTML path for this to depend on.
 const DESTINATION_AFFILIATE_CALLOUTS = {
   spain: {
-    anchorHeadingId: 'climate',
+    // buildSectionedArticle (lib/toc.js) puts the section id on the
+    // wrapping <div class="section-body">, NOT on the <h2> itself — the
+    // heading tag stays plain (<h2>Climate</h2>). So the reliable anchor
+    // is the <summary><h2>...</h2></summary> pairing, and we walk
+    // backwards from there to find the start of that section's <details>
+    // tag, since that's where the affiliate card should be inserted
+    // (immediately before the next section begins).
+    anchorHeadingText: 'Climate',
     icon: '\ud83d\udcf6',
     title: 'Get Set Up Before You Land',
     linkLabel: 'Airalo Spain eSIM',
@@ -126,13 +133,16 @@ function splitArticleForDestinationCallout(html, slug) {
   const config = DESTINATION_AFFILIATE_CALLOUTS[slug];
   if (!config) return { before: html, after: '', callout: null };
 
-  const anchor = `<details><summary><h2 id="${config.anchorHeadingId}">`;
-  const splitIndex = html.indexOf(anchor);
-  if (splitIndex === -1) return { before: html, after: '', callout: null };
+  const summaryMarker = `<summary><h2>${config.anchorHeadingText}</h2></summary>`;
+  const summaryIndex = html.indexOf(summaryMarker);
+  if (summaryIndex === -1) return { before: html, after: '', callout: null };
+
+  const detailsStart = html.lastIndexOf('<details', summaryIndex);
+  if (detailsStart === -1) return { before: html, after: '', callout: null };
 
   return {
-    before: html.slice(0, splitIndex),
-    after: html.slice(splitIndex),
+    before: html.slice(0, detailsStart),
+    after: html.slice(detailsStart),
     callout: config,
   };
 }
