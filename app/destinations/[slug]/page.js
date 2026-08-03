@@ -99,15 +99,21 @@ function formatStatValue(rawValue, format) {
   return rawValue;
 }
 
-// Mid-article affiliate cards whose wording is authored here in code
-// rather than in Notion, so they can never hit the whitespace-loss bug
-// that can occur when Notion's rich-text splits a sentence across
-// multiple runs. To place one, drop the matching [[AFFILIATE:key]]
-// marker as its own paragraph in the Notion content at the spot it
-// should appear — the marker (and its wrapping <p>) is stripped out and
-// replaced with the actual <AffiliateCallout> component below.
-const AFFILIATE_CALLOUTS = {
-  'esim-spain': {
+// Mid-article affiliate cards for specific destinations, rendered as real
+// React components (see components/AffiliateCallout.js) with their text
+// authored directly here in code — deliberately NOT sourced from Notion
+// markdown/rich-text for this content, since Notion's bracket syntax
+// ([[ ]] reads as a page-mention/link attempt) and rich-text run
+// splitting make it an unreliable place to store text that needs to
+// render as a structured, styled component rather than plain prose.
+//
+// The split point anchors on a section heading that's already a stable,
+// guaranteed part of every country page's content (e.g. "Climate"),
+// rather than on any invented marker text — so there's nothing fragile
+// left in the Notion→HTML path for this to depend on.
+const DESTINATION_AFFILIATE_CALLOUTS = {
+  spain: {
+    anchorHeadingId: 'climate',
     icon: '\ud83d\udcf6',
     title: 'Get Set Up Before You Land',
     linkLabel: 'Airalo Spain eSIM',
@@ -116,17 +122,17 @@ const AFFILIATE_CALLOUTS = {
   },
 };
 
-const AFFILIATE_MARKER_RE = /<p>\[\[AFFILIATE:([a-z0-9-]+)\]\]<\/p>/;
-
-function splitArticleAtAffiliateMarker(html) {
-  const match = html.match(AFFILIATE_MARKER_RE);
-  if (!match) return { before: html, after: '', callout: null };
-  const config = AFFILIATE_CALLOUTS[match[1]];
+function splitArticleForDestinationCallout(html, slug) {
+  const config = DESTINATION_AFFILIATE_CALLOUTS[slug];
   if (!config) return { before: html, after: '', callout: null };
-  const splitIndex = match.index;
+
+  const anchor = `<details><summary><h2 id="${config.anchorHeadingId}">`;
+  const splitIndex = html.indexOf(anchor);
+  if (splitIndex === -1) return { before: html, after: '', callout: null };
+
   return {
     before: html.slice(0, splitIndex),
-    after: html.slice(splitIndex + match[0].length),
+    after: html.slice(splitIndex),
     callout: config,
   };
 }
@@ -163,7 +169,7 @@ export default async function DestinationDetailPage({ params }) {
     d.contentHtml || '<h2>Profile in progress</h2><p>Full profile content is being finalized for this destination.</p>',
     { openFirstN: 2 }
   );
-  const articleSplit = splitArticleAtAffiliateMarker(articleHtml);
+  const articleSplit = splitArticleForDestinationCallout(articleHtml, slug);
 
   return (
     <main id="main-content">
