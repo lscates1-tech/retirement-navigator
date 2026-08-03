@@ -1,9 +1,11 @@
+import React from 'react';
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import TaxStrategyCard from '@/components/TaxStrategyCard';
 import InsuranceAffiliateCard from '@/components/InsuranceAffiliateCard';
-import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination } from '@/lib/notion';
+import AffiliateCallout from '@/components/AffiliateCallout';
+import { getDestinationDetailBySlug, getDestinationBySlug, getCitiesForDestination, getCtaLink } from '@/lib/notion';
 import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { buildSectionedArticle } from '@/lib/toc';
 import { TAX_STRATEGIES } from '@/lib/taxStrategies';
@@ -97,6 +99,38 @@ function formatStatValue(rawValue, format) {
   return rawValue;
 }
 
+// Mid-article affiliate cards whose wording is authored here in code
+// rather than in Notion, so they can never hit the whitespace-loss bug
+// that can occur when Notion's rich-text splits a sentence across
+// multiple runs. To place one, drop the matching [[AFFILIATE:key]]
+// marker as its own paragraph in the Notion content at the spot it
+// should appear — the marker (and its wrapping <p>) is stripped out and
+// replaced with the actual <AffiliateCallout> component below.
+const AFFILIATE_CALLOUTS = {
+  'esim-spain': {
+    icon: '\ud83d\udcf6',
+    title: 'Get Set Up Before You Land',
+    linkLabel: 'Airalo Spain eSIM',
+    linkKey: 'airalo-esim',
+    body: 'An eSIM activated before departure sidesteps airport lines and SIM swaps. {LINK} covers high-speed data plans for Spain and the wider Schengen area.',
+  },
+};
+
+const AFFILIATE_MARKER_RE = /<p>\[\[AFFILIATE:([a-z0-9-]+)\]\]<\/p>/;
+
+function splitArticleAtAffiliateMarker(html) {
+  const match = html.match(AFFILIATE_MARKER_RE);
+  if (!match) return { before: html, after: '', callout: null };
+  const config = AFFILIATE_CALLOUTS[match[1]];
+  if (!config) return { before: html, after: '', callout: null };
+  const splitIndex = match.index;
+  return {
+    before: html.slice(0, splitIndex),
+    after: html.slice(splitIndex + match[0].length),
+    callout: config,
+  };
+}
+
 export default async function DestinationDetailPage({ params }) {
   const { slug } = params;
   const d = await getDestinationDetailBySlug(slug);
@@ -129,6 +163,7 @@ export default async function DestinationDetailPage({ params }) {
     d.contentHtml || '<h2>Profile in progress</h2><p>Full profile content is being finalized for this destination.</p>',
     { openFirstN: 2 }
   );
+  const articleSplit = splitArticleAtAffiliateMarker(articleHtml);
 
   return (
     <main id="main-content">
@@ -152,10 +187,28 @@ export default async function DestinationDetailPage({ params }) {
 
       <div className={styles.wrap}>
         <div className={styles.layout}>
-          <article
-            className={styles.article}
-            dangerouslySetInnerHTML={{ __html: articleHtml }}
-          />
+          <article className={styles.article}>
+            <div dangerouslySetInnerHTML={{ __html: articleSplit.before }} />
+            {articleSplit.callout && (
+              <AffiliateCallout icon={articleSplit.callout.icon} title={articleSplit.callout.title}>
+                {articleSplit.callout.body.split('{LINK}').map((part, i, arr) => (
+                  <React.Fragment key={i}>
+                    {part}
+                    {i < arr.length - 1 && (
+                      <a
+                        href={getCtaLink(articleSplit.callout.linkKey)}
+                        target="_blank"
+                        rel="noopener sponsored"
+                      >
+                        {articleSplit.callout.linkLabel}
+                      </a>
+                    )}
+                  </React.Fragment>
+                ))}
+              </AffiliateCallout>
+            )}
+            {articleSplit.after && <div dangerouslySetInnerHTML={{ __html: articleSplit.after }} />}
+          </article>
 
           <aside className={styles.sidebar}>
             <div className={styles.sidebarScroll}>
