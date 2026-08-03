@@ -169,7 +169,7 @@ export default async function DestinationDetailPage({ params }) {
     d.contentHtml || '<h2>Profile in progress</h2><p>Full profile content is being finalized for this destination.</p>',
     { openFirstN: 2 }
   );
-  const articleSplit = splitArticleForDestinationCallout(articleHtml, slug);
+  const articleSplit = splitArticleForDestinationCallout(articleHtml, d.slug);
 
   return (
     <main id="main-content">
