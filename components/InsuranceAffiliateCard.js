@@ -16,6 +16,10 @@ import styles from './InsuranceAffiliateCard.module.css';
 // placeholder or non-affiliate URL. Once approved, set
 // NEXT_PUBLIC_ICI_AFFILIATE_URL in Vercel to the tracked affiliate link
 // and this card activates automatically across every eligible destination.
+//
+// Styling follows the same minimalist affiliate-card language used for
+// boxed CTAs in article content (see detail.module.css .calloutCta) — light
+// neutral background, thin border, outline button, muted corner tag.
 export default function InsuranceAffiliateCard({ destinationName, excluded }) {
   const affiliateUrl = process.env.NEXT_PUBLIC_ICI_AFFILIATE_URL;
   if (excluded || !affiliateUrl) return null;
@@ -25,10 +29,7 @@ export default function InsuranceAffiliateCard({ destinationName, excluded }) {
       className={styles.card}
       aria-label={`International health insurance for ${destinationName}`}
     >
-      <div className={styles.header}>
-        <h2 className={styles.title}>International Health Insurance for {destinationName}</h2>
-        <span className={styles.badge}>Partner</span>
-      </div>
+      <h2 className={styles.title}>International Health Insurance for {destinationName}</h2>
 
       <p className={styles.body}>
         Moving abroad usually means your US health plan won&apos;t follow you. International
@@ -37,14 +38,10 @@ export default function InsuranceAffiliateCard({ destinationName, excluded }) {
       </p>
 
       <a href={affiliateUrl} target="_blank" rel="noopener sponsored" className={styles.cta}>
-        Compare International Health Insurance Plans →
+        Compare International Health Insurance Plans
       </a>
 
-      <p className={styles.disclaimer}>
-        We may earn a referral fee if you request a quote through this link, at no extra cost to
-        you. Not insurance advice — confirm coverage details directly with the provider before
-        purchasing.
-      </p>
+      <span className={styles.tag}>Affiliate Link</span>
     </section>
   );
 }
