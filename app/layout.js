@@ -2,6 +2,7 @@ import './globals.css';
 import Script from 'next/script';
 
 export const metadata = {
+  metadataBase: new URL('https://www.nexthorizon.life'),
   title: 'Next Horizon — Decide where, and how, to live',
   description:
     'Real tax, visa, healthcare, and cost data for retiring abroad, working remotely, slow travel, tax-residency rotation, or a strategic U.S. home base — for thoughtful adults planning their next chapter.',
