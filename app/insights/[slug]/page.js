@@ -14,6 +14,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${article.title} | Next Horizon Insights`,
     description: article.excerpt || article.subtitle,
+    alternates: { canonical: `/insights/${params.slug}` },
   };
 }
 
