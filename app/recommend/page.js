@@ -16,6 +16,7 @@ import styles from './recommend.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/recommend' },
   title: 'Get a Destination Recommendation | Next Horizon',
   description:
     'Answer three quick questions about climate, budget, and visa priority — get one specific, written destination recommendation from Next Horizon.',
