@@ -33,6 +33,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${subPage.title} — ${categoryInfo.label} | Next Horizon`,
     description,
+    alternates: { canonical: `/guides/${category}/${slug}` },
   };
 }
 
