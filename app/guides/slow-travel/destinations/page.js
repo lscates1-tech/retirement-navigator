@@ -7,6 +7,7 @@ import styles from './destinations.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/guides/slow-travel/destinations' },
   title: 'Slow Travel Destinations Comparison | Next Horizon',
   description: '12 destinations compared on visa-free stay length, healthcare access, safety, walkability, and estimated monthly budget for testing a place before you commit.',
 };
