@@ -7,6 +7,7 @@ import styles from './search.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/search' },
   title: 'Search | Next Horizon',
   description: 'Search destinations, guides, and glossary terms across Next Horizon.',
 };
