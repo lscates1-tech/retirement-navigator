@@ -20,6 +20,13 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* IMG Global (Impact affiliate network) domain verification.
+            Uses a non-standard "value" attribute instead of "content",
+            so it can't go through the Next.js Metadata API's `other`
+            field (which always renders `content=`) — added directly here. */}
+        <meta name="impact-site-verification" value="6e889dad-342c-462a-8d74-155d9cbca559" />
+      </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         {children}
