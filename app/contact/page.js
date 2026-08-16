@@ -4,6 +4,7 @@ import { submitContact } from './actions';
 import styles from './contact.module.css';
 
 export const metadata = {
+  alternates: { canonical: '/contact' },
   title: 'Contact — Next Horizon',
   description: 'Questions, corrections, or partnership inquiries — get in touch with Next Horizon.',
 };
