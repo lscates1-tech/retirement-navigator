@@ -26,6 +26,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${city.name} — Cost of Living, Neighborhoods & Safety | Next Horizon`,
     description,
+    alternates: { canonical: `/destinations/${slug}/${citySlug}` },
     openGraph: { title: `${city.name} — Next Horizon`, description },
   };
 }
