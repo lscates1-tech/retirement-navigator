@@ -8,6 +8,7 @@ import CalculatorClient from './CalculatorClient';
 export const revalidate = 3600;
 
 export const metadata = {
+  alternates: { canonical: '/calculator' },
   title: 'Budget Comparison Calculator | Next Horizon',
   description: 'Compare your actual current living costs against any destination on Next Horizon — real 2026 cost-of-living defaults you can edit to match your exact situation.',
 };
