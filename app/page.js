@@ -6,6 +6,10 @@ import { getDestinationPhoto, getPhotoById } from '@/lib/photos';
 import { getFeaturedDestinations } from '@/lib/notion';
 import styles from './page.module.css';
 
+export const metadata = {
+  alternates: { canonical: '/' },
+};
+
 const FALLBACK_DESTINATIONS = [
   { name: 'Italy', type: 'country', tag: '7% flat tax towns', blurb: "A targeted incentive most retirees never hear about until it's too late to use it.", photoId: 'PeLkhi_B3wI' },
   { name: 'Panama', type: 'country', tag: 'USD · territorial', blurb: 'No currency risk, no foreign tax on Social Security or pensions.', photoId: 'jVCXlJrnl5w' },
