@@ -8,6 +8,7 @@ import styles from './insights.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/insights' },
   title: 'Next Horizon Insights — Thoughtful, Evidence-Based Perspectives',
   description:
     'Investigative, evidence-based articles on relocation, retirement, slow travel, healthcare, finances, and designing your next chapter of life. Not a blog — a place for better questions.',
