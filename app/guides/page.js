@@ -10,6 +10,7 @@ import styles from './guides.module.css';
 export const revalidate = 3600;
 
 export const metadata = {
+  alternates: { canonical: '/guides' },
   title: 'Guides — Slow Travel, Tax-Residency Rotation & Tax Strategy | Next Horizon',
   description: 'In-depth, sourced guides on slow travel, tax-residency rotation, national and international tax strategy — for anyone planning where and how to live next.',
 };
