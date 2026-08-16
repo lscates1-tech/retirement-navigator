@@ -19,6 +19,7 @@ export async function generateMetadata() {
   return {
     title: 'Digital Nomad Visa Comparison | Next Horizon',
     description,
+    alternates: { canonical: '/guides/work-from-anywhere/visa-comparison' },
   };
 }
 
