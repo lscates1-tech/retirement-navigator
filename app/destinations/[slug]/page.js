@@ -29,6 +29,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${d.name} — Cost, Tax & Healthcare Guide | Next Horizon`,
     description,
+    alternates: { canonical: `/destinations/${params.slug}` },
     openGraph: { title: `${d.name} (${typeLabel}) — Next Horizon`, description },
   };
 }
