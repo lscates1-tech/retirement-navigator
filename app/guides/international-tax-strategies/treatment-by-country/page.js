@@ -7,6 +7,7 @@ import styles from './treatment.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/guides/international-tax-strategies/treatment-by-country' },
   title: 'Retirement Account Tax Treatment by Country | Next Horizon',
   description: 'How 25 countries treat Roth IRA, Traditional IRA/401(k), and Social Security income for US retirees — every claim labeled Settled, Contested, or Unclear.',
 };
