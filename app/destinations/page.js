@@ -10,6 +10,7 @@ import styles from './list.module.css';
 export const revalidate = 3600;
 
 export const metadata = {
+  alternates: { canonical: '/destinations' },
   title: 'All Destinations — Countries & U.S. States | Next Horizon',
   description: 'Browse every country and U.S. state on Next Horizon, with verified 2026 cost, tax, visa, and healthcare data for retiring abroad, working remotely, or finding a home base.',
 };
