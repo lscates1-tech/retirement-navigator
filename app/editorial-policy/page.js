@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import styles from './editorial-policy.module.css';
 
 export const metadata = {
+  alternates: { canonical: '/editorial-policy' },
   title: 'Our Editorial Philosophy | Next Horizon',
   description:
     'How Next Horizon Insights is researched, written, and edited — a transparent look at the role human judgment and AI-assisted tools each play in our editorial process.',
