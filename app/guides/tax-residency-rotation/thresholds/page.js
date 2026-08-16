@@ -7,6 +7,7 @@ import styles from './thresholds.module.css';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
+  alternates: { canonical: '/guides/tax-residency-rotation/thresholds' },
   title: 'Country Tax-Residency Thresholds | Next Horizon',
   description: 'Day-count rules and risk levels for tax-residency rotation, sorted by risk — for anyone planning to avoid triggering tax residency in any single country.',
 };
