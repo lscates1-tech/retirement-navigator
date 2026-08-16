@@ -5,6 +5,7 @@ import AudioOverview from '@/components/AudioOverview';
 import styles from './how-to-use.module.css';
 
 export const metadata = {
+  alternates: { canonical: '/how-to-use' },
   title: 'How to Use This Site | Next Horizon',
   description:
     'A quick guide to which Next Horizon tool fits what you actually need — a quick recommendation, a side-by-side comparison, exact numbers, or deep research.',
