@@ -10,6 +10,7 @@ import styles from './glossary.module.css';
 export const revalidate = 3600;
 
 export const metadata = {
+  alternates: { canonical: '/glossary' },
   title: 'Glossary — Tax, Visa & Financial Terms Explained | Next Horizon',
   description:
     'Plain-English definitions for the tax, visa, and financial terms that come up when planning a move abroad or a domestic retirement relocation — FEIE, FTC, territorial tax, totalization agreements, and more.',
