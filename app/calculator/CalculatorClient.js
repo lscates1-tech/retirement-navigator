@@ -362,7 +362,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
                 className={styles.panelLabelInput}
                 value={currentLabel}
                 onChange={(e) => setCurrentLabel(e.target.value)}
-                placeholder="e.g. Miami, FL"
+                placeholder="e.g. Miami, FL" // deploy-connection test
               />
             }
             expenses={currentExpenses}
