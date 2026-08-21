@@ -74,7 +74,7 @@ export default async function InsightArticlePage({ params }) {
         <div className={styles.attribution}>
           <span className={styles.attributionLabel}>Next Horizon Insights</span>
           <span className={styles.attributionText}>
-            Research-driven editorial content curated by Laura Scates and developed using modern
+            Research-driven editorial content curated by Laura S. and developed using modern
             AI-assisted research and writing tools.
           </span>
         </div>
