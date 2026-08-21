@@ -96,7 +96,7 @@ export default function AboutPage() {
 
           <h2>About Me</h2>
 
-          <p className={styles.nameLine}>My name is Laura Scates, BSN, RN, CRNI.</p>
+          <p className={styles.nameLine}>My name is Laura S.</p>
 
           <p>
             For more than a decade, I&apos;ve worked as a registered nurse, helping patients understand
