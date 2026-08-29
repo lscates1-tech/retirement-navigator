@@ -4,7 +4,7 @@ import styles from '../lifestyle-calculator.module.css';
 
 const STREAMS = [
   { key: 'socialSecurity', label: 'Social Security', showPhase2: true },
-  { key: 'pension', label: 'Pension', showPhase2: false },
+  { key: 'pension', label: 'Pension', showPhase2: true },
   { key: 'iraWithdrawal', label: 'IRA / 401(k) withdrawal', showPhase2: true },
   { key: 'employment', label: 'Employment / self-employment income', showPhase2: false },
   { key: 'other', label: 'Other recurring income', showPhase2: false },
