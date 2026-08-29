@@ -15,6 +15,7 @@ export default function Nav() {
           <Link href="/destinations">Destinations</Link>
           <Link href="/compare">Compare</Link>
           <Link href="/calculator">Calculator</Link>
+          <Link href="/lifestyle-calculator">Lifestyle Calculator</Link>
           <Link href="/guides">Guides</Link>
           <Link href="/insights">Insights</Link>
         </div>
