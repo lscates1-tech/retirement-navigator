@@ -49,6 +49,7 @@ export default function EstimateField({
         <input
           id={fieldId}
           type="number"
+          onFocus={(e) => e.target.select()}
           className={styles.input}
           value={isOverridden ? value : estimateValue}
           readOnly={!isOverridden}

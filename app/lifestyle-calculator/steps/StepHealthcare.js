@@ -63,6 +63,7 @@ export default function StepHealthcare({ formData, updatePersonField, hasBridgeP
                       <input
                         id={`premium-${i}-phase1`}
                         type="number"
+                        onFocus={(e) => e.target.select()}
                         className={styles.input}
                         value={person.actualPremiumOverridePhase1 || ''}
                         onChange={(e) => updatePersonField(i, 'actualPremiumOverridePhase1', Number(e.target.value) || 0)}
@@ -95,6 +96,7 @@ export default function StepHealthcare({ formData, updatePersonField, hasBridgeP
                         <input
                           id={`premium-${i}-phase2`}
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           className={styles.input}
                           value={person.actualPremiumOverridePhase2 || ''}
                           onChange={(e) => updatePersonField(i, 'actualPremiumOverridePhase2', Number(e.target.value) || 0)}

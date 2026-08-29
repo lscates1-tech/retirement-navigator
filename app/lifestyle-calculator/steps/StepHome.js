@@ -52,6 +52,7 @@ export default function StepHome({ formData, updateHomeField }) {
                   <span className={styles.label} style={{ marginRight: 6, marginBottom: 0 }}>$</span>
                   <input
                     type="number"
+                    onFocus={(e) => e.target.select()}
                     className={styles.input}
                     id="home-value-low"
                     value={home.currentValueLow}
@@ -65,6 +66,7 @@ export default function StepHome({ formData, updateHomeField }) {
                   <span className={styles.label} style={{ marginRight: 6, marginBottom: 0 }}>$</span>
                   <input
                     type="number"
+                    onFocus={(e) => e.target.select()}
                     className={styles.input}
                     id="home-value-high"
                     value={home.currentValueHigh}
@@ -80,6 +82,7 @@ export default function StepHome({ formData, updateHomeField }) {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <input
                     type="number"
+                    onFocus={(e) => e.target.select()}
                     step="0.5"
                     id="selling-cost-pct"
                     className={styles.input}
@@ -96,6 +99,7 @@ export default function StepHome({ formData, updateHomeField }) {
                   <span className={styles.label} style={{ marginRight: 6, marginBottom: 0 }}>$</span>
                   <input
                     type="number"
+                    onFocus={(e) => e.target.select()}
                     className={styles.input}
                     id="additional-cash"
                     value={home.additionalCashAvailable}
@@ -112,6 +116,7 @@ export default function StepHome({ formData, updateHomeField }) {
               <span className={styles.label} style={{ marginRight: 6, marginBottom: 0 }}>$</span>
               <input
                 type="number"
+                onFocus={(e) => e.target.select()}
                 className={styles.input}
                 id="max-rent"
                 value={home.maxRent}

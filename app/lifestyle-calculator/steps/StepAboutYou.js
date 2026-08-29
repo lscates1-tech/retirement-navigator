@@ -55,6 +55,7 @@ export default function StepAboutYou({ formData, setMaritalStatus, updatePersonF
                 <input
                   id={`age-${i}`}
                   type="number"
+                  onFocus={(e) => e.target.select()}
                   className={styles.input}
                   value={person.age}
                   onChange={(e) => updatePersonField(i, 'age', Number(e.target.value) || 0)}

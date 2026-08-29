@@ -49,6 +49,7 @@ export default function StepIncome({ formData, updatePersonPhaseField, hasBridge
                       <input
                         id={`${idBase}-phase1`}
                         type="number"
+                        onFocus={(e) => e.target.select()}
                         className={styles.input}
                         value={person[stream.key].phase1}
                         onChange={(e) => updatePersonPhaseField(i, stream.key, 'phase1', Number(e.target.value) || 0)}
@@ -63,6 +64,7 @@ export default function StepIncome({ formData, updatePersonPhaseField, hasBridge
                         <input
                           id={`${idBase}-phase2`}
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           className={styles.input}
                           value={person[stream.key].phase2}
                           onChange={(e) => updatePersonPhaseField(i, stream.key, 'phase2', Number(e.target.value) || 0)}
