@@ -298,6 +298,10 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
                             <span className={styles.detailsPanelLabel}>Healthcare estimate</span>
                             <span className={styles.detailsPanelValue}>{money(r.healthcare.totalMonthly)}/mo</span>
                           </div>
+                          <div className={styles.detailsPanelItem}>
+                            <span className={styles.detailsPanelLabel}>State income tax</span>
+                            <span className={styles.detailsPanelValue}>{r.stateTax.monthlyTax > 0 ? `${money(r.stateTax.monthlyTax)}/mo` : '$0/mo'}</span>
+                          </div>
                           {hasBridgePeriod && (
                             <div className={styles.detailsPanelItem}>
                               <span className={styles.detailsPanelLabel}>Current phase</span>
@@ -424,6 +428,25 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
                     {money(r.healthcare.magiAnnual)}/yr).
                   </p>
                 )}
+              </div>
+            </details>
+
+            <details className={styles.dataDisclosure}>
+              <summary>
+                State income tax ({r.stateTax.monthlyTax > 0 ? `~${money(r.stateTax.monthlyTax)}/mo` : `$0/mo — ${r.stateTax.state} exempts this household's income`})
+              </summary>
+              <div className={styles.dataDisclosureBody}>
+                {r.stateTax.breakdown.map((line) => (
+                  <div key={line.label} className={styles.medicarePreviewLine}>
+                    <span>{line.label}</span>
+                    <span>{line.amount > 0 ? `${money(line.amount)}/mo` : '—'}</span>
+                  </div>
+                ))}
+                <p style={{ margin: '6px 0 0' }}>
+                  Based on how {r.stateTax.state} treats Social Security, pensions, and IRA/401(k) withdrawals —
+                  not just whether the state has an income tax. This is a planning estimate using a
+                  representative rate, not a full tax-bracket calculation, and doesn't include federal tax.
+                </p>
               </div>
             </details>
 

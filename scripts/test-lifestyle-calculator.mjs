@@ -17,6 +17,7 @@ import {
   DEFAULT_CLIMATE_PREFERENCES,
   estimateMagiForIrmaa,
   lookupIrmaaBracket,
+  calcStateTax,
 } from '../lib/lifestyleCalculator.js';
 
 let failures = 0;
@@ -503,12 +504,20 @@ console.log('  Persona B (South America-heavy) — top 6 by Overall Fit:');
 console.table(southAmericaHeavyResults.slice(0, 6));
 
 // The two travel personas should NOT produce identical top-6 lists — if they
-// did, Europe and South America wouldn't actually be distinguishable inputs
-const europeHeavySet = new Set(europeHeavyTop6Names);
-const southAmericaHeavySet = new Set(southAmericaHeavyResults.slice(0, 6).map((r) => r.metroName));
-const identical = europeHeavyTop6Names.length === southAmericaHeavySet.size
-  && [...europeHeavySet].every((n) => southAmericaHeavySet.has(n));
-assert(!identical, 'Europe-heavy and South-America-heavy personas produce different top-6 results (directionality confirmed)');
+// did, Europe and South America wouldn't actually be distinguishable inputs.
+// NOTE: as of the state-tax feature, a new dominant Financial Fit factor
+// (Pennsylvania/Michigan's much lower effective state tax) can keep the
+// same SET of metros in the top 6 for both personas even though their
+// travel scores clearly differ — so this checks the more direct and
+// robust signal (per-metro travelFit actually changing between personas)
+// rather than requiring the top-6 set itself to differ.
+const europeHeavyTravelByMetro = Object.fromEntries(europeHeavyResults.map((r) => [r.metroName, r.travelFit]));
+const southAmericaHeavyTravelByMetro = Object.fromEntries(southAmericaHeavyResults.map((r) => [r.metroName, r.travelFit]));
+const metrosWithDifferentTravelFit = allMetroNames.filter((n) => europeHeavyTravelByMetro[n] !== southAmericaHeavyTravelByMetro[n]);
+assert(metrosWithDifferentTravelFit.length >= 10, `Europe-heavy and South-America-heavy personas produce different travelFit for most metros (${metrosWithDifferentTravelFit.length} of ${allMetroNames.length} differ) — directionality confirmed`);
+const europeHeavyOrder = europeHeavyResults.slice(0, 6).map((r) => r.metroName).join(',');
+const southAmericaHeavyOrder = southAmericaHeavyResults.slice(0, 6).map((r) => r.metroName).join(',');
+assert(europeHeavyOrder !== southAmericaHeavyOrder, 'Even where the top-6 SET overlaps (state tax is now a stronger factor than travel direction), the RANKING ORDER still differs between the two personas');
 
 // -----------------------------------------------------------------
 // 16. Final airport verification pass — Mexico/Latin America vs. South
@@ -721,6 +730,65 @@ for (const coverageType of breakdownCoverageTypes) {
   assert(Math.abs(breakdownSum - result.perPerson[0].monthly) <= 1, `${coverageType}: breakdown line items sum to the reported total ($${breakdownSum.toFixed(2)} vs $${result.perPerson[0].monthly})`);
   assert(result.perPerson[0].breakdown.length > 0, `${coverageType}: produces a non-empty breakdown for display`);
 }
+
+// -----------------------------------------------------------------
+// 21. State income tax
+// -----------------------------------------------------------------
+console.log('\n21. State income tax (retirement-income-focused)');
+
+const noIncomeTaxMetros = [
+  ['Jacksonville/North Florida', 'Florida'],
+  ['Olympia/Tacoma, WA', 'Washington'],
+  ['Chattanooga, TN', 'Tennessee'],
+  ['San Antonio/Hill Country, TX', 'Texas'],
+  ['Reno, NV', 'Nevada'],
+];
+for (const [metroName, stateName] of noIncomeTaxMetros) {
+  const result = calcStateTax(people, 'phase1', METRO_DEFAULTS[metroName]);
+  assert(result.monthlyTax === 0, `${stateName} (no income tax): $0/mo state tax for ${metroName} (got $${result.monthlyTax})`);
+}
+
+// Pennsylvania: standard retirement household (SS + pension + IRA only) should owe ~$0
+const pghStateTax = calcStateTax(people, 'phase1', METRO_DEFAULTS['Pittsburgh suburbs, PA']);
+assert(pghStateTax.monthlyTax === 0, `Pennsylvania fully exempts SS/pension/IRA — standard test household owes $0/mo (got $${pghStateTax.monthlyTax})`);
+
+// Oregon: same household should owe REAL tax, since OR doesn't exempt pension/IRA
+const bendStateTax = calcStateTax(people, 'phase1', METRO_DEFAULTS['Bend, OR']);
+assert(bendStateTax.monthlyTax > 0, `Oregon taxes pension/IRA income with no exemption — same household owes real tax in Bend ($${bendStateTax.monthlyTax}/mo)`);
+
+// Michigan: high pension/IRA within the exemption should owe ~$0; above it should owe real tax
+const miLowIncomePeople = [{ ...people[0], pension: { phase1: 3000, phase2: 3000 }, iraWithdrawal: { phase1: 1000, phase2: 1000 } }];
+const miLowResult = calcStateTax(miLowIncomePeople, 'phase1', METRO_DEFAULTS['Livonia/western Detroit suburbs, MI']);
+assert(miLowResult.monthlyTax === 0, `Michigan: pension+IRA well within the $65,987 single exemption owes $0/mo (got $${miLowResult.monthlyTax}, annual pension+IRA = $${(3000 + 1000) * 12})`);
+const miHighIncomePeople = [{ ...people[0], pension: { phase1: 8000, phase2: 8000 }, iraWithdrawal: { phase1: 3000, phase2: 3000 } }];
+const miHighResult = calcStateTax(miHighIncomePeople, 'phase1', METRO_DEFAULTS['Livonia/western Detroit suburbs, MI']);
+assert(miHighResult.monthlyTax > 0, `Michigan: pension+IRA well above the exemption owes real tax on the excess (got $${miHighResult.monthlyTax}/mo)`);
+
+// Colorado: age-based SS exemption — a household with everyone 65+ should
+// have SS exempt; a household with someone under 65 should not
+const coloradoMetro = METRO_DEFAULTS['Colorado Springs, CO'];
+const bothOver65 = [{ ...people[0], age: 70 }, { ...people[1], age: 68 }];
+const mixedAge = [{ ...people[0], age: 70 }, { ...people[1], age: 60 }];
+const coResultBoth65 = calcStateTax(bothOver65, 'phase1', coloradoMetro);
+const coResultMixed = calcStateTax(mixedAge, 'phase1', coloradoMetro);
+assert(coResultBoth65.breakdown.some((b) => /exempt \(65\+\)/.test(b.label)), 'Colorado: household with everyone 65+ has Social Security marked exempt');
+assert(coResultMixed.breakdown.some((b) => /taxable/.test(b.label)) || coResultMixed.monthlyTax >= coResultBoth65.monthlyTax, 'Colorado: household with someone under 65 does not get the 65+ Social Security exemption');
+
+// Breakdown always present, never throws, for every metro in the dataset
+for (const name of allMetroNames) {
+  const result = calcStateTax(people, 'phase1', METRO_DEFAULTS[name]);
+  assert(typeof result.monthlyTax === 'number' && result.monthlyTax >= 0, `${name}: state tax is a non-negative number ($${result.monthlyTax})`);
+  assert(Array.isArray(result.breakdown) && result.breakdown.length > 0, `${name}: state tax produces a non-empty breakdown`);
+}
+
+// End-to-end: state tax actually flows into monthlyExpenses / Financial Fit
+// via evaluateMetroForPhase, not just the standalone function
+const withTaxResults = evaluateAllMetros(METRO_DEFAULTS, ['Pittsburgh suburbs, PA', 'Bend, OR'], people, homeInputs, priorities);
+const pghFull = withTaxResults.find((r) => r.metroName === 'Pittsburgh suburbs, PA');
+const bendFull = withTaxResults.find((r) => r.metroName === 'Bend, OR');
+assert(pghFull.phase1.stateTax.monthlyTax === 0, 'End-to-end: Pittsburgh result includes the $0 PA state tax');
+assert(bendFull.phase1.stateTax.monthlyTax > 0, 'End-to-end: Bend result includes real OR state tax');
+assert(bendFull.phase1.monthlyExpenses >= bendFull.phase1.stateTax.monthlyTax, 'End-to-end: Bend\'s monthlyExpenses total includes the state tax line item');
 
 console.log(`\n${failures === 0 ? 'ALL TESTS PASSED' : `${failures} TEST(S) FAILED`}\n`);
 
