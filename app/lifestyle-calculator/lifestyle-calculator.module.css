@@ -789,12 +789,13 @@
 }
 .detailsPanelGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px 24px;
 }
 .detailsPanelItem {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 .detailsPanelLabel {
   font-size: 11.5px;
@@ -802,11 +803,18 @@
   letter-spacing: 0.03em;
   color: var(--muted-label);
   font-family: 'IBM Plex Mono', monospace;
+  overflow-wrap: break-word;
 }
 .detailsPanelValue {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
   margin-top: 2px;
+  overflow-wrap: break-word;
+}
+@media (max-width: 480px) {
+  .detailsPanelGrid {
+    grid-template-columns: 1fr;
+  }
 }
 .srOnly {
   position: absolute;
