@@ -598,6 +598,39 @@
   color: var(--muted-label);
   line-height: 1.6;
 }
+
+/* --- Medicare cost preview (Step 4, before a metro is chosen) --- */
+.medicarePreview {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--linen);
+  border-radius: 6px;
+  font-size: 13.5px;
+}
+.medicarePreviewLine {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  color: var(--charcoal);
+}
+.medicarePreviewTotal {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 6px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border-soft);
+  font-weight: 600;
+}
+.medicarePreviewNote {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted-label);
+  line-height: 1.5;
+}
+.irmaaFlag {
+  color: var(--stamp);
+  font-weight: 600;
+}
 .confidencePill {
   display: inline-block;
   font-family: 'IBM Plex Mono', monospace;

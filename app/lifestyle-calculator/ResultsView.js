@@ -404,6 +404,29 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
             <p className={styles.tradeoffWhy}><strong>Why this ranked here:</strong> {copy.whyRankedHere}</p>
             <p className={styles.tradeoffTrade}><strong>The tradeoff:</strong> {copy.theTradeoff}</p>
 
+            <details className={styles.dataDisclosure}>
+              <summary>Healthcare cost breakdown ({money(r.healthcare.totalMonthly)}/mo total)</summary>
+              <div className={styles.dataDisclosureBody}>
+                {r.healthcare.perPerson.map((p) => (
+                  <div key={p.name} style={{ marginBottom: 10 }}>
+                    <strong style={{ color: 'var(--charcoal)' }}>{p.name}</strong>
+                    {p.breakdown.map((line) => (
+                      <div key={line.label} className={styles.medicarePreviewLine}>
+                        <span>{line.label}</span>
+                        <span>{money(line.amount)}/mo</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                {r.healthcare.irmaaBracketIndex > 0 && (
+                  <p style={{ margin: '4px 0 0' }} className={styles.irmaaFlag}>
+                    Includes an IRMAA surcharge based on this location's estimated household income (~
+                    {money(r.healthcare.magiAnnual)}/yr).
+                  </p>
+                )}
+              </div>
+            </details>
+
             {home.owns && (
               <div style={{ maxWidth: 320, marginTop: 16 }}>
                 <EstimateField

@@ -15,6 +15,8 @@ import {
   buildTradeoffCopy,
   evaluateAllMetros,
   DEFAULT_CLIMATE_PREFERENCES,
+  estimateMagiForIrmaa,
+  lookupIrmaaBracket,
 } from '../lib/lifestyleCalculator.js';
 
 let failures = 0;
@@ -130,8 +132,9 @@ assert(equityOly.additionalCashNeeded > 0, `Olympia/Tacoma requires additional c
 // 4. Healthcare — two-phase difference for a mixed-age household
 // -----------------------------------------------------------------
 console.log('\n4. Healthcare cost by phase (Pittsburgh)');
-const hcPhase1 = calcHealthcareCost(people, pittsburgh, 'phase1');
-const hcPhase2 = calcHealthcareCost(people, pittsburgh, 'phase2');
+const incomeForHc = calcIncome(people);
+const hcPhase1 = calcHealthcareCost(people, pittsburgh, 'phase1', incomeForHc.phase1);
+const hcPhase2 = calcHealthcareCost(people, pittsburgh, 'phase2', incomeForHc.phase2);
 console.log(`  phase1 (Person 1 Medicare+Medigap+PartD, Person 2 ACA): $${hcPhase1.totalMonthly}/mo`, hcPhase1.perPerson);
 console.log(`  phase2 (both Medicare+Medigap+PartD): $${hcPhase2.totalMonthly}/mo`, hcPhase2.perPerson);
 assert(hcPhase1.perPerson[1].monthly > 0, 'Person 2 ACA premium in phase1 is nonzero');
@@ -658,6 +661,66 @@ const sameHomeDifferentUnits = { owns: true, currentValueLow: 375000, currentVal
 const correctUnits = calcHomeEquity({ ...sameHomeDifferentUnits, sellingCostPct: 0.07 }, METRO_DEFAULTS['Pittsburgh suburbs, PA']);
 assert(correctUnits.netProceedsLow > 0 && correctUnits.netProceedsLow < 375000, `Correct decimal sellingCostPct (0.07) produces sane net proceeds ($${correctUnits.netProceedsLow.toLocaleString()})`);
 assert(correctUnits.additionalCashNeeded < 500000, `Correct decimal sellingCostPct produces a sane additionalCashNeeded, not a phantom multi-million-dollar figure ($${correctUnits.additionalCashNeeded.toLocaleString()})`);
+
+// -----------------------------------------------------------------
+// 20. IRMAA — bracket lookup, MAGI proxy, and healthcare cost breakdown
+// -----------------------------------------------------------------
+console.log('\n20. IRMAA (Medicare income-related surcharge)');
+
+// Bracket lookup correctness — boundary values for both filing statuses
+const irmaaBoundaryChecks = [
+  { magi: 100000, status: 'single', expectPartB: 202.90, expectPartD: 0, label: 'below single threshold' },
+  { magi: 109000, status: 'single', expectPartB: 202.90, expectPartD: 0, label: 'exactly at single threshold (inclusive)' },
+  { magi: 109001, status: 'single', expectPartB: 284.10, expectPartD: 14.50, label: '$1 over single threshold triggers the cliff' },
+  { magi: 300000, status: 'single', expectPartB: 649.20, expectPartD: 83.60, label: 'single, tier 5 (between $205k and $500k)' },
+  { magi: 218000, status: 'married', expectPartB: 202.90, expectPartD: 0, label: 'exactly at married threshold (inclusive)' },
+  { magi: 218001, status: 'married', expectPartB: 284.10, expectPartD: 14.50, label: '$1 over married threshold triggers the cliff' },
+  { magi: 600000, status: 'married', expectPartB: 649.20, expectPartD: 83.60, label: '$600k is BELOW the married $750k top threshold — must not be treated as 2x the single $500k threshold ($1M)' },
+  { magi: 760000, status: 'married', expectPartB: 689.90, expectPartD: 91.00, label: 'married, above the true $750k top threshold' },
+];
+for (const c of irmaaBoundaryChecks) {
+  const result = lookupIrmaaBracket(c.magi, c.status);
+  assert(result.partBMonthly === c.expectPartB && result.partDAdjustment === c.expectPartD,
+    `${c.label}: MAGI $${c.magi.toLocaleString()} (${c.status}) -> Part B $${result.partBMonthly}, Part D +$${result.partDAdjustment} (expected $${c.expectPartB}/$${c.expectPartD})`);
+}
+
+// MAGI proxy: 85% of SS + full non-IRA income + full IRA withdrawals
+const magiTestIncome = { socialSecurityMonthly: 3000, otherNonIraMonthly: 2000, iraMonthly: 1000, nonIraMonthly: 5000, totalMonthly: 6000 };
+const magiEstimate = estimateMagiForIrmaa(magiTestIncome);
+const expectedMagi = Math.round((2000 + 1000) * 12 + 3000 * 12 * 0.85);
+assert(magiEstimate === expectedMagi, `MAGI proxy uses 85% of SS + full other income, annualized ($${magiEstimate.toLocaleString()}, expected $${expectedMagi.toLocaleString()})`);
+
+// High-income household actually gets IRMAA-adjusted in the real calc path
+const highIncomePeople = [
+  { name: 'Person 1', age: 66, socialSecurity: { phase1: 4000, phase2: 4000 }, pension: { phase1: 10000, phase2: 10000 },
+    iraWithdrawal: { phase1: 3000, phase2: 3000 }, employment: { phase1: 0, phase2: 0 }, other: { phase1: 0, phase2: 0 },
+    coveragePhase1: 'medicare-medigap-partd', coveragePhase2: 'medicare-medigap-partd' },
+  { name: 'Person 2', age: 67, socialSecurity: { phase1: 3500, phase2: 3500 }, pension: { phase1: 0, phase2: 0 },
+    iraWithdrawal: { phase1: 0, phase2: 0 }, employment: { phase1: 0, phase2: 0 }, other: { phase1: 0, phase2: 0 },
+    coveragePhase1: 'medicare-medigap-partd', coveragePhase2: 'medicare-medigap-partd' },
+];
+const highIncomeAmount = calcIncome(highIncomePeople);
+const highIncomeHc = calcHealthcareCost(highIncomePeople, pittsburgh, 'phase1', highIncomeAmount.phase1);
+console.log(`  High-income household MAGI estimate: $${highIncomeHc.magiAnnual.toLocaleString()}, IRMAA bracket index: ${highIncomeHc.irmaaBracketIndex}`);
+assert(highIncomeHc.irmaaBracketIndex > 0, `A household with $${highIncomeHc.magiAnnual.toLocaleString()} estimated MAGI lands in an IRMAA-adjusted bracket (index ${highIncomeHc.irmaaBracketIndex})`);
+assert(highIncomeHc.perPerson[0].monthly > 202.90 + 155 + 42, `Person 1's Medicare cost reflects the IRMAA surcharge, not just the standard Part B premium ($${highIncomeHc.perPerson[0].monthly}/mo)`);
+assert(highIncomeHc.perPerson[0].breakdown.some((b) => /IRMAA/.test(b.label)), `Person 1's cost breakdown explicitly labels the IRMAA-adjusted line item`);
+
+// Low-income household should NOT be IRMAA-adjusted
+const lowIncomeAmount = calcIncome(people); // the standard test-case household used throughout this file
+const lowIncomeHc = calcHealthcareCost(people, pittsburgh, 'phase1', lowIncomeAmount.phase1);
+assert(lowIncomeHc.irmaaBracketIndex === 0, `The standard test-case household (modest income) is NOT IRMAA-adjusted (bracket index ${lowIncomeHc.irmaaBracketIndex})`);
+assert(!lowIncomeHc.perPerson[0].breakdown.some((b) => /IRMAA/.test(b.label)), 'Standard household breakdown has no IRMAA line item');
+
+// Breakdown always sums to the reported total, for every coverage type
+const breakdownCoverageTypes = ['medicare-medigap-partd', 'medicare-advantage', 'medicare', 'aca', 'actual', 'employer'];
+for (const coverageType of breakdownCoverageTypes) {
+  const testPerson = { ...people[0], coveragePhase1: coverageType, actualPremiumOverridePhase1: coverageType === 'actual' ? 500 : null };
+  const result = calcHealthcareCost([testPerson], pittsburgh, 'phase1', lowIncomeAmount.phase1);
+  const breakdownSum = result.perPerson[0].breakdown.reduce((s, b) => s + b.amount, 0);
+  assert(Math.abs(breakdownSum - result.perPerson[0].monthly) <= 1, `${coverageType}: breakdown line items sum to the reported total ($${breakdownSum.toFixed(2)} vs $${result.perPerson[0].monthly})`);
+  assert(result.perPerson[0].breakdown.length > 0, `${coverageType}: produces a non-empty breakdown for display`);
+}
 
 console.log(`\n${failures === 0 ? 'ALL TESTS PASSED' : `${failures} TEST(S) FAILED`}\n`);
 
