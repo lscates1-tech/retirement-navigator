@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, Fragment } from 'react';
+import { useMemo, useState, useEffect, Fragment } from 'react';
 import styles from './lifestyle-calculator.module.css';
 import EstimateField from '@/components/EstimateField';
 import { evaluateAllMetros, calcHomeEquity, buildTradeoffCopy } from '@/lib/lifestyleCalculator';
@@ -32,6 +32,25 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
   const [homeOverrides, setHomeOverrides] = useState({}); // { [metroName]: string }
   const [expandedRows, setExpandedRows] = useState(new Set());
   const [showAll, setShowAll] = useState(isCompareMode); // Compare sets are already small; Explore defaults to top 5
+  const [pendingPrint, setPendingPrint] = useState(false);
+
+  // "Print your results" always prints the full list, even if the page is
+  // currently showing only the top 5 — otherwise a printed copy would
+  // silently drop results the person hasn't clicked "See all" for yet.
+  // The state update and window.print() are deliberately split across a
+  // render: calling print() immediately after setShowAll(true) would
+  // capture the DOM from before the additional rows/cards actually commit.
+  useEffect(() => {
+    if (pendingPrint) {
+      window.print();
+      setPendingPrint(false);
+    }
+  }, [pendingPrint, showAll]);
+
+  const handlePrint = () => {
+    if (!showAll) setShowAll(true);
+    setPendingPrint(true);
+  };
 
   const toggleRow = (metroName) => {
     setExpandedRows((prev) => {
@@ -100,10 +119,24 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
         <button
           type="button"
           onClick={onEditAnswers}
+          className={styles.noPrint}
           style={{ background: 'none', border: 'none', padding: 0, color: 'var(--brass-on-light)', textDecoration: 'underline', textDecorationStyle: 'dotted', cursor: 'pointer', fontSize: 14 }}
         >
           Edit your answers
         </button>
+        <button
+          type="button"
+          onClick={handlePrint}
+          className={styles.noPrint}
+          style={{ background: 'none', border: '1px solid var(--border-soft)', borderRadius: 6, padding: '6px 14px', cursor: 'pointer', fontSize: 14, marginLeft: 16 }}
+        >
+          Print your results
+        </button>
+      </div>
+
+      <div className={styles.printHeader}>
+        <div className={styles.printLogo}>Next Horizon — Lifestyle Calculator</div>
+        <div className={styles.printDate}>Printed {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
       </div>
 
       <div className={styles.definitionsBlock}>
@@ -225,7 +258,7 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
                     <td>
                       <button
                         type="button"
-                        className={styles.expandBtn}
+                        className={`${styles.expandBtn} ${styles.noPrint}`}
                         aria-expanded={expanded}
                         aria-controls={detailsId}
                         onClick={() => toggleRow(r.metroName)}
@@ -283,7 +316,7 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
       </div>
 
       {!isCompareMode && !showAll && total > 5 && (
-        <button type="button" className={styles.seeAllBtn} onClick={() => setShowAll(true)}>
+        <button type="button" className={`${styles.seeAllBtn} ${styles.noPrint}`} onClick={() => setShowAll(true)}>
           See all {total} results
         </button>
       )}
@@ -410,7 +443,7 @@ export default function ResultsView({ metroDefaults, metroNames, formData, onEdi
       })}
 
       {!isCompareMode && !showAll && total > 5 && (
-        <button type="button" className={styles.seeAllBtn} onClick={() => setShowAll(true)}>
+        <button type="button" className={`${styles.seeAllBtn} ${styles.noPrint}`} onClick={() => setShowAll(true)}>
           See all {total} results
         </button>
       )}

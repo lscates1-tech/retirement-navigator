@@ -611,6 +611,64 @@
 .confidenceMedium { background: var(--pale-alt); color: var(--brass-on-light); }
 .confidenceLow { background: #F5DCD6; color: var(--stamp); }
 
+/* --- Print --- */
+.printHeader {
+  display: none;
+}
+@media print {
+  /* Hide anything that only makes sense as an on-screen interaction:
+     nav/footer chrome, edit/print/expand/see-all controls. Nothing here
+     removes information — only controls with no function on paper. */
+  .noPrint {
+    display: none !important;
+  }
+
+  /* The expand-button column collapses to nothing once its button is
+     hidden, leaving an empty first column — drop it instead. */
+  .compareTable th:first-child,
+  .compareTable td:first-child {
+    display: none;
+  }
+
+  /* Native <details> hide their content unless [open] is set. Printing
+     should always show the full "How Financial Fit is calculated" and
+     "Data & assumptions" content regardless of whether the person had
+     expanded it on screen. */
+  .definitionsBlock details summary,
+  .tradeoffCard details summary {
+    display: none;
+  }
+  .definitionsBlock details > *:not(summary),
+  .tradeoffCard details > *:not(summary) {
+    display: block !important;
+  }
+
+  .printHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .printLogo {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .printDate {
+    font-size: 12px;
+    color: var(--muted-label);
+  }
+
+  .tradeoffCard {
+    break-inside: avoid;
+  }
+  .topCard {
+    break-inside: avoid;
+  }
+}
+
 /* --- Score definitions --- */
 .definitionsBlock {
   background: white;

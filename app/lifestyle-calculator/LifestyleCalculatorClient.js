@@ -161,7 +161,7 @@ export default function LifestyleCalculatorClient({ metroDefaults, metroList }) 
 
   return (
     <main id="main-content">
-      <Nav />
+      <div className={styles.noPrint}><Nav /></div>
       <div className={styles.wrap}>
         {!showResults && (
           <>
@@ -213,7 +213,7 @@ export default function LifestyleCalculatorClient({ metroDefaults, metroList }) 
           </>
         )}
       </div>
-      <Footer />
+      <div className={styles.noPrint}><Footer /></div>
     </main>
   );
 }
