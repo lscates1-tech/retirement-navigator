@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { getRetirementAccountTaxTreatment } from '@/lib/notion';
+import { getRetirementAccountTaxTreatment, slugify } from '@/lib/notion';
 import styles from './treatment.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -44,13 +44,34 @@ export default async function TreatmentByCountryPage() {
           This is not tax advice &mdash; see each country&apos;s full page for sources and a recommended advisor type.
         </p>
 
+        <div className={styles.contextNote}>
+          <p>
+            Most US tax treaties were written decades before the Roth IRA existed &mdash; it wasn&apos;t created until
+            1997, and most treaties predate that or were never updated to address it specifically. That&apos;s why
+            whether a given country respects the Roth&apos;s US tax-free status is often genuinely unresolved, not a
+            settled legal question with one right answer.
+          </p>
+          <p>
+            Where a claim below is Contested or Unclear, we say so explicitly rather than picking the more optimistic
+            interpretation and presenting it as settled. Country-specific tax planning at this level of complexity
+            shouldn&apos;t be attempted from a website alone &mdash; it should be developed with a cross-border tax
+            specialist current on both the US side and the specific country&apos;s domestic law. This page exists to
+            help you show up to that conversation with better questions, not to replace it.
+          </p>
+        </div>
+
         {sorted.length === 0 ? (
           <p className={styles.empty}>Live Notion data isn&apos;t available in this environment yet.</p>
         ) : (
           <div className={styles.cards}>
-            {sorted.map((r) => (
+            {sorted.map((r) => {
+              const countrySlug = slugify(`${r.country} — Roth IRA and Retirement Account Treatment`);
+              const countryHref = `/guides/international-tax-strategies/${countrySlug}`;
+              return (
               <div key={r.id} className={styles.card}>
-                <h2 className={styles.countryName}>{r.country}</h2>
+                <h2 className={styles.countryName}>
+                  <Link href={countryHref}>{r.country}</Link>
+                </h2>
 
                 <div className={styles.row}>
                   <div className={styles.rowLabel}>
@@ -93,8 +114,13 @@ export default async function TreatmentByCountryPage() {
                     <strong>Recommended advisor:</strong> {r.recommendedAdvisorType}
                   </div>
                 )}
+
+                <Link href={countryHref} className={styles.readMoreLink}>
+                  Read the full {r.country} profile →
+                </Link>
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
 
