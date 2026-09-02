@@ -29,9 +29,10 @@ export async function generateMetadata({ params }) {
   const subPage = await getGuideSubPageBySlug(categoryInfo.hubId, slug);
   if (!subPage) return { title: `${categoryInfo.label} — Next Horizon` };
 
-  const description = plainTextSnippet(subPage.html) || `${categoryInfo.label} guide from Next Horizon.`;
+  const description =
+    subPage.seoDescription || plainTextSnippet(subPage.html) || `${categoryInfo.label} guide from Next Horizon.`;
   return {
-    title: `${subPage.title} — ${categoryInfo.label} | Next Horizon`,
+    title: subPage.seoTitle || `${subPage.title} — ${categoryInfo.label} | Next Horizon`,
     description,
     alternates: { canonical: `/guides/${category}/${slug}` },
   };
