@@ -279,3 +279,74 @@
   margin-top: 10px;
   line-height: 1.5;
 }
+
+.resultsToolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.printButton {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+.printButton:hover {
+  background: var(--pale-alt);
+}
+.printOnly {
+  display: none;
+}
+
+/* Print stylesheet: this file only loads while a visitor is on /calculator,
+   so these @media print rules can't bleed into print output on other pages.
+   Goal: strip site chrome and interactive-only controls, keep the numbers,
+   labels, and category breakdown legible on paper. */
+@media print {
+  .noPrint {
+    display: none !important;
+  }
+  .printOnly {
+    display: block;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 14px;
+  }
+  .wrap {
+    max-width: 100%;
+    padding: 0;
+  }
+  .panelsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .panel,
+  .results,
+  .block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #999;
+  }
+  .select,
+  .input,
+  .panelLabelInput {
+    border: 1px solid #999;
+    background: white;
+    color: #000;
+  }
+  .barFill {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .taxResultCard,
+  .surplusBar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #f4f2ec !important;
+  }
+}
