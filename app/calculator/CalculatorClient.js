@@ -312,7 +312,9 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
 
   return (
     <main id="main-content">
-      <Nav />
+      <div className={styles.noPrint}>
+        <Nav />
+      </div>
       <div className={styles.wrap}>
         <h1 className={styles.title}>Budget Comparison Calculator</h1>
         <p className={styles.subtitle}>
@@ -442,6 +444,7 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
             value={bufferPct}
             onChange={(e) => setBufferPct(Number(e.target.value))}
             style={{ width: '100%' }}
+            className={styles.noPrint}
           />
         </div>
 
@@ -531,6 +534,15 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
         )}
 
         <div className={styles.results}>
+          <div className={`${styles.resultsToolbar} ${styles.noPrint}`}>
+            <button type="button" className={styles.printButton} onClick={() => window.print()}>
+              Print / Save as PDF
+            </button>
+          </div>
+          <p className={styles.printOnly}>
+            Next Horizon Budget Comparison Calculator &mdash; generated{' '}
+            {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
           <div className={styles.compareHeadline}>
             Moving from <strong>{currentLabel || 'your current home'}</strong> to{' '}
             <strong>{destination || 'a destination you choose'}</strong> would{' '}
@@ -572,7 +584,9 @@ export default function CalculatorClient({ countryDefaults, stateDefaults, dataS
           </p>
         </div>
       </div>
-      <Footer />
+      <div className={styles.noPrint}>
+        <Footer />
+      </div>
     </main>
   );
 }
