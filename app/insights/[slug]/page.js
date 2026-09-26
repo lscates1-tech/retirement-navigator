@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import { getInsightArticleBySlug, getRelatedInsightArticles, estimateReadingTime } from '@/lib/insights';
 import { getPhotoById, getDestinationPhoto } from '@/lib/photos';
 import { addHeadingAnchors } from '@/lib/toc';
+import ShareButtons from '@/components/ShareButtons';
 import styles from './article.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -11,10 +12,34 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }) {
   const article = await getInsightArticleBySlug(params.slug);
   if (!article) return { title: 'Article Not Found | Next Horizon Insights' };
+  const description = article.excerpt || article.subtitle;
+  // Same photo lookup as the page itself; the Unsplash fetch is cached,
+  // so this doesn't add a second API call.
+  const photo = article.photoId
+    ? await getPhotoById(article.photoId)
+    : await getDestinationPhoto(article.title);
+  const images = photo ? [{ url: photo.url, alt: photo.alt }] : undefined;
   return {
     title: `${article.title} | Next Horizon Insights`,
-    description: article.excerpt || article.subtitle,
+    description,
     alternates: { canonical: `/insights/${params.slug}` },
+    // Preview cards when the article is shared on Facebook, LinkedIn,
+    // WhatsApp, X, Pinterest, etc.
+    openGraph: {
+      type: 'article',
+      url: `/insights/${params.slug}`,
+      siteName: 'Next Horizon',
+      title: article.title,
+      description,
+      publishedTime: article.publishDate || undefined,
+      images,
+    },
+    twitter: {
+      card: photo ? 'summary_large_image' : 'summary',
+      title: article.title,
+      description,
+      images: photo ? [photo.url] : undefined,
+    },
   };
 }
 
@@ -95,8 +120,8 @@ export default async function InsightArticlePage({ params }) {
             dangerouslySetInnerHTML={{ __html: articleHtml }}
           />
 
-          {toc.length > 2 && (
-            <aside className={styles.sidebar}>
+          <aside className={styles.sidebar}>
+            {toc.length > 2 && (
               <nav className={styles.tocCard} aria-label="Table of contents">
                 <div className={styles.tocTitle}>In this article</div>
                 <ul className={styles.tocList}>
@@ -105,26 +130,13 @@ export default async function InsightArticlePage({ params }) {
                   ))}
                 </ul>
               </nav>
+            )}
 
-              <div className={styles.shareCard}>
-                <div className={styles.tocTitle}>Share this</div>
-                <div className={styles.shareRow}>
-                  <a
-                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(article.title)}`}
-                    target="_blank" rel="noreferrer" className={styles.shareLink}
-                  >
-                    X / Twitter
-                  </a>
-                  <a
-                    href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(shareUrl)}`}
-                    className={styles.shareLink}
-                  >
-                    Email
-                  </a>
-                </div>
-              </div>
-            </aside>
-          )}
+            <div className={styles.shareCard}>
+              <div className={styles.tocTitle}>Share this</div>
+              <ShareButtons url={shareUrl} title={article.title} image={photo?.url} />
+            </div>
+          </aside>
         </div>
 
         {related.length > 0 && (

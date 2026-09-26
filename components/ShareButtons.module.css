@@ -1,0 +1,48 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.link {
+  display: block;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  cursor: pointer;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--brass-on-light);
+}
+
+.nativeButton {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--linen);
+  background: var(--ink);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.nativeButton:hover,
+.nativeButton:focus-visible {
+  background: var(--brass-on-light);
+}
