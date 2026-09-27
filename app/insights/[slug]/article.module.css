@@ -342,3 +342,67 @@
 .editorialFooterLink:hover {
   color: var(--brass-on-light);
 }
+
+/* Notion tables (rendered by lib/notion.js inside a .tableScroll wrapper).
+   The wrapper scrolls sideways on narrow screens; number cells don't wrap,
+   so figures stay on one line and the table scrolls instead of squishing. */
+.article :global(.tableScroll) {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0 24px;
+}
+
+.article :global(.tableScroll) table {
+  display: table;
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 17px;
+  overflow: visible;
+}
+
+.article :global(.tableScroll) th,
+.article :global(.tableScroll) td {
+  border: 1px solid #D9D6E8;
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.article :global(.tableScroll) th {
+  background: #EFEAE0;
+  font-weight: 600;
+}
+
+.article :global(.tableScroll) td:not(:first-child) {
+  white-space: nowrap;
+}
+
+.article :global(.tableScroll) td:first-child {
+  min-width: 140px;
+}
+
+@media (max-width: 600px) {
+  .article :global(.tableScroll) table {
+    font-size: 15px;
+  }
+  .article :global(.tableScroll) th,
+  .article :global(.tableScroll) td {
+    padding: 6px 8px;
+  }
+  /* Keep the row labels visible while the numbers scroll sideways. */
+  .article :global(.tableScroll) td:first-child,
+  .article :global(.tableScroll) th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #F7F4EE;
+    min-width: 120px;
+    max-width: 150px;
+  }
+  .article :global(.tableScroll) th:first-child {
+    background: #EFEAE0;
+  }
+}
